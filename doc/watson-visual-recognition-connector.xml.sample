@@ -1,0 +1,3 @@
+<!-- BEGIN_INCLUDE(watson-visual-recognition:greet) -->
+    <watson-visual-recognition:greet config-ref="" friend="#[map-payload:friend]" />
+<!-- END_INCLUDE(watson-visual-recognition:greet) -->
