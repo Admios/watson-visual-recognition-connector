@@ -1,107 +1,81 @@
 package com.admios.connector.watsonvisualrecognition.config;
 
-import org.mule.api.annotations.components.ConnectionManagement;
-import org.mule.api.annotations.TestConnectivity;
+import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.TestConnectivity;
+import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.components.ConnectionManagement;
 import org.mule.api.annotations.param.ConnectionKey;
-import org.mule.api.ConnectionException;
-import org.mule.api.annotations.display.Password;
-import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.param.Default;
 
-@ConnectionManagement(friendlyName = "Configuration")
+import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
+
+@ConnectionManagement(friendlyName = "Configuration", configElementName = "watson-visual-config")
 public class ConnectorConfig {
-    
-    /**
-     * Greeting message
-     */
-    @Configurable
-    @Default("Hello")
-    private String greeting;
 
-    /**
-     * Reply message
-     */
-    @Configurable
-    @Default("How are you?")
-    private String reply;
+	private VisualRecognition service;
 
-    /**
-     * Connect
-     *
-     * @param username A username
-     * @param password A password
-     * @throws ConnectionException
-     */
-    @Connect
-    @TestConnectivity
-    public void connect(@ConnectionKey String username, @Password String password)
-        throws ConnectionException {
-        /*
-         * CODE FOR ESTABLISHING A CONNECTION GOES IN HERE
-         */
-    }
+	public VisualRecognition getService() {
+		return service;
+	}
 
-    /**
-     * Disconnect
-     */
-    @Disconnect
-    public void disconnect() {
-        /*
-         * CODE FOR CLOSING A CONNECTION GOES IN HERE
-         */
-    }
+	public void setService(VisualRecognition service) {
+		this.service = service;
+	}
 
-    /**
-     * Are we connected
-     */
-    @ValidateConnection
-    public boolean isConnected() {
-        //TODO: Change it to reflect that we are connected.
-        return false;
-    }
+	/**
+	 * Connect, this method will use one api call to validate the api key
+	 *
+	 * @param apiKey A apiKey
+	 * @param versionDate Version date of the API
+	 * @throws ConnectionException
+	 */
+	@Connect
+	@TestConnectivity
+	public void connect(@ConnectionKey String apiKey, @Default("2016-05-20") String versionDate)
+			throws ConnectionException {
+		try {
+			setService(new VisualRecognition(versionDate, apiKey));
+		} catch (IllegalArgumentException e) {
+			throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, "", e.getMessage(), e);
+		}
+		testConnectivity();
+	}
 
-    /**
-     * Are we connected
-     */
-    @ConnectionIdentifier
-    public String connectionId() {
-        return "001";
-    }
+	/**
+	 * Disconnect
+	 */
+	@Disconnect
+	public void disconnect() {
+		setService(null);
+	}
 
-    /**
-     * Set greeting message
-     *
-     * @param greeting the greeting message
-     */
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
-    }
+	/**
+	 * Are we connected
+	 */
+	@ValidateConnection
+	public boolean isConnected() {
+		return getService() != null;
+	}
 
-    /**
-     * Get greeting message
-     */
-    public String getGreeting() {
-        return this.greeting;
-    }
+	/**
+	 * Are we connected
+	 */
+	@ConnectionIdentifier
+	public String connectionId() {
+		return "001";
+	}
 
-    /**
-     * Set reply message
-     *
-     * @param reply The reply message 
-     */
-    public void setReply(String reply) {
-        this.reply = reply;
-    }
-
-    /**
-     * Get configured reply message
-     */
-    public String getReply() {
-        return this.reply;
-    }
-    
+	private void testConnectivity() throws ConnectionException {
+		try {
+			getService().getClassifiers().execute();
+		} catch (UnauthorizedException | ForbiddenException | IllegalArgumentException e) {
+			throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, "", e.getMessage(), e);
+		}
+	}
 }
