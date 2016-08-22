@@ -6,7 +6,7 @@ public abstract class CommonHandler<T> {
 
 	protected final VisualRecognition service;
 
-	public CommonHandler(VisualRecognition service, String param, Object value) {
+	public CommonHandler(VisualRecognition service) {
 		this.service = service;
 	}
 

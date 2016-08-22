@@ -1,3 +1,4 @@
-<!-- BEGIN_INCLUDE(watson-visual-recognition:greet) -->
-    <watson-visual-recognition:greet config-ref="" friend="#[map-payload:friend]" />
-<!-- END_INCLUDE(watson-visual-recognition:greet) -->
+<!-- BEGIN_INCLUDE(watson-visual-recognition:classifyImage) -->
+	<watson-visual-recognition:classify-image config-ref="Configuration"
+		url="#[message.inboundProperties.'http.query.params'.url]" doc:name="Watson Visual Recognition"/>       
+<!-- END_INCLUDE(watson-visual-recognition:classifyImage) -->
