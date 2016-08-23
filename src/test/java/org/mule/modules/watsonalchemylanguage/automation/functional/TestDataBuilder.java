@@ -12,6 +12,7 @@ public class TestDataBuilder {
 	public static final String TEST_TEXT_URL_IMAGE;
 	public static final File TEST_IMAGE_TEXT;
 	public static final String TEST_GROUP_IMAGE_CLASS;
+	public static final Integer TEST_GROUP_IMAGE_RECOGNIZED_FACES;
 	public static final String TEST_TEXT_IMAGE_TEXT;
 
 	static {
@@ -23,6 +24,7 @@ public class TestDataBuilder {
 		}
 		TEST_GROUP_URL_IMAGE = contants.getProperty("url_group_image");
 		TEST_GROUP_IMAGE_CLASS = contants.getProperty("group_image_class1");
+		TEST_GROUP_IMAGE_RECOGNIZED_FACES = Integer.valueOf(contants.getProperty("group_image_reconigzed_faces"));
 		TEST_TEXT_URL_IMAGE = contants.getProperty("url_text_image");
 		TEST_TEXT_IMAGE_TEXT = contants.getProperty("text_image_text");
 		File group_image = null;
