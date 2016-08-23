@@ -14,9 +14,11 @@ import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.DetectFacesHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 /**
  * Visual Recognition allows users to understand the contents of an image or video frame, answering the question: “What
@@ -78,8 +80,7 @@ public class WatsonVisualRecognitionConnector {
 	 *
 	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
 	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to analyze. The max number of
-	 *            images in a .zip file is limited to 15. <b>If the URL is set the image will be
-	 *            ignored.</b>
+	 *            images in a .zip file is limited to 15. <b>If the URL is set the image will be ignored.</b>
 	 * 
 	 * @return return {@link DetectedFaces}
 	 */
@@ -100,8 +101,7 @@ public class WatsonVisualRecognitionConnector {
 	 *
 	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
 	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 10. <b>If the URL is set the image will be
-	 *            ignored.</b>
+	 *            images in a .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
 	 * 
 	 * @return return {@link RecognizedText}
 	 */
@@ -110,6 +110,21 @@ public class WatsonVisualRecognitionConnector {
 		return new RecognizeTextHandler(config.getService())
 				.addSource(url, image)
 				.execute();
+	}
+
+	/**
+	 * Retrieve a list of user-created classifiers.
+	 * 
+	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier}
+	 *
+	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample
+	 * watson-visual-recognition:retrieveListOfClassifiers}
+	 * 
+	 * @return return {@link List<VisualClassifier>}
+	 */
+	@Processor
+	public List<VisualClassifier> retrieveListOfClassifiers() {
+		return new RetrieveListClassifiersHandler(config.getService()).execute();
 	}
 
 }
