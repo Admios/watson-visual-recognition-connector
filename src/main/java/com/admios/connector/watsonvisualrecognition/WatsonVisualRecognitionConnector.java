@@ -12,6 +12,8 @@ import org.mule.api.annotations.param.Optional;
 
 import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
 /**
@@ -40,13 +42,14 @@ public class WatsonVisualRecognitionConnector {
 	 * Upload images or URLs to identify built-in classifiers by default. To identify custom classifiers, include the
 	 * classifier_ids parameters. Images must be in .jpeg, or .png format.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#classify_an_image}
+	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
 	 *
 	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample watson-visual-recognition:classifyImage}
 	 *
 	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
 	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 20, and limited to 5 MB.
+	 *            images in a .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be
+	 *            ignored.</b>
 	 * @param classifierIds An array of classifier IDs to classify the images against.
 	 * @param threshold A floating point value that specifies the minimum score a class must have to be displayed in the
 	 *            response.
@@ -60,6 +63,28 @@ public class WatsonVisualRecognitionConnector {
 				.addSource(url, image)
 				.addClassifierId(classifierIds)
 				.addThreshold(threshold)
+				.execute();
+	}
+
+	/**
+	 * Recognizes text in images. This is a beta function of the Visual Recognition service that supports only English
+	 * language text identification.
+	 * 
+	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text}
+	 *
+	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample watson-visual-recognition:recognizeText}
+	 *
+	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
+	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
+	 *            images in a .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be
+	 *            ignored.</b>
+	 * 
+	 * @return return {@link RecognizedText}
+	 */
+	@Processor
+	public RecognizedText recognizeText(@Default("#[payload]") String url, @Optional File image) {
+		return new RecognizeTextHandler(config.getService())
+				.addSource(url, image)
 				.execute();
 	}
 
