@@ -5,12 +5,13 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.mule.modules.watsonalchemylanguage.automation.functional.ClassifyImageTestCases;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 import com.admios.connector.watsonvisualrecognition.WatsonVisualRecognitionConnector;
 
 @RunWith(Suite.class)
-@SuiteClasses({})
+@SuiteClasses({ ClassifyImageTestCases.class })
 public class FunctionalTestSuite {
 
 	@BeforeClass
