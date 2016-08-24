@@ -34,12 +34,7 @@ public class VisualRecognitionUtils {
 	}
 
 	public static boolean isValidFile(File file) {
-		if(file != null && file.exists() && !file.isDirectory()){
-			return true;
-		}
-		return false;
-
-//		return (file != null && file.exists() && !file.isDirectory());
+		return (file != null && file.exists() && file.isFile());
 	}
 
 }
