@@ -21,3 +21,8 @@
 	<watson-visual-recognition:retrieve-classifier-details config-ref="Configuration"
 		classifierId="#[message.inboundProperties.'http.query.params'.id]" doc:name="Watson Visual Recognition"/>       
 <!-- END_INCLUDE(watson-visual-recognition:retrieveClassifierDetails) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:deleteClassifier) -->
+	<watson-visual-recognition:delete-classifier config-ref="Configuration"
+		classifierId="#[message.inboundProperties.'http.query.params'.id]" doc:name="Watson Visual Recognition"/>       
+<!-- END_INCLUDE(watson-visual-recognition:deleteClassifier) -->
