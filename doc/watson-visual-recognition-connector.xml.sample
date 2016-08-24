@@ -7,3 +7,8 @@
 	<watson-visual-recognition:recognize-text config-ref="Configuration"
 		url="#[message.inboundProperties.'http.query.params'.url]" doc:name="Watson Visual Recognition"/>       
 <!-- END_INCLUDE(watson-visual-recognition:recognizeText) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:retrieveClassifierDetails) -->
+	<watson-visual-recognition:retrieve-classifier-details config-ref="Configuration"
+		classifierId="#[message.inboundProperties.'http.query.params'.id]" doc:name="Watson Visual Recognition"/>       
+<!-- END_INCLUDE(watson-visual-recognition:retrieveClassifierDetails) -->

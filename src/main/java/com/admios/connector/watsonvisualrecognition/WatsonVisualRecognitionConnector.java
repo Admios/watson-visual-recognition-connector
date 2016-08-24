@@ -13,8 +13,10 @@ import org.mule.api.annotations.param.Optional;
 import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 /**
  * Visual Recognition allows users to understand the contents of an image or video frame, answering the question: “What
@@ -88,4 +90,20 @@ public class WatsonVisualRecognitionConnector {
 				.execute();
 	}
 
+	/**
+	 * Retrieve information about a specific classifier.
+	 * 
+	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#retrieve_classifier_details}
+	 *
+	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample
+	 * watson-visual-recognition:retrieveClassifierDetails}
+	 * 
+	 * @param classifierId The ID of the classifier for which you want details.
+	 * 
+	 * @return return {@link VisualClassifier}
+	 */
+	@Processor
+	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
+		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
+	}
 }
