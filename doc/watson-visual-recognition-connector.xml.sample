@@ -16,3 +16,8 @@
 <!-- BEGIN_INCLUDE(watson-visual-recognition:retrieveListOfClassifiers) -->
 	<watson-visual-recognition:retrieve-list-of-classifiers config-ref="Configuration" doc:name="Watson Visual Recognition"/>       
 <!-- END_INCLUDE(watson-visual-recognition:retrieveListOfClassifiers) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:retrieveClassifierDetails) -->
+	<watson-visual-recognition:retrieve-classifier-details config-ref="Configuration"
+		classifierId="#[message.inboundProperties.'http.query.params'.id]" doc:name="Watson Visual Recognition"/>       
+<!-- END_INCLUDE(watson-visual-recognition:retrieveClassifierDetails) -->

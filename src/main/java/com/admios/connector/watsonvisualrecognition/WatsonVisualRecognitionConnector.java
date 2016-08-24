@@ -14,6 +14,7 @@ import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.DetectFacesHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
@@ -127,4 +128,21 @@ public class WatsonVisualRecognitionConnector {
 		return new RetrieveListClassifiersHandler(config.getService()).execute();
 	}
 
+	/**
+	 * Retrieve information about a specific classifier.
+	 * 
+	 * API Doc:
+	 * {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#retrieve_classifier_details}
+	 *
+	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample
+	 * watson-visual-recognition:retrieveClassifierDetails}
+	 * 
+	 * @param classifierId The ID of the classifier for which you want details.
+	 * 
+	 * @return return {@link VisualClassifier}
+	 */
+	@Processor
+	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
+		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
+	}
 }
