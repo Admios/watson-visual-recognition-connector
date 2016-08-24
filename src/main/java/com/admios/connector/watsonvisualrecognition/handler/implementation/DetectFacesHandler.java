@@ -5,25 +5,25 @@ import java.io.File;
 import com.admios.connector.watsonvisualrecognition.handler.CommonHandler;
 import com.admios.connector.watsonvisualrecognition.util.VisualRecognitionUtils;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
 
-public class RecognizeTextHandler extends CommonHandler<RecognizedText> {
+public class DetectFacesHandler extends CommonHandler<DetectedFaces> {
 
 	VisualRecognitionOptions.Builder options = new VisualRecognitionOptions.Builder();
 
-	public RecognizeTextHandler(VisualRecognition service) {
+	public DetectFacesHandler(VisualRecognition service) {
+
 		super(service);
 	}
 
-	public RecognizeTextHandler addSource(String url, File image) {
+	public DetectFacesHandler addSource(String url, File image) {
 		VisualRecognitionUtils.addSource(options, url, image);
 		return this;
 	}
 
 	@Override
-	public RecognizedText execute() {
-		return service.recognizeText(options.build()).execute();
+	public DetectedFaces execute() {
+		return service.detectFaces(options.build()).execute();
 	}
-
 }

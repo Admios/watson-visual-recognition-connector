@@ -13,7 +13,7 @@ public class RetrieveClassifierDetailsTestCases extends AbstractTestCase<WatsonV
 	}
 
 	@Test(expected = NotFoundException.class)
-	public void testRetrieveClassifier() {
+	public void testRetrieveClassifierWithInvalidId() {
 		getConnector().retrieveClassifierDetails("test");
 	}
 
