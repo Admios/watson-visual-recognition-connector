@@ -6,6 +6,7 @@ import java.io.File;
 
 import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.admios.connector.watsonvisualrecognition.handler.CommonHandler;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
@@ -20,7 +21,8 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	@Override
 	public VisualClassifier execute() {
-		//TODO Check if has not null values before send.
+		Validator.notNull(builder, "positive examples can not be null");
+		//TODO Check if has null values before send.
 		return service.createClassifier(builder.build()).execute();
 		
 	}
@@ -36,6 +38,11 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 		if(isValidZipFile(file)) {
 			builder.negativeExamples(file);
 		}
+		return this;
+	}
+
+	public CreateClassifierHandler addName(String classifierName) {
+		builder.classifierName(classifierName);
 		return this;
 	}
 }

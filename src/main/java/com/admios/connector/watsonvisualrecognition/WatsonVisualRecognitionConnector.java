@@ -11,7 +11,9 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
 import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
+import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.CreateClassifierHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.DeleteClassifierHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.DetectFacesHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
@@ -162,5 +164,15 @@ public class WatsonVisualRecognitionConnector {
 	@Processor
 	public void deleteClassifier(@Default("#[payload]") String classifierId) {
 		new DeleteClassifierHandler(config.getService(), classifierId).execute();
+	}
+	
+	@Processor
+	public VisualClassifier createClassifier(@Default("#[payload]") String url, File positiveExamples, String classname, 
+			String classifierName, @Optional File negativeExamples) throws VisualRecognitionException {
+		return new CreateClassifierHandler(config.getService())
+				.addPositiveExamples(classname, positiveExamples)
+				.addNegativeExamples(negativeExamples)
+				.addName(classifierName)
+				.execute();
 	}
 }
