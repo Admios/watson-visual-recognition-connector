@@ -50,7 +50,7 @@ public class VisualRecognitionUtils {
 				ZipFile zf = new ZipFile(zipFile);
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
-				while(e.hasMoreElements()){
+				while(e.hasMoreElements() && count < 10){
 					e.nextElement();
 					count++;
 				}
