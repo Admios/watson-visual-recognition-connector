@@ -12,6 +12,7 @@ import org.mule.api.annotations.param.Optional;
 
 import com.admios.connector.watsonvisualrecognition.config.ConnectorConfig;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.DeleteClassifierHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.DetectFacesHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
@@ -144,5 +145,22 @@ public class WatsonVisualRecognitionConnector {
 	@Processor
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
 		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
+	}
+
+	/**
+	 * Delete a custom classifier with the specified classifier ID.
+	 * 
+	 * API Doc:
+	 * {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#delete_a_classifier}
+	 *
+	 * {@sample.xml ../../../doc/watson-visual-recognition-connector.xml.sample
+	 * watson-visual-recognition:deleteClassifier}
+	 * 
+	 * @param classifierId The ID of the classifier you want to delete.
+	 * 
+	 */
+	@Processor
+	public void deleteClassifier(@Default("#[payload]") String classifierId) {
+		new DeleteClassifierHandler(config.getService(), classifierId).execute();
 	}
 }

@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.mule.modules.watsonalchemylanguage.automation.functional.ClassifyImageTestCases;
+import org.mule.modules.watsonalchemylanguage.automation.functional.DeleteClassifierTestCases;
 import org.mule.modules.watsonalchemylanguage.automation.functional.DetectFacesTestCases;
 import org.mule.modules.watsonalchemylanguage.automation.functional.RecognizeTextTestCases;
 import org.mule.modules.watsonalchemylanguage.automation.functional.RetrieveClassifierDetailsTestCases;
@@ -20,7 +21,8 @@ import com.admios.connector.watsonvisualrecognition.WatsonVisualRecognitionConne
 		RecognizeTextTestCases.class,
 		DetectFacesTestCases.class,
 		RetrieveListOfClassifiersTestCases.class,
-		RetrieveClassifierDetailsTestCases.class
+		RetrieveClassifierDetailsTestCases.class,
+		DeleteClassifierTestCases.class
 })
 public class FunctionalTestSuite {
 
