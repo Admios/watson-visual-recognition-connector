@@ -1,5 +1,7 @@
 package com.admios.connector.watsonvisualrecognition.handler.implementation;
 
+import static com.admios.connector.watsonvisualrecognition.util.VisualRecognitionUtils.isValidZipFile;
+
 import java.io.File;
 
 import com.admios.connector.watsonvisualrecognition.handler.CommonHandler;
@@ -17,21 +19,20 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	@Override
 	public VisualClassifier execute() {
+		//TODO Check if has not null values before send.
 		return service.createClassifier(builder.build()).execute();
 		
 	}
 
 	public CreateClassifierHandler addPositiveExamples(String classname, File file) {
-		//TODO Check if the file has content, that the reference already exist, not just is not null.
-		if(file != null){
+		if(isValidZipFile(file)) {
 			builder.addClass("className", file);
 		}
 		return this;
 	}
 
 	public CreateClassifierHandler addNegativeExamples(File file) {
-		//TODO Check if the file has content, that the reference already exist, not just is not null.
-		if(file != null) {
+		if(isValidZipFile(file)) {
 			builder.negativeExamples(file);
 		}
 		return this;
