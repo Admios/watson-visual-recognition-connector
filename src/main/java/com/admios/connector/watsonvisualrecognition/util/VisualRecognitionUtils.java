@@ -1,10 +1,12 @@
 package com.admios.connector.watsonvisualrecognition.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.zip.ZipInputStream;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
+import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
 
@@ -41,15 +43,24 @@ public class VisualRecognitionUtils {
 	}
 
 	@SuppressWarnings("resource")
-	public static boolean isValidZipFile(File zipFile) {
+	public static boolean isValidZipFile(File zipFile) throws VisualRecognitionException {
 		System.out.println(zipFile.getPath());
 		if(isValidFile(zipFile)) {
 			try{
-				ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFile));
-				if(zip.getNextEntry() != null){
-					return true;
+				ZipFile zf = new ZipFile(zipFile);
+				Enumeration<? extends ZipEntry> e = zf.entries();
+				int count = 0;
+				while(e.hasMoreElements()){
+					e.nextElement();
+					count++;
 				}
-				return false;
+				
+				if (count == 0) { return false; }
+				
+				if(count < 10){
+					throw new VisualRecognitionException("Must be 10 or more images.");
+				}
+				return true;
 			} catch (IOException e){
 				return false;
 			}

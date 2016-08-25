@@ -4,6 +4,7 @@ import static com.admios.connector.watsonvisualrecognition.util.VisualRecognitio
 
 import java.io.File;
 
+import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.admios.connector.watsonvisualrecognition.handler.CommonHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
@@ -24,14 +25,14 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 		
 	}
 
-	public CreateClassifierHandler addPositiveExamples(String classname, File file) {
+	public CreateClassifierHandler addPositiveExamples(String classname, File file) throws VisualRecognitionException {
 		if(isValidZipFile(file)) {
 			builder.addClass("className", file);
 		}
 		return this;
 	}
 
-	public CreateClassifierHandler addNegativeExamples(File file) {
+	public CreateClassifierHandler addNegativeExamples(File file) throws VisualRecognitionException {
 		if(isValidZipFile(file)) {
 			builder.negativeExamples(file);
 		}
