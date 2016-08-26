@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mule.modules.watsonalchemylanguage.automation.functional.TestDataBuilder;
 
 import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.admios.connector.watsonvisualrecognition.util.VisualRecognitionUtils;
@@ -30,7 +31,7 @@ public class VisualRecognitionUtilsTest {
 	private File directory, emptyFile, zipFile, textFile;
 	private String[] pathHierarchy = { "src", "test", "resources", "testFolder" };
 	private final String testPath = StringUtils.join(pathHierarchy, File.separator) + File.separator;
-	private final File sampleZip = new File(sampleZipPath());
+	private final File sampleZip = new File(TestDataBuilder.sampleZipPath());
 
 	// Create files to test methods.
 	@Before
@@ -135,11 +136,6 @@ public class VisualRecognitionUtilsTest {
 		Path file = Paths.get(testPath + "text-file.txt");
 		Files.write(file, lines, Charset.forName("UTF-8"));
 		return file.toFile();
-	}
-
-	private String sampleZipPath() {
-		String[] path = { "src", "test", "resources","Archive_NOT_DELETE.zip" };
-		return StringUtils.join(path, File.separator);
 	}
 
 }
