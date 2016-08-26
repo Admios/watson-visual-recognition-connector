@@ -27,7 +27,7 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	public CreateClassifierHandler addPositiveExamples(String classname, File file) throws VisualRecognitionException {
 		if(isValidZipFile(file)) {
-			builder.addClass("className", file);
+			builder.addClass(classname, file);
 		}
 		return this;
 	}
