@@ -88,6 +88,15 @@ public class VisualRecognitionUtilsTest {
 			fail("This is a zip file. But has less image than required. " + e.getMessage());
 		}
 	}
+	
+	@Test
+	public void isValidZipFileWithNull() {
+		try {
+			assertFalse(VisualRecognitionUtils.isValidZipFile(null));
+		} catch (VisualRecognitionException e) {
+			fail("Should send false with null reference");
+		}
+	}
 
 	@Test(expected=VisualRecognitionException.class)
 	public void isValidZipFileWithLessImagesInside() throws VisualRecognitionException{

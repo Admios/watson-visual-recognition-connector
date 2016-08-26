@@ -44,7 +44,6 @@ public class VisualRecognitionUtils {
 
 	@SuppressWarnings("resource")
 	public static boolean isValidZipFile(File zipFile) throws VisualRecognitionException {
-		System.out.println(zipFile.getPath());
 		if(isValidFile(zipFile)) {
 			try{
 				ZipFile zf = new ZipFile(zipFile);
