@@ -26,3 +26,9 @@
 	<watson-visual-recognition:delete-classifier config-ref="Configuration"
 		classifierId="#[message.inboundProperties.'http.query.params'.id]" doc:name="Watson Visual Recognition"/>       
 <!-- END_INCLUDE(watson-visual-recognition:deleteClassifier) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:createClassifier) -->
+	<watson-visual-recognition:create-classifier config-ref="Configuration"  doc:name="Watson Visual Recognition"
+		classifierName="Testing" classname="products" negativeExamples-ref="/users/home/negative_examples.zip"
+		positiveExamples-ref="/users/home/positive_examples.zip"/>
+<!-- END_INCLUDE(watson-visual-recognition:createClassifier) -->
