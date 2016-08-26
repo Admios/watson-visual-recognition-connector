@@ -38,3 +38,4 @@ local.properties
 flows/
 target/
 **/*.mflow
+src/test/resources/automation-credentials.properties
