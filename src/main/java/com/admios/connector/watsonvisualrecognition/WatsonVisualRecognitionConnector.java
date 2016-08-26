@@ -168,7 +168,7 @@ public class WatsonVisualRecognitionConnector {
 	
 	@Processor
 	public VisualClassifier createClassifier(@Default("#[payload]") File positiveExamples, String classname, 
-			String classifierName, @Optional File negativeExamples) throws VisualRecognitionException {
+			String classifierName, File negativeExamples) throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
 				.addPositiveExamples(classname, positiveExamples)
 				.addNegativeExamples(negativeExamples)

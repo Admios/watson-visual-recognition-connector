@@ -17,6 +17,7 @@ public class TestDataBuilder {
 	public static final Integer TEST_GROUP_IMAGE_RECOGNIZED_FACES;
 	public static final String TEST_TEXT_IMAGE_TEXT;
 	public static final String TEST_SAMPLE_ZIP_FILE;
+	public static final String TEST_NEGATIVE_ZIP_FILE;
 
 	static {
 		Properties constants = new Properties();
@@ -31,6 +32,7 @@ public class TestDataBuilder {
 		TEST_TEXT_URL_IMAGE = constants.getProperty("url_text_image");
 		TEST_TEXT_IMAGE_TEXT = constants.getProperty("text_image_text");
 		TEST_SAMPLE_ZIP_FILE = constants.getProperty("sample_zip_file");
+		TEST_NEGATIVE_ZIP_FILE = constants.getProperty("negative_zip_file");
 		
 		File group_image = null;
 		File logo_image = null;
@@ -46,6 +48,11 @@ public class TestDataBuilder {
 	
 	public static String sampleZipPath() {
 		String[] path = { "src", "test", "resources", TEST_SAMPLE_ZIP_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String negativeSampleZipPath() {
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_ZIP_FILE};
 		return StringUtils.join(path, File.separator);
 	}
 }
