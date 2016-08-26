@@ -20,14 +20,8 @@ public class CreateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testWithNullFile() {
-		
-		try {
-			getConnector().createClassifier(null, "test-class", "Test Classifier", null);
-		} catch (VisualRecognitionException e) {
-			fail(e.getMessage());
-		}
-		
+	public void testWithNullFile() throws VisualRecognitionException {
+		getConnector().createClassifier(null, "test-class", "Test Classifier", null);
 	}
 
 	@Test
@@ -41,7 +35,6 @@ public class CreateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 
 		assertNotNull(classifier);
 		assertEquals(classifier.getName(),"Test Classifier");
-		assertEquals(classifier.getOwner(),"e0043f60-a9d1-48a7-b3ea-f383f3cd78de");
 		assertEquals(classifier.getStatus().toString(),"TRAINING");
 	}
 
