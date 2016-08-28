@@ -43,24 +43,38 @@ public class VisualRecognitionUtils {
 	}
 
 	@SuppressWarnings("resource")
-	public static boolean isValidZipFile(File zipFile) throws VisualRecognitionException {
-		if(isValidFile(zipFile)) {
-			try{
+	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
+			throws VisualRecognitionException {
+		if (isValidFile(zipFile)) {
+			try {
 				ZipFile zf = new ZipFile(zipFile);
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
-				while(e.hasMoreElements() && count < 10){
+				int stop = maximum == -1? minimum : maximum;
+				while (e.hasMoreElements() && count < (stop +1)) {
 					e.nextElement();
 					count++;
 				}
-				
-				if (count == 0) { return false; }
-				
-				if(count < 10){
-					throw new VisualRecognitionException("Must be 10 or more images.");
+
+				if (count == 0) {
+					return false;
+				}
+
+				if (maximum == -1 && minimum != -1) {
+					if (count < minimum) {
+						throw new VisualRecognitionException("Must be " + minimum + " or more images.");
+					}
+				} else if (minimum == -1 && maximum != -1) {
+					if (count > maximum) {
+						throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
+					}
+				} else if (count < minimum || count > maximum) {
+					throw new VisualRecognitionException("Image length is out of range.");
+				} else {
+					return true;
 				}
 				return true;
-			} catch (IOException e){
+			} catch (IOException e) {
 				return false;
 			}
 		}

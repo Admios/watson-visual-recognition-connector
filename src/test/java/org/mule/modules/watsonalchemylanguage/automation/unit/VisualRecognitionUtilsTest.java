@@ -46,9 +46,6 @@ public class VisualRecognitionUtilsTest {
 
 		// Create text file
 		textFile = createATextFile();
-
-		// Create empty zip
-		zipFile = createZipFile();
 	}
 
 	@Test
@@ -75,7 +72,7 @@ public class VisualRecognitionUtilsTest {
 	@Test
 	public void isValidZipFileWithANormalFile() {
 		try {
-			assertFalse(VisualRecognitionUtils.isValidZipFile(textFile));
+			assertFalse(VisualRecognitionUtils.isValidZipFile(textFile, 10, -1));
 		} catch (VisualRecognitionException e) {
 			fail("This is a non zip file. Should return false.");
 		}
@@ -84,7 +81,7 @@ public class VisualRecognitionUtilsTest {
 	@Test
 	public void isValidZipFile() {
 		try {
-			assertTrue(VisualRecognitionUtils.isValidZipFile(sampleZip));
+			assertTrue(VisualRecognitionUtils.isValidZipFile(sampleZip, 10, -1));
 		} catch (VisualRecognitionException e) {
 			fail("This is a zip file. But has less image than required. " + e.getMessage());
 		}
@@ -93,38 +90,57 @@ public class VisualRecognitionUtilsTest {
 	@Test
 	public void isValidZipFileWithNull() {
 		try {
-			assertFalse(VisualRecognitionUtils.isValidZipFile(null));
+			assertFalse(VisualRecognitionUtils.isValidZipFile(null, -1, -1));
 		} catch (VisualRecognitionException e) {
 			fail("Should send false with null reference");
 		}
 	}
 
 	@Test(expected=VisualRecognitionException.class)
-	public void isValidZipFileWithLessImagesInside() throws VisualRecognitionException{
-		VisualRecognitionUtils.isValidZipFile(zipFile);
+	public void isValidZipFileWithLessImagesInside() throws IOException, VisualRecognitionException{
+		zipFile = createZipFile("lessimage.zip",9);
+		VisualRecognitionUtils.isValidZipFile(zipFile, 10, -1);
 	}
 
+	@Test(expected=VisualRecognitionException.class)
+	public void isValidZipFileExceedsImages() throws IOException, VisualRecognitionException{
+		zipFile = createZipFile("exceeds.zip", 26);
+		VisualRecognitionUtils.isValidZipFile(zipFile, -1, 25);
+	}
+	
+	@Test(expected=VisualRecognitionException.class)
+	public void isValidZipOutOfRange() throws IOException, VisualRecognitionException{
+		zipFile = createZipFile("outOfRange.zip",5);
+		VisualRecognitionUtils.isValidZipFile(zipFile, 10, 25);
+	}
+	
 	// Delete files.
 	@After
 	public void deleteFiles() {
 		emptyFile.delete();
 		textFile.delete();
-		zipFile.delete();
+		if(zipFile != null) {
+			zipFile.delete();
+		}
 		directory.delete();
 	}
 
-	private File createZipFile() throws FileNotFoundException, IOException {
+	private File createZipFile(final String name, final int maximum) throws FileNotFoundException, IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Test String");
 
-		File f = new File(testPath + "test.zip");
+		File f = new File(testPath + name);
 		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
-		ZipEntry e = new ZipEntry("mytext.txt");
-		out.putNextEntry(e);
-
-		byte[] data = sb.toString().getBytes();
-		out.write(data, 0, data.length);
-		out.closeEntry();
+		int counter = 0;
+		while(counter < maximum) {
+			ZipEntry e = new ZipEntry("mytext" + counter + ".txt");
+			out.putNextEntry(e);
+	
+			byte[] data = sb.toString().getBytes();
+			out.write(data, 0, data.length);
+			out.closeEntry();
+			counter++;
+		}
 
 		out.close();
 		
