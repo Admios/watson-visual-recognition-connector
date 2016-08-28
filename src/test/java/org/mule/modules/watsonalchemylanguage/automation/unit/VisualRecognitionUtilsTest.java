@@ -69,21 +69,46 @@ public class VisualRecognitionUtilsTest {
 		assertTrue(VisualRecognitionUtils.isValidFile(emptyFile));
 	}
 
-	@Test
-	public void isValidZipFileWithANormalFile() {
-		try {
-			assertFalse(VisualRecognitionUtils.isValidZipFile(textFile, 10, -1));
-		} catch (VisualRecognitionException e) {
-			fail("This is a non zip file. Should return false.");
-		}
-	}
-	
+	//  ------ isValidZipFile() Success cases ---------------
 	@Test
 	public void isValidZipFile() {
 		try {
 			assertTrue(VisualRecognitionUtils.isValidZipFile(sampleZip, 10, -1));
 		} catch (VisualRecognitionException e) {
 			fail("This is a zip file. But has less image than required. " + e.getMessage());
+		}
+	}
+	
+	@Test
+	public void isValidZipFileWithExtraImages() throws IOException {
+		// File with more than minimum and less than maximum but evaluated in two different ways.
+		zipFile = createZipFile("moreThanMinimum.zip",12);
+		try {
+			assertTrue(VisualRecognitionUtils.isValidZipFile(zipFile, 10, -1));
+			assertTrue(VisualRecognitionUtils.isValidZipFile(zipFile, -1, 15));
+		} catch (VisualRecognitionException e) {
+			fail("This is a zip file. But has less image than required. " + e.getMessage());
+		}
+	}
+	
+	@Test
+	public void isValidZipFileWithExactMaximum() throws IOException {
+		// File with the exact maximum.
+		zipFile = createZipFile("ExaxtMaximum.zip",15);
+		try {
+			assertTrue(VisualRecognitionUtils.isValidZipFile(zipFile, -1, 15));
+		} catch (VisualRecognitionException e) {
+			fail("This is a zip file. But has less image than required. " + e.getMessage());
+		}
+	}
+	
+	//  ------ isValidZipFile() Fail cases ---------------
+	@Test
+	public void isValidZipFileWithANormalFile() {
+		try {
+			assertFalse(VisualRecognitionUtils.isValidZipFile(textFile, 10, -1));
+		} catch (VisualRecognitionException e) {
+			fail("This is a non zip file. Should return false.");
 		}
 	}
 	
