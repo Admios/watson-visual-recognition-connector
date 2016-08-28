@@ -50,30 +50,29 @@ public class VisualRecognitionUtils {
 				ZipFile zf = new ZipFile(zipFile);
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
-				int stop = maximum == -1? minimum : maximum;
-				while (e.hasMoreElements() && count < (stop +1)) {
+				int stop = maximum == -1 ? minimum : maximum;
+				while (e.hasMoreElements() && count < (stop + 1)) {
 					e.nextElement();
 					count++;
 				}
 
-				if (count == 0) {
+				if (count == 0) { 
 					return false;
 				}
 
-				if (maximum == -1 && minimum != -1) {
-					if (count < minimum) {
-						throw new VisualRecognitionException("Must be " + minimum + " or more images.");
-					}
-				} else if (minimum == -1 && maximum != -1) {
-					if (count > maximum) {
-						throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
-					}
-				} else if (count < minimum || count > maximum) {
-					throw new VisualRecognitionException("Image length is out of range.");
+				if (maximum == -1 && minimum != -1 && count < minimum) {
+					throw new VisualRecognitionException("Must be " + minimum + " or more images.");
+
+				} else if (minimum == -1 && maximum != -1 && count > maximum) {
+					throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
+
+				} else if ((maximum != -1 && minimum != -1) && (count < minimum || count > maximum)) {
+					throw new VisualRecognitionException("zip content is out of range.");
+
 				} else {
 					return true;
 				}
-				return true;
+
 			} catch (IOException e) {
 				return false;
 			}
