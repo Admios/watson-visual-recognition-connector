@@ -7,12 +7,12 @@ import java.io.File;
 import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import com.admios.connector.watsonvisualrecognition.handler.CommonHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
-	private CreateClassifierOptions.Builder builder = new CreateClassifierOptions.Builder();
+	private ClassifierOptions.Builder builder = new ClassifierOptions.Builder();
 
 	public CreateClassifierHandler(VisualRecognition service) {
 		super(service);
