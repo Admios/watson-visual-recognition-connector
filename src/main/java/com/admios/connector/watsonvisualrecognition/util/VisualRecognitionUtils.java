@@ -42,6 +42,14 @@ public class VisualRecognitionUtils {
 		return (file != null && file.exists() && file.isFile());
 	}
 
+	/**
+	 * Check if the file is a valid Zip file and check if contains the minimum and maximum quantity of files.
+	 * @param zipFile The file to check
+	 * @param minimum Minimum quantity inside the zip file. Send -1 to ignore minimum
+	 * @param maximum Maximum quantity inside the zip file. Send -1 to ignore maximum
+	 * @return Return true if is a valid existing file, with a content between the range of minimum and maximum.
+	 * @throws VisualRecognitionException
+	 */
 	@SuppressWarnings("resource")
 	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
 			throws VisualRecognitionException {
