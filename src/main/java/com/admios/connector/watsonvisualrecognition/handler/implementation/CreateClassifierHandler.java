@@ -26,14 +26,14 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 	}
 
 	public CreateClassifierHandler addPositiveExamples(String classname, File file) throws VisualRecognitionException {
-		if(isValidZipFile(file)) {
+		if(isValidZipFile(file,10, -1)) {
 			builder.addClass(classname, file);
 		}
 		return this;
 	}
 
 	public CreateClassifierHandler addNegativeExamples(File file) throws VisualRecognitionException {
-		if(isValidZipFile(file)) {
+		if(isValidZipFile(file, 10, -1)) {
 			builder.negativeExamples(file);
 		}
 		return this;
