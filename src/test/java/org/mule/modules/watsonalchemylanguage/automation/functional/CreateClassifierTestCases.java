@@ -21,14 +21,14 @@ public class CreateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
-		getConnector().createClassifier(null, "test-class", "Test Classifier", null);
+		getConnector().createClassifier(null, "test_class", "Test Classifier", null);
 	}
 
 	@Test
 	public void testWithFile() {
 		VisualClassifier classifier = null;
 		try {
-			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test-class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
+			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test_class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
 		}
