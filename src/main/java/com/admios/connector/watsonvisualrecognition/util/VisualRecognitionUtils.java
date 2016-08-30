@@ -42,25 +42,46 @@ public class VisualRecognitionUtils {
 		return (file != null && file.exists() && file.isFile());
 	}
 
+	/**
+	 * Check if the file is a valid Zip file and check if contains the minimum and maximum quantity of files.
+	 * @param zipFile The file to check
+	 * @param minimum Minimum quantity inside the zip file. Send -1 to ignore minimum
+	 * @param maximum Maximum quantity inside the zip file. Send -1 to ignore maximum
+	 * @return Return true if is a valid existing file, with a content between the range of minimum and maximum.
+	 * @throws VisualRecognitionException
+	 */
 	@SuppressWarnings("resource")
-	public static boolean isValidZipFile(File zipFile) throws VisualRecognitionException {
-		if(isValidFile(zipFile)) {
-			try{
+	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
+			throws VisualRecognitionException {
+		if (isValidFile(zipFile)) {
+			try {
 				ZipFile zf = new ZipFile(zipFile);
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
-				while(e.hasMoreElements() && count < 10){
+				int stop = maximum == -1 ? minimum : maximum;
+				while (e.hasMoreElements() && count < (stop + 1)) {
 					e.nextElement();
 					count++;
 				}
-				
-				if (count == 0) { return false; }
-				
-				if(count < 10){
-					throw new VisualRecognitionException("Must be 10 or more images.");
+
+				if (count == 0) { 
+					return false;
 				}
-				return true;
-			} catch (IOException e){
+
+				if (maximum == -1 && minimum != -1 && count < minimum) {
+					throw new VisualRecognitionException("Must be " + minimum + " or more images.");
+
+				} else if (minimum == -1 && maximum != -1 && count > maximum) {
+					throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
+
+				} else if ((maximum != -1 && minimum != -1) && (count < minimum || count > maximum)) {
+					throw new VisualRecognitionException("zip content is out of range.");
+
+				} else {
+					return true;
+				}
+
+			} catch (IOException e) {
 				return false;
 			}
 		}
