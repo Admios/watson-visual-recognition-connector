@@ -14,6 +14,7 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	private ClassifierOptions.Builder builder = new ClassifierOptions.Builder();
 
+
 	public CreateClassifierHandler(VisualRecognition service) {
 		super(service);
 	}
@@ -22,7 +23,6 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 	public VisualClassifier execute() {
 		// The builder validate the parameters.
 		return service.createClassifier(builder.build()).execute();
-		
 	}
 
 	public CreateClassifierHandler addPositiveExamples(String classname, File file) throws VisualRecognitionException {
