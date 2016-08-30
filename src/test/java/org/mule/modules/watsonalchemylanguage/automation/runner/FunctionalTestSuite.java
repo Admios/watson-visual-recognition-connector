@@ -12,9 +12,11 @@ import org.mule.modules.watsonalchemylanguage.automation.functional.DetectFacesT
 import org.mule.modules.watsonalchemylanguage.automation.functional.RecognizeTextTestCases;
 import org.mule.modules.watsonalchemylanguage.automation.functional.RetrieveClassifierDetailsTestCases;
 import org.mule.modules.watsonalchemylanguage.automation.functional.RetrieveListOfClassifiersTestCases;
+import org.mule.modules.watsonalchemylanguage.automation.functional.UpdateClassifierTestCases;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 import com.admios.connector.watsonvisualrecognition.WatsonVisualRecognitionConnector;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -24,7 +26,8 @@ import com.admios.connector.watsonvisualrecognition.WatsonVisualRecognitionConne
 		RetrieveListOfClassifiersTestCases.class,
 		RetrieveClassifierDetailsTestCases.class,
 		DeleteClassifierTestCases.class,
-		CreateClassifierTestCases.class
+		CreateClassifierTestCases.class,
+		UpdateClassifierTestCases.class
 })
 public class FunctionalTestSuite {
 
