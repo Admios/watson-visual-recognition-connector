@@ -6,6 +6,8 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
@@ -14,6 +16,10 @@ import com.admios.connector.watsonvisualrecognition.exceptions.VisualRecognition
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualRecognitionConnector>{
+	
+	private String className;
+	private String classifierName;
+	private VisualClassifier classifier;
 	
 	/**
 	 * Basic constructor for the class UpdateClassifierTestCases 
@@ -30,6 +36,23 @@ public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 	public void testWithNullFile() throws VisualRecognitionException {
 		getConnector().updateClassifier(null,"test_class", "test", null);
 	}
+	
+	@BeforeClass
+	public void setupClassifier() {
+		className = "test_class";
+		classifierName = "test";
+		try {
+			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test_class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
+		} catch (VisualRecognitionException e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@AfterClass
+	public void tearDown() {
+		getConnector().deleteClassifier("test");
+	}
+	
 	
 	/**
 	 * Test with not null file for UpdateClassifierTestCases class
