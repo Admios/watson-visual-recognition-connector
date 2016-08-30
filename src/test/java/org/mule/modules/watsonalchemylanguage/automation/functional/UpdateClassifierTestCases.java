@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -39,8 +40,8 @@ public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 	
 	@BeforeClass
 	public void setupClassifier() {
-		className = "test_class";
-		classifierName = "test";
+		className = UUID.randomUUID().toString();
+		classifierName = UUID.randomUUID().toString();
 		try {
 			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test_class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
 		} catch (VisualRecognitionException e) {
@@ -61,7 +62,7 @@ public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 		VisualClassifier classifier = null;
 		try {
 			File negativeExamples = new File(TestDataBuilder.sampleZipPath());
-			classifier = getConnector().updateClassifier(null, "test_class", "test", negativeExamples);
+			classifier = getConnector().updateClassifier(null, className, classifierName, negativeExamples);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
 		}
@@ -70,4 +71,5 @@ public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualReco
 		assertEquals(classifier.getName(),"Test Classifier");
 		assertEquals(classifier.getStatus().toString(),"TRAINING");
 	}
+	
 }
