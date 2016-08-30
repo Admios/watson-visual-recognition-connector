@@ -19,6 +19,7 @@ import com.admios.connector.watsonvisualrecognition.handler.implementation.Detec
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import com.admios.connector.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
+import com.admios.connector.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -191,6 +192,28 @@ public class WatsonVisualRecognitionConnector {
 				.addPositiveExamples(className, positiveExamples)
 				.addNegativeExamples(negativeExamples)
 				.addName(classifierName)
+				.execute();
+	}
+	
+	/**
+	 * Update an existing classifier by adding new classes, or by adding new images to existing classes
+	 * 
+	 * API Doc:
+	 * {@see https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier}
+	 * 
+	 * @param positiveExamples A compressed (.zip) file of images that depict the visual subject for a class within the new classifier.
+	 * @param className The name of the class
+	 * @param classifierId The ID of the classifier that you want to update
+	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new classifier.
+	 * @return return {@link List<VisualClassifier>}
+	 * @throws VisualRecognitionException When some of the zip files are empty 
+	 */
+	@Processor
+	public VisualClassifier updateClassifier(@Default("#[payload]") File positiveExamples, String className,
+			String classifierId, File negativeExamples) throws VisualRecognitionException {
+		return new UpdateClassifierHandler(config.getService(), classifierId)
+				.addPositiveSamples(className, positiveExamples)
+				.addNegativeSamples(negativeExamples)
 				.execute();
 	}
 }
