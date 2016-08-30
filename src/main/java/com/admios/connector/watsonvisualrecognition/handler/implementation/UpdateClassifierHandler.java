@@ -40,7 +40,7 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 	 * @throws VisualRecognitionException Common exception used in the visual recognition project
 	 */
 	public UpdateClassifierHandler addPositiveSamples(String classname, File file) throws VisualRecognitionException {
-		if(isValidZipFile(file)) {
+		if(isValidZipFile(file, 1, -1)) {
 			builder.addClass(classname, file);
 		}
 		return this;
@@ -53,7 +53,7 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 	 * @throws VisualRecognitionException Common exception used in the visual recognition project
 	 */
 	public UpdateClassifierHandler addNegativeSamples(File file) throws VisualRecognitionException {
-		if(isValidZipFile(file)) {
+		if(isValidZipFile(file, 1, -1)) {
 			builder.negativeExamples(file);
 		}
 		return this;
