@@ -4,16 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector;
-import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
-public class ClassifyImageTestCases extends AbstractTestCase<WatsonVisualRecognitionConnector> {
-
-	public ClassifyImageTestCases() {
-		super(WatsonVisualRecognitionConnector.class);
-	}
+public class ClassifyImageTestCases extends AbstractTestCases {
 
 	@Test
 	public void testWithURL() {

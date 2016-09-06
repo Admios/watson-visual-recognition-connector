@@ -5,16 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector;
-import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 
-public class RecognizeTextTestCases extends AbstractTestCase<WatsonVisualRecognitionConnector> {
-
-	public RecognizeTextTestCases() {
-		super(WatsonVisualRecognitionConnector.class);
-	}
+public class RecognizeTextTestCases extends AbstractTestCases {
 
 	@Test
 	public void testWithURL() {
