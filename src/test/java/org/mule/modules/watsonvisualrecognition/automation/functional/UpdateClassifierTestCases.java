@@ -10,24 +10,15 @@ import java.util.UUID;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
-import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
-public class UpdateClassifierTestCases extends AbstractTestCase<WatsonVisualRecognitionConnector>{
+public class UpdateClassifierTestCases extends AbstractTestCases {
 	
 	private String className;
 	private String classifierName;
 	private VisualClassifier classifier;
-	
-	/**
-	 * Basic constructor for the class UpdateClassifierTestCases 
-	 */
-	public UpdateClassifierTestCases() {
-		super(WatsonVisualRecognitionConnector.class);
-	}
 	
 	/**
 	 * Test with null file for UpdateClassifierTestCases class

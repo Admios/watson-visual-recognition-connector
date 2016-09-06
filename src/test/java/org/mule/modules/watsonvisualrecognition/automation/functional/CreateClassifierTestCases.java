@@ -7,17 +7,11 @@ import static org.junit.Assert.fail;
 import java.io.File;
 
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
-import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
-public class CreateClassifierTestCases extends AbstractTestCase<WatsonVisualRecognitionConnector> {
-
-	public CreateClassifierTestCases() {
-		super(WatsonVisualRecognitionConnector.class);
-	}
+public class CreateClassifierTestCases extends AbstractTestCases {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
