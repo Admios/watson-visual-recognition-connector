@@ -63,7 +63,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @param threshold A floating point value that specifies the minimum score a class must have to be displayed in the
 	 *            response.
 	 * 
-	 * @return return {@link VisualClassification}
+	 * @return Return a list of detected classes in the image.
 	 */
 	@Processor
 	public VisualClassification classifyImage(@Default("#[payload]") String url, @Optional File image,
@@ -85,7 +85,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to analyze. The max number of
 	 *            images in a .zip file is limited to 15. <b>If the URL is set the image will be ignored.</b>
 	 * 
-	 * @return return {@link DetectedFaces}
+	 * @return Return a list of detected faces, his age, gender and position in the image.
 	 */
 	@Processor
 	public DetectedFaces detectFaces(@Default("#[payload]") String url, @Optional File image) {
@@ -104,7 +104,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
 	 *            images in a .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
 	 * 
-	 * @return return {@link RecognizedText}
+	 * @return Return the text recognized in the image.
 	 */
 	@Processor
 	public RecognizedText recognizeText(@Default("#[payload]") String url, @Optional File image) {
@@ -118,7 +118,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier}
 	 * 
-	 * @return return {@link List<VisualClassifier>}
+	 * @return Return a list of classifiers associated with your API Key.
 	 */
 	@Processor
 	public List<VisualClassifier> retrieveListOfClassifiers() {
@@ -133,7 +133,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @param classifierId The ID of the classifier for which you want details.
 	 * 
-	 * @return return {@link VisualClassifier}
+	 * @return Return a classifier associated with your API Key.
 	 */
 	@Processor
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
@@ -167,7 +167,8 @@ public class WatsonVisualRecognitionConnector {
 	 * @param classifierName The name of the new classifier. Cannot contain spaces or special characters.
 	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
 	 *            classes of the new classifier. Must contain a minimum of 10 images.
-	 * @return return {@link List<VisualClassifier>}
+	 *            
+	 * @return Return the classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
 	@Processor
@@ -191,7 +192,8 @@ public class WatsonVisualRecognitionConnector {
 	 * @param classifierId The ID of the classifier that you want to update
 	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
 	 *            classes of the new classifier.
-	 * @return return {@link List<VisualClassifier>}
+	 *            
+	 * @return Return the classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
 	 */
 	@Processor
