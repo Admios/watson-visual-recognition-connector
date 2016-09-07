@@ -3,13 +3,13 @@ package org.mule.modules.watsonvisualrecognition;
 import java.io.File;
 import java.util.List;
 
-import org.mule.api.annotations.Config;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.modules.watsonvisualrecognition.config.ConnectorConfig;
+import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.CreateClassifierHandler;
@@ -20,6 +20,7 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveC
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
 
+import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -33,17 +34,18 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
  * @author Admios
  */
 @RequiresEnterpriseLicense(allowEval = true)
+@ReconnectOn(exceptions = { ServiceUnavailableException.class })
 @Connector(name = "watson-visual-recognition", friendlyName = "Watson Visual Recognition", minMuleVersion = "3.6.0")
 public class WatsonVisualRecognitionConnector {
 
-	@Config
-	ConnectorConfig config;
+	@org.mule.api.annotations.Config
+	Config config;
 
-	public ConnectorConfig getConfig() {
+	public Config getConfig() {
 		return config;
 	}
 
-	public void setConfig(ConnectorConfig config) {
+	public void setConfig(Config config) {
 		this.config = config;
 	}
 
