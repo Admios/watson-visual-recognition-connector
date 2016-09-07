@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
-import org.mule.modules.watsonvisualrecognition.config.ConnectorConfig;
+import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.tools.devkit.ctf.configuration.util.ConfigurationUtils;
 
 public class ConnectorConfigTestCases {
@@ -17,14 +17,14 @@ public class ConnectorConfigTestCases {
 	private static String VERSION_DATE;
 	private static final String BAD_API_KEY = "123456789";
 
-	private ConnectorConfig config;
+	private Config config;
 
 	@Before
 	public void setup() throws Exception {
 		validCredentials = ConfigurationUtils.getAutomationCredentialsProperties();
 		API_KEY = validCredentials.getProperty("watson-visual-config.apiKey");
 		VERSION_DATE = validCredentials.getProperty("watson-visual-config.versionDate");
-		config = new ConnectorConfig();
+		config = new Config();
 	}
 
 	@Test
