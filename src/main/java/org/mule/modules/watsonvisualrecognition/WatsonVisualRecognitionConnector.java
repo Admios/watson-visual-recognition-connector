@@ -8,7 +8,6 @@ import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
 import org.mule.modules.watsonvisualrecognition.config.ConnectorConfig;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
@@ -19,6 +18,9 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.Recognize
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
+import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
+import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
+import org.mule.modules.watsonvisualrecognition.model.CommonRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
@@ -66,12 +68,11 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link VisualClassification}
 	 */
 	@Processor
-	public VisualClassification classifyImage(@Default("#[payload]") String url, @Optional File image,
-			@Optional List<String> classifierIds, @Optional Double threshold) {
+	public VisualClassification classifyImage(ClassifyImageRequest request) {
 		return new ClassifyImageHandler(config.getService())
-				.addSource(url, image)
-				.addClassifierId(classifierIds)
-				.addThreshold(threshold)
+				.addSource(request.getUrl(), request.getImage())
+				.addClassifierId(request.getClassifierIds())
+				.addThreshold(request.getThreshold())
 				.execute();
 	}
 
@@ -90,9 +91,9 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link DetectedFaces}
 	 */
 	@Processor
-	public DetectedFaces detectFaces(@Default("#[payload]") String url, @Optional File image) {
+	public DetectedFaces detectFaces(CommonRequest request) {
 		return new DetectFacesHandler(config.getService())
-				.addSource(url, image)
+				.addSource(request.getUrl(), request.getImage())
 				.execute();
 	}
 
@@ -111,9 +112,9 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link RecognizedText}
 	 */
 	@Processor
-	public RecognizedText recognizeText(@Default("#[payload]") String url, @Optional File image) {
+	public RecognizedText recognizeText(CommonRequest request) {
 		return new RecognizeTextHandler(config.getService())
-				.addSource(url, image)
+				.addSource(request.getUrl(), request.getImage())
 				.execute();
 	}
 
@@ -186,12 +187,11 @@ public class WatsonVisualRecognitionConnector {
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
 	@Processor
-	public VisualClassifier createClassifier(@Default("#[payload]") File positiveExamples, String className, 
-			String classifierName, File negativeExamples) throws VisualRecognitionException {
+	public VisualClassifier createClassifier(ClassifierRequest request) throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
-				.addPositiveExamples(className, positiveExamples)
-				.addNegativeExamples(negativeExamples)
-				.addName(classifierName)
+				.addPositiveExamples(request.getClassName(), request.getPositiveExamples())
+				.addNegativeExamples(request.getNegativeExamples())
+				.addClassifierId(request.getClassifierId())
 				.execute();
 	}
 	
@@ -209,11 +209,10 @@ public class WatsonVisualRecognitionConnector {
 	 * @throws VisualRecognitionException When some of the zip files are empty 
 	 */
 	@Processor
-	public VisualClassifier updateClassifier(@Default("#[payload]") File positiveExamples, String className,
-			String classifierId, File negativeExamples) throws VisualRecognitionException {
-		return new UpdateClassifierHandler(config.getService(), classifierId)
-				.addPositiveSamples(className, positiveExamples)
-				.addNegativeSamples(negativeExamples)
+	public VisualClassifier updateClassifier(ClassifierRequest request) throws VisualRecognitionException {
+		return new UpdateClassifierHandler(config.getService(), request.getClassifierId())
+				.addPositiveSamples(request.getClassName(), request.getPositiveExamples())
+				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
 	}
 }

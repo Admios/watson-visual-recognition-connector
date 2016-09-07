@@ -40,8 +40,8 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 		return this;
 	}
 
-	public CreateClassifierHandler addName(String classifierName) {
-		builder.classifierName(classifierName);
+	public CreateClassifierHandler addClassifierId(String classifierId) {
+		builder.classifierName(classifierId);
 		return this;
 	}
 }
