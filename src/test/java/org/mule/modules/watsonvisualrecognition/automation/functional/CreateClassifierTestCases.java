@@ -31,5 +31,25 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 		assertEquals(classifier.getName(),"Test Classifier");
 		assertEquals(classifier.getStatus().toString(),"TRAINING");
 	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyCreation() {
+		VisualClassifier dummyClassifier = null;
+		VisualClassifier expectedClassifier = null;
+		try {
+			dummyClassifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), 
+					"test_class", "Test Classifier", 
+					new File(TestDataBuilder.negativeSampleZipPath()));
+			String classifierId = dummyClassifier.getId();
+			expectedClassifier = getConnector().retrieveClassifierDetails(classifierId);
+		} catch (VisualRecognitionException e) {
+			fail(e.getMessage());
+		}
+		
+		assertEquals(dummyClassifier.getId(), expectedClassifier.getId());
+	}
 
 }
