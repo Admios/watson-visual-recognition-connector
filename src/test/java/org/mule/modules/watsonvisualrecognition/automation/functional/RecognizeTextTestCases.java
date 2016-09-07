@@ -4,21 +4,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 
 public class RecognizeTextTestCases extends AbstractTestCases {
 
+	private ImageRequest request;
+
+	@Before
+	public void createRequest(){
+		request = new ImageRequest();
+	}
+	
 	@Test
 	public void testWithURL() {
-		RecognizedText recognizedText = getConnector().recognizeText(TestDataBuilder.TEST_TEXT_URL_IMAGE, null);
+		request.setUrl(TestDataBuilder.TEST_TEXT_URL_IMAGE);
+		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);
 	}
 
 	@Test
 	public void testWithFile() {
-		RecognizedText recognizedText = getConnector().recognizeText(null, TestDataBuilder.TEST_IMAGE_TEXT);
+		request.setImage(TestDataBuilder.TEST_IMAGE_TEXT);
+		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);
 	}
 

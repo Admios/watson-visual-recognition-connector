@@ -3,23 +3,31 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 
 public class ClassifyImageTestCases extends AbstractTestCases {
 
+	private ClassifyImageRequest request;
+	
+	@Before
+	public void createRequest(){
+		request = new ClassifyImageRequest();
+	}
 	@Test
 	public void testWithURL() {
-		VisualClassification classification = getConnector().classifyImage(
-				TestDataBuilder.TEST_GROUP_URL_IMAGE, null, null, null);
+		request.setUrl(TestDataBuilder.TEST_GROUP_URL_IMAGE);
+		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
 	}
 
 	@Test
 	public void testWithFile() {
-		VisualClassification classification = getConnector().classifyImage(
-				null, TestDataBuilder.TEST_IMAGE_GROUP, null, null);
+		request.setImage(TestDataBuilder.TEST_IMAGE_GROUP);
+		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
 	}
 

@@ -1,6 +1,5 @@
 package org.mule.modules.watsonvisualrecognition;
 
-import java.io.File;
 import java.util.List;
 
 import org.mule.api.annotations.Config;
@@ -20,7 +19,7 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveL
 import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
-import org.mule.modules.watsonvisualrecognition.model.CommonRequest;
+import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
@@ -91,7 +90,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link DetectedFaces}
 	 */
 	@Processor
-	public DetectedFaces detectFaces(CommonRequest request) {
+	public DetectedFaces detectFaces(ImageRequest request) {
 		return new DetectFacesHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
 				.execute();
@@ -112,7 +111,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link RecognizedText}
 	 */
 	@Processor
-	public RecognizedText recognizeText(CommonRequest request) {
+	public RecognizedText recognizeText(ImageRequest request) {
 		return new RecognizeTextHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
 				.execute();

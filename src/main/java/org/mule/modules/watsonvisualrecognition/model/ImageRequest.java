@@ -5,7 +5,7 @@ import java.io.File;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
-public class CommonRequest {
+public class ImageRequest {
 
 	@Default("#[payload]")
 	private String url;

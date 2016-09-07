@@ -6,23 +6,39 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class CreateClassifierTestCases extends AbstractTestCases {
 
+	private ClassifierRequest request;
+	
+	@Before
+	public void createRequest() {
+		request = new ClassifierRequest();
+	}
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
-		getConnector().createClassifier(null, "test_class", "Test Classifier", null);
+		request.setClassName("test_class");
+		request.setClassifierId("Test Classifier");
+		getConnector().createClassifier(request);
 	}
 
 	@Test
 	public void testWithFile() {
 		VisualClassifier classifier = null;
+		
+		request.setClassName("test_class");
+		request.setClassifierId( "Test Classifier");
+		request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
+		request.setNegativeExamples(new File(TestDataBuilder.negativeSampleZipPath()));
 		try {
-			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test_class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
+			classifier = getConnector().createClassifier(request);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
 		}
