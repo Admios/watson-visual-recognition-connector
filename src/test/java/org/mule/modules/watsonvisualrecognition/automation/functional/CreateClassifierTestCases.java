@@ -1,7 +1,6 @@
 package org.mule.modules.watsonvisualrecognition.automation.functional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -19,17 +18,19 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 	}
 
 	@Test
-	public void testWithFile() {
-		VisualClassifier classifier = null;
+	public void verifyCreation() {
+		VisualClassifier dummyClassifier = null;
+		VisualClassifier expectedClassifier = null;
 		try {
-			classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), "test_class", "Test Classifier", new File(TestDataBuilder.negativeSampleZipPath()));
+			dummyClassifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), 
+					"test_class", "Test Classifier", 
+					new File(TestDataBuilder.negativeSampleZipPath()));
+			String classifierId = dummyClassifier.getId();
+			expectedClassifier = getConnector().retrieveClassifierDetails(classifierId);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
 		}
-
-		assertNotNull(classifier);
-		assertEquals(classifier.getName(),"Test Classifier");
-		assertEquals(classifier.getStatus().toString(),"TRAINING");
+		
+		assertEquals(dummyClassifier.getId(), expectedClassifier.getId());
 	}
-
 }
