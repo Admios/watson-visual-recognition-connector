@@ -7,6 +7,7 @@ import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.RefOnly;
 import org.mule.modules.watsonvisualrecognition.config.ConnectorConfig;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
@@ -67,7 +68,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link VisualClassification}
 	 */
 	@Processor
-	public VisualClassification classifyImage(ClassifyImageRequest request) {
+	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
 		return new ClassifyImageHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
 				.addClassifierId(request.getClassifierIds())
@@ -90,7 +91,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link DetectedFaces}
 	 */
 	@Processor
-	public DetectedFaces detectFaces(ImageRequest request) {
+	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new DetectFacesHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
 				.execute();
@@ -111,7 +112,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return return {@link RecognizedText}
 	 */
 	@Processor
-	public RecognizedText recognizeText(ImageRequest request) {
+	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new RecognizeTextHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
 				.execute();
@@ -186,7 +187,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
 	@Processor
-	public VisualClassifier createClassifier(ClassifierRequest request) throws VisualRecognitionException {
+	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request) throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
 				.addPositiveExamples(request.getClassName(), request.getPositiveExamples())
 				.addNegativeExamples(request.getNegativeExamples())
@@ -208,7 +209,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @throws VisualRecognitionException When some of the zip files are empty 
 	 */
 	@Processor
-	public VisualClassifier updateClassifier(ClassifierRequest request) throws VisualRecognitionException {
+	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request) throws VisualRecognitionException {
 		return new UpdateClassifierHandler(config.getService(), request.getClassifierId())
 				.addPositiveSamples(request.getClassName(), request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())

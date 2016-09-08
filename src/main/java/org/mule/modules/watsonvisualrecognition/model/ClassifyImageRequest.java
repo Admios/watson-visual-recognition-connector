@@ -3,14 +3,17 @@ package org.mule.modules.watsonvisualrecognition.model;
 import java.io.File;
 import java.util.List;
 
-import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
 public class ClassifyImageRequest {
 
-	@Optional private List<String> classifierIds;
-	@Optional private Double threshold;
-	@Default("#[payload]")
+	@Optional 
+	private List<String> classifierIds;
+	
+	@Optional
+	private Double threshold;
+
+	@Optional
 	private String url;
 	
 	@Optional
