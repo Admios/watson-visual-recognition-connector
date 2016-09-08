@@ -2,14 +2,22 @@ package org.mule.modules.watsonvisualrecognition.model;
 
 import java.io.File;
 
+import org.mule.api.annotations.Required;
 import org.mule.api.annotations.param.Default;
 
 public class ClassifierRequest {
 
-	@Default("#[payload]") 
+	@Default("#[payload]")
+	@Required
 	private File positiveExamples;
+	
+	@Required
 	private String className;
+	
+	@Required
 	private String classifierId;
+	
+	@Required
 	private File negativeExamples;
 	
 	public File getPositiveExamples() {
