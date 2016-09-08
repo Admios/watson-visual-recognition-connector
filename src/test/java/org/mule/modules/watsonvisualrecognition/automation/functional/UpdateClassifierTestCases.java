@@ -7,11 +7,10 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.util.UUID;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class UpdateClassifierTestCases extends AbstractTestCases {
@@ -29,8 +28,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		getConnector().updateClassifier(null,"test_class", "test", null);
 	}
 	
-	@BeforeClass
-	public void setupClassifier() {
+	private void setupClassifier() {
 		className = UUID.randomUUID().toString();
 		classifierName = UUID.randomUUID().toString();
 		try {
@@ -40,17 +38,18 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		}
 	}
 	
-	@AfterClass
-	public void tearDown() {
+	private void tearDown() {
 		getConnector().deleteClassifier("test");
 	}
 	
 	
 	/**
-	 * Test with not null file for UpdateClassifierTestCases class
+	 * Test with not null file for UpdateClassifierTestCases class for free version API key
 	 */
-	public void testWithFile() {
-		VisualClassifier classifier = null;
+	@Test(expected=BadRequestException.class)
+	public void testWithFileFreeVersion() {
+		setupClassifier();
+		classifier = null;
 		try {
 			File negativeExamples = new File(TestDataBuilder.sampleZipPath());
 			classifier = getConnector().updateClassifier(null, className, classifierName, negativeExamples);
@@ -61,6 +60,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		assertNotNull(classifier);
 		assertEquals(classifier.getName(),"Test Classifier");
 		assertEquals(classifier.getStatus().toString(),"TRAINING");
+		tearDown();
 	}
 	
 }
