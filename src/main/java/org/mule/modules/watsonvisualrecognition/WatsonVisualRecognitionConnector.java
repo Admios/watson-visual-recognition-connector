@@ -59,7 +59,7 @@ public class WatsonVisualRecognitionConnector {
 	 *
 	 * @param request Request with all the options for the classify an image operation.
 	 * 
-	 * @return Return a list of detected classes in the image.
+	 * @return A list of detected classes in the image.
 	 */
 	@Processor
 	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
@@ -78,7 +78,7 @@ public class WatsonVisualRecognitionConnector {
 	 *
 	 * @param request Request with all the options for the detect faces operation.
 	 * 
-	 * @return Return a list of detected faces, his age, gender and position in the image.
+	 * @return A list of detected faces, his age, gender and position in the image.
 	 */
 	@Processor
 	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
@@ -95,7 +95,7 @@ public class WatsonVisualRecognitionConnector {
 	 *
 	 * @param request Request with all the options for the recognize text operation.
 	 * 
-	 * @return Return the text recognized in the image.
+	 * @return The text recognized in the image.
 	 */
 	@Processor
 	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
@@ -109,7 +109,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier}
 	 * 
-	 * @return Return a list of classifiers associated with your API Key.
+	 * @return A list of classifiers associated with your API Key.
 	 */
 	@Processor
 	public List<VisualClassifier> retrieveListOfClassifiers() {
@@ -124,7 +124,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @param classifierId The ID of the classifier for which you want details.
 	 * 
-	 * @return Return a classifier associated with your API Key.
+	 * @return A classifier associated with your API Key.
 	 */
 	@Processor
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
@@ -154,7 +154,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @param request Request with all the options for the create classifier operation.
 	 * 
-	 * @return Return the classifier that was created.
+	 * @return The classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
 	@Processor
@@ -174,7 +174,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @param request Request with all the options for the update classifier operation.
 	 * 
-	 * @return Return the classifier that was updated.
+	 * @return The classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
 	 */
 	@Processor
