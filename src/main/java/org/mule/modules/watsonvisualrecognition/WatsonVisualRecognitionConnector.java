@@ -76,9 +76,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to analyze. The max number of
-	 *            images in a .zip file is limited to 15. <b>If the URL is set the image will be ignored.</b>
+	 * @param request Request with all the options for the detect faces operation.
 	 * 
 	 * @return Return a list of detected faces, his age, gender and position in the image.
 	 */
@@ -95,9 +93,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
+	 * @param request Request with all the options for the recognize text operation.
 	 * 
 	 * @return Return the text recognized in the image.
 	 */
