@@ -1,6 +1,5 @@
 package org.mule.modules.watsonvisualrecognition;
 
-import java.io.File;
 import java.util.List;
 
 import org.mule.api.annotations.Connector;
@@ -8,7 +7,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.RefOnly;
 import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
@@ -19,6 +18,9 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.Recognize
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
+import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
+import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
+import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -55,23 +57,16 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be
-	 *            ignored.</b>
-	 * @param classifierIds An array of classifier IDs to classify the images against.
-	 * @param threshold A floating point value that specifies the minimum score a class must have to be displayed in the
-	 *            response.
+	 * @param request Request with all the options for the classify an image operation.
 	 * 
-	 * @return Return a list of detected classes in the image.
+	 * @return A list of detected classes in the image.
 	 */
 	@Processor
-	public VisualClassification classifyImage(@Default("#[payload]") String url, @Optional File image,
-			@Optional List<String> classifierIds, @Optional Double threshold) {
+	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
 		return new ClassifyImageHandler(config.getService())
-				.addSource(url, image)
-				.addClassifierId(classifierIds)
-				.addThreshold(threshold)
+				.addSource(request.getUrl(), request.getImage())
+				.addClassifierId(request.getClassifierIds())
+				.addThreshold(request.getThreshold())
 				.execute();
 	}
 
@@ -81,16 +76,14 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to analyze. The max number of
-	 *            images in a .zip file is limited to 15. <b>If the URL is set the image will be ignored.</b>
+	 * @param request Request with all the options for the detect faces operation.
 	 * 
-	 * @return Return a list of detected faces, his age, gender and position in the image.
+	 * @return A list of detected faces, his age, gender and position in the image.
 	 */
 	@Processor
-	public DetectedFaces detectFaces(@Default("#[payload]") String url, @Optional File image) {
+	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new DetectFacesHandler(config.getService())
-				.addSource(url, image)
+				.addSource(request.getUrl(), request.getImage())
 				.execute();
 	}
 
@@ -100,16 +93,14 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
+	 * @param request Request with all the options for the recognize text operation.
 	 * 
-	 * @return Return the text recognized in the image.
+	 * @return The text recognized in the image.
 	 */
 	@Processor
-	public RecognizedText recognizeText(@Default("#[payload]") String url, @Optional File image) {
+	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new RecognizeTextHandler(config.getService())
-				.addSource(url, image)
+				.addSource(request.getUrl(), request.getImage())
 				.execute();
 	}
 
@@ -118,7 +109,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier}
 	 * 
-	 * @return Return a list of classifiers associated with your API Key.
+	 * @return A list of classifiers associated with your API Key.
 	 */
 	@Processor
 	public List<VisualClassifier> retrieveListOfClassifiers() {
@@ -133,7 +124,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @param classifierId The ID of the classifier for which you want details.
 	 * 
-	 * @return Return a classifier associated with your API Key.
+	 * @return A classifier associated with your API Key.
 	 */
 	@Processor
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
@@ -161,23 +152,18 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier}
 	 * 
-	 * @param positiveExamples A compressed (.zip) file of images that depict the visual subject for a class within the
-	 *            new classifier. Must contain a minimum of 10 images.
-	 * @param className Name of the positive examples.
-	 * @param classifierName The name of the new classifier. Cannot contain spaces or special characters.
-	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
-	 *            classes of the new classifier. Must contain a minimum of 10 images.
-	 *            
-	 * @return Return the classifier that was created.
+	 * @param request Request with all the options for the create classifier operation.
+	 * 
+	 * @return The classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
 	@Processor
-	public VisualClassifier createClassifier(@Default("#[payload]") File positiveExamples, String className,
-			String classifierName, File negativeExamples) throws VisualRecognitionException {
+	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
+			throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
-				.addPositiveExamples(className, positiveExamples)
-				.addNegativeExamples(negativeExamples)
-				.addName(classifierName)
+				.addPositiveExamples(request.getClassName(), request.getPositiveExamples())
+				.addNegativeExamples(request.getNegativeExamples())
+				.addClassifierId(request.getClassifierNameOrId())
 				.execute();
 	}
 
@@ -186,22 +172,17 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier}
 	 * 
-	 * @param positiveExamples A compressed (.zip) file of images that depict the visual subject for a class within the
-	 *            new classifier.
-	 * @param className The name of the class
-	 * @param classifierId The ID of the classifier that you want to update
-	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
-	 *            classes of the new classifier.
-	 *            
-	 * @return Return the classifier that was updated.
+	 * @param request Request with all the options for the update classifier operation.
+	 * 
+	 * @return The classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
 	 */
 	@Processor
-	public VisualClassifier updateClassifier(@Default("#[payload]") File positiveExamples, String className,
-			String classifierId, File negativeExamples) throws VisualRecognitionException {
-		return new UpdateClassifierHandler(config.getService(), classifierId)
-				.addPositiveSamples(className, positiveExamples)
-				.addNegativeSamples(negativeExamples)
+	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
+			throws VisualRecognitionException {
+		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
+				.addPositiveSamples(request.getClassName(), request.getPositiveExamples())
+				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
 	}
 }
