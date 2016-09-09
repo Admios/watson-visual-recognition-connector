@@ -16,10 +16,10 @@ public class ClassifierRequestTest {
 		pojo.setPositiveExamples(new File("path/positive"));
 		pojo.setNegativeExamples(new File("path/negative"));
 		pojo.setClassName("Class Name");
-		pojo.setClassifierId("Classifier Id");
+		pojo.setClassifierNameOrId("Classifier Id");
 		
 		assertEquals("Class Name", pojo.getClassName());
-		assertEquals("Classifier Id", pojo.getClassifierId());
+		assertEquals("Classifier Id", pojo.getClassifierNameOrId());
 		assertNotNull(pojo.getPositiveExamples());
 		assertEquals("path/positive", pojo.getPositiveExamples().getPath());
 		assertNotNull(pojo.getNegativeExamples());

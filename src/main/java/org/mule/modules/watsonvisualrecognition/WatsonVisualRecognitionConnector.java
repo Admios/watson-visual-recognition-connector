@@ -162,12 +162,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier}
 	 * 
-	 * @param positiveExamples A compressed (.zip) file of images that depict the visual subject for a class within the
-	 *            new classifier. Must contain a minimum of 10 images.
-	 * @param className Name of the positive examples.
-	 * @param classifierName The name of the new classifier. Cannot contain spaces or special characters.
-	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
-	 *            classes of the new classifier. Must contain a minimum of 10 images.
+	 * @param request Request with all the options for the create classifier operation.
 	 * 
 	 * @return Return the classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
@@ -178,7 +173,7 @@ public class WatsonVisualRecognitionConnector {
 		return new CreateClassifierHandler(config.getService())
 				.addPositiveExamples(request.getClassName(), request.getPositiveExamples())
 				.addNegativeExamples(request.getNegativeExamples())
-				.addClassifierId(request.getClassifierId())
+				.addClassifierId(request.getClassifierNameOrId())
 				.execute();
 	}
 
@@ -187,12 +182,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier}
 	 * 
-	 * @param positiveExamples A compressed (.zip) file of images that depict the visual subject for a class within the
-	 *            new classifier.
-	 * @param className The name of the class
-	 * @param classifierId The ID of the classifier that you want to update
-	 * @param negativeExamples A compressed (.zip) file of images that do not depict the visual subject of any of the
-	 *            classes of the new classifier.
+	 * @param request Request with all the options for the update classifier operation.
 	 * 
 	 * @return Return the classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
@@ -200,7 +190,7 @@ public class WatsonVisualRecognitionConnector {
 	@Processor
 	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
-		return new UpdateClassifierHandler(config.getService(), request.getClassifierId())
+		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
 				.addPositiveSamples(request.getClassName(), request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())
 				.execute();

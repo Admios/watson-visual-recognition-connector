@@ -25,7 +25,7 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
 		request.setClassName("test_class");
-		request.setClassifierId("Test Classifier");
+		request.setClassifierNameOrId("Test Classifier");
 		getConnector().createClassifier(request);
 	}
 
@@ -34,7 +34,7 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 		VisualClassifier classifier = null;
 		
 		request.setClassName("test_class");
-		request.setClassifierId( "Test Classifier");
+		request.setClassifierNameOrId( "Test Classifier");
 		request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
 		request.setNegativeExamples(new File(TestDataBuilder.negativeSampleZipPath()));
 		try {

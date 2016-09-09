@@ -29,7 +29,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
 		request.setClassName("test_class");
-		request.setClassifierId("test");
+		request.setClassifierNameOrId("test");
 		getConnector().updateClassifier(request);
 	}
 
@@ -44,7 +44,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		ClassifierRequest request = new ClassifierRequest();
 		request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
 		request.setClassName(className);
-		request.setClassifierId(classifierName);
+		request.setClassifierNameOrId(classifierName);
 		request.setNegativeExamples( new File(TestDataBuilder.negativeSampleZipPath()));
 		try {
 			classifier = getConnector().createClassifier(request);
@@ -63,7 +63,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		try {
 			request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
 			request.setClassName(className);
-			request.setClassifierId(classifierName);
+			request.setClassifierNameOrId(classifierName);
 			request.setNegativeExamples( new File(TestDataBuilder.negativeSampleZipPath()));
 			classifier = getConnector().updateClassifier(request);
 		} catch (VisualRecognitionException e) {

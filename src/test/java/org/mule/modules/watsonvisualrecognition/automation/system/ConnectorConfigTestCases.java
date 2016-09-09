@@ -22,8 +22,8 @@ public class ConnectorConfigTestCases {
 	@Before
 	public void setup() throws Exception {
 		validCredentials = ConfigurationUtils.getAutomationCredentialsProperties();
-		API_KEY = validCredentials.getProperty("watson-visual-config.apiKey");
-		VERSION_DATE = validCredentials.getProperty("watson-visual-config.versionDate");
+		API_KEY = validCredentials.getProperty("config.apiKey");
+		VERSION_DATE = validCredentials.getProperty("config.versionDate");
 		config = new Config();
 	}
 
