@@ -15,8 +15,8 @@ import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
-@ConnectionManagement(friendlyName = "Configuration", configElementName = "watson-visual-config")
-public class ConnectorConfig {
+@ConnectionManagement(friendlyName = "Configuration", configElementName = "config")
+public class Config {
 
 	private VisualRecognition service;
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.config.ConnectorConfig;
+import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
@@ -80,7 +80,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 
 	public void deleteClassifier() {
 		getConnector().deleteClassifier(classifierName);
-		ConnectorConfig config = new ConnectorConfig();
+		Config config = new Config();
 		config.getService().deleteClassifier(classifierName).execute();
 	}
 }
