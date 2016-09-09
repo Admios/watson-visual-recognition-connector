@@ -57,13 +57,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
 	 *
-	 * @param url The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
-	 * @param image The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of
-	 *            images in a .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be
-	 *            ignored.</b>
-	 * @param classifierIds An array of classifier IDs to classify the images against.
-	 * @param threshold A floating point value that specifies the minimum score a class must have to be displayed in the
-	 *            response.
+	 * @param request Request with all the options for the classify an image operation.
 	 * 
 	 * @return Return a list of detected classes in the image.
 	 */

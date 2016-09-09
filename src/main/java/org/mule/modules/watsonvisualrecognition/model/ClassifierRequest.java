@@ -5,7 +5,7 @@ import java.io.File;
 import org.mule.api.annotations.Required;
 
 /**
- * Class with all the options for a classifier request.
+ * Class with all the options to create or update a classifier.
  * 
  * @author Admios
  */
