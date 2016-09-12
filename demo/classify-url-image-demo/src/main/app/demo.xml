@@ -10,8 +10,8 @@ http://www.mulesoft.org/schema/mule/watson-visual-recognition http://www.mulesof
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
-    <watson-visual-recognition:config name="Watson_Visual_Recognition__Configuration" apiKey="${watson.apikey}" doc:name="Watson Visual Recognition: Configuration"/>
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <watson-visual-recognition:config name="Watson_Visual_Recognition__Configuration" apiKey="${watson.apikey}" doc:name="Watson Visual Recognition: Configuration"/>
     <flow name="RegisterCarAccidentFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/car-accident" doc:name="HTTP"/>
         <dw:transform-message doc:name="Build Request">
