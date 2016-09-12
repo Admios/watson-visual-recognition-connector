@@ -3,7 +3,7 @@ Classify URL Image Demo
 
 INTRODUCTION
 ------------
-The Retrieve Classify URL Image Demo project offer one use case using this flow:
+The Classify URL Image Demo project offer one use case using this flow:
 
 * **RegisterCarAccidentFlow** - Automatize the registration of new car accidents for an Insurance, classifying the images with Watson first, so based on the classification you can validate that the image of the accident is valid and avoid to pass invalid cases to a human operator.
 
