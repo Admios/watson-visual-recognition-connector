@@ -18,6 +18,7 @@ public class TestDataBuilder {
 	public static final String TEST_TEXT_IMAGE_TEXT;
 	public static final String TEST_SAMPLE_ZIP_FILE;
 	public static final String TEST_NEGATIVE_ZIP_FILE;
+	public static final String TEST_NEGATIVE_CAT_FILE;
 
 	static {
 		Properties constants = new Properties();
@@ -33,6 +34,7 @@ public class TestDataBuilder {
 		TEST_TEXT_IMAGE_TEXT = constants.getProperty("text_image_text");
 		TEST_SAMPLE_ZIP_FILE = constants.getProperty("sample_zip_file");
 		TEST_NEGATIVE_ZIP_FILE = constants.getProperty("negative_zip_file");
+		TEST_NEGATIVE_CAT_FILE = constants.getProperty("negative_cat_file");
 		
 		File group_image = null;
 		File logo_image = null;
@@ -53,6 +55,11 @@ public class TestDataBuilder {
 	
 	public static String negativeSampleZipPath() {
 		String[] path = { "src", "test", "resources", TEST_NEGATIVE_ZIP_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String negativeCatExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_CAT_FILE};
 		return StringUtils.join(path, File.separator);
 	}
 }
