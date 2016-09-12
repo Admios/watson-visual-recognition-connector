@@ -19,6 +19,11 @@ public class TestDataBuilder {
 	public static final String TEST_SAMPLE_ZIP_FILE;
 	public static final String TEST_NEGATIVE_ZIP_FILE;
 	public static final String TEST_NEGATIVE_CAT_FILE;
+	public static final String TEST_HUSKY_FILE;
+	public static final String TEST_GOLDEN_FILE;
+	public static final String TEST_BEAGLE_FILE;
+	public static final String TEST_NEGATIVE_MORE_CATS_FILE;
+	public static final String TEST_DALMATION_FILE;
 
 	static {
 		Properties constants = new Properties();
@@ -35,6 +40,12 @@ public class TestDataBuilder {
 		TEST_SAMPLE_ZIP_FILE = constants.getProperty("sample_zip_file");
 		TEST_NEGATIVE_ZIP_FILE = constants.getProperty("negative_zip_file");
 		TEST_NEGATIVE_CAT_FILE = constants.getProperty("negative_cat_file");
+		TEST_HUSKY_FILE = constants.getProperty("husky_file");
+		TEST_GOLDEN_FILE = constants.getProperty("golden_file");
+		TEST_BEAGLE_FILE = constants.getProperty("beagle_file");
+		TEST_NEGATIVE_MORE_CATS_FILE = constants.getProperty("negative_morecats_file");
+		TEST_DALMATION_FILE = constants.getProperty("dalmation_file");
+		
 		
 		File group_image = null;
 		File logo_image = null;
@@ -60,6 +71,31 @@ public class TestDataBuilder {
 	
 	public static String negativeCatExamplePath() {
 		String[] path = { "src", "test", "resources", TEST_NEGATIVE_CAT_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String positiveHuskyExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_HUSKY_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String positiveGoldenExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_GOLDEN_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String positiveBeagleExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_BEAGLE_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String negativeMoreCatsExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_MORE_CATS_FILE};
+		return StringUtils.join(path, File.separator);
+	}
+	
+	public static String positiveDalmationsExamplePath() {
+		String[] path = { "src", "test", "resources", TEST_DALMATION_FILE};
 		return StringUtils.join(path, File.separator);
 	}
 }

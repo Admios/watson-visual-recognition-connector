@@ -1,63 +1,71 @@
 package org.mule.modules.watsonvisualrecognition.automation.functional;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.UUID;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class UpdateClassifierTestCases extends AbstractTestCases {
 	
-	private String className;
-	private String classifierName;
-	private String classifierId;
-	private VisualClassifier classifier;
+	private ClassifierRequest cr;
 	
-//	/**
-//	 * Test with null file for UpdateClassifierTestCases class
-//	 * @throws VisualRecognitionException
-//	 */
-//	@Test(expected=IllegalArgumentException.class)
-//	public void testWithNullFile() throws VisualRecognitionException {
-//		getConnector().updateClassifier(null,"test_class", "test", null);
-//	}
-	
-	private void setupClassifier() {
-		className = "cats";
-		classifierName = UUID.randomUUID().toString();
-		try {
-			//classifier = getConnector().createClassifier(new File(TestDataBuilder.sampleZipPath()), className, classifierName, new File(TestDataBuilder.negativeSampleZipPath()));
-			classifierId = "dogs_662895153";
-		} catch (Exception e) { //change to VisualRecognitionException
-			fail(e.getMessage());
-		}
+	@Test(expected = NotFoundException.class)
+	public void testDeleteClassifierWithInvalidId() {
+		getConnector().deleteClassifier("test");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteClassifierWithNull() {
+		getConnector().deleteClassifier(null);
 	}
 	
-	private void tearDown() {
-		//getConnector().deleteClassifier(classifierName);
-	}
-	
-	/**
-	 * Test with not null file for UpdateClassifierTestCases class for free version API key
-	 */
 	@Test
-	public void testWithFile() {
-		setupClassifier();
-		classifier = null;
+	public void testSuccessCreation() {
+	    buildCreateRequest();
+		VisualClassifier dummyClassifier = null;
 		try {
-			File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath());
-			classifier = getConnector().updateClassifier(null, className, classifierId, negativeExamples);
+			dummyClassifier = getConnector().createClassifier(cr);
+			buildUpdateRequest();
+			dummyClassifier = getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
 		}
-
-		assertNotNull(classifier);
-		tearDown();
+		getConnector().deleteClassifier(dummyClassifier.getId());
 	}
 	
+	private void buildCreateRequest() {
+	    cr = new ClassifierRequest();
+		
+		String rvalue = String.valueOf(new Date().getTime());
+		cr.setClassifierNameOrId("dogs" + rvalue);
+		
+		File negativeExamples = new File(TestDataBuilder.TEST_NEGATIVE_CAT_FILE); 
+		Map<String, File> positiveExamples = new HashMap<>();
+		
+		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
+		positiveExamples.put("beagle", new File(TestDataBuilder.positiveBeagleExamplePath()));
+		positiveExamples.put("husky", new File(TestDataBuilder.positiveHuskyExamplePath()));
+		
+		
+		cr.setNegativeExamples(negativeExamples);
+		
+		cr.setPositiveExamples(positiveExamples);
+	}
+	
+	private void buildUpdateRequest() {
+		File negativeExamples = new File(TestDataBuilder.negativeMoreCatsExamplePath());
+		Map<String, File> positiveExamples = new HashMap<>();
+		positiveExamples.put("dalmations", new File(TestDataBuilder.positiveDalmationsExamplePath()));
+		cr.setNegativeExamples(negativeExamples);
+		cr.setPositiveExamples(positiveExamples);
+	}
 }

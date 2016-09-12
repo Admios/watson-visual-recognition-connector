@@ -3,6 +3,7 @@ package org.mule.modules.watsonvisualrecognition.handler.implementation;
 import static org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils.isValidZipFile;
 
 import java.io.File;
+import java.util.Map;
 
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
@@ -14,7 +15,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	/**
-	 * Basic atribute for options with ClassifierOptions class
+	 * Basic attribute for options with ClassifierOptions class
 	 */
 	private ClassifierOptions.Builder builder = new ClassifierOptions.Builder();
 	
@@ -35,22 +36,26 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 	
 	/**
 	 * Method useful for adding positive examples to a given class
-	 * @param classname Name of the watson class
-	 * @param file Compressed *.zip file that contains images associated with positive examples
-	 * @return 
+	 * @param positiveExamples This map represents the relation between the class name
+	 * and a compressed *.zip file that contains images associated with positive examples
+	 * @return UpdateClassifierHandler 
 	 * @throws VisualRecognitionException Common exception used in the visual recognition project
 	 */
-	public UpdateClassifierHandler addPositiveSamples(String classname, File file) throws VisualRecognitionException {
-		if(isValidZipFile(file, 1, -1)) {
-			builder.addClass(classname, file);
+	public UpdateClassifierHandler addPositiveSamples(Map<String, File> positiveExamples) throws VisualRecognitionException {
+		for(String key: positiveExamples.keySet()) {
+			File file = positiveExamples.get(key);
+			if(isValidZipFile(file, 1, -1)) {
+				builder.addClass(key, file);
+			}
 		}
+		
 		return this;
 	}
 	
 	/**
 	 * Method useful for adding positive examples to a given class
 	 * @param file Compressed *.zip file that contains images associated with positive examples
-	 * @return
+	 * @return UpdateClassifierHandler
 	 * @throws VisualRecognitionException Common exception used in the visual recognition project
 	 */
 	public UpdateClassifierHandler addNegativeSamples(File file) throws VisualRecognitionException {
