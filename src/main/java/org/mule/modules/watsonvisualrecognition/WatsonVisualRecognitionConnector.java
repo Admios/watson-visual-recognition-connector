@@ -1,5 +1,8 @@
 package org.mule.modules.watsonvisualrecognition;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.mule.api.annotations.Connector;
@@ -21,6 +24,7 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateCla
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
+import org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils;
 
 import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -184,5 +188,37 @@ public class WatsonVisualRecognitionConnector {
 				.addPositiveSamples(request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
+	}
+
+	/**
+	 * Convert an array of bytes into a File object to use it in the other operations.
+	 *
+	 * @param data The array of byte to convert.
+	 * @param extension The extension of the file you want to create.
+	 * 
+	 * @return return A temporal file with the contend of the byte array.
+	 * @throws IOException If there is any problem creating the temporal file.
+	 * @throws IllegalArgumentException When the data parameter is not a byte[].
+	 */
+	@Processor
+	public File byteArrayToFile(@Default("#[payload]") Object data, String extension) throws IOException {
+		if (!(data instanceof byte[])) {
+			throw new IllegalArgumentException("The data parameter should be a byte[] but was " + data.getClass());
+		}
+		return VisualRecognitionUtils.byteArrayToFile((byte[]) data, extension);
+	}
+
+	/**
+	 * Convert an array of bytes into a File object to use it in the other operations.
+	 *
+	 * @param data The InputStream to convert.
+	 * @param extension The extension of the file you want to create.
+	 * 
+	 * @return return A temporal file with the contend of the InputStream.
+	 * @throws IOException If there is any problem creating the temporal file.
+	 */
+	@Processor
+	public File inputStreamToFile(@Default("#[payload]") InputStream data, String extension) throws IOException {
+		return VisualRecognitionUtils.inputStreamToFile(data, extension);
 	}
 }
