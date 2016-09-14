@@ -1,6 +1,8 @@
 package org.mule.modules.watsonvisualrecognition.automation.unit;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -13,16 +15,16 @@ public class ClassifierRequestTest {
 	@Test
 	public void testPojo() {
 		ClassifierRequest pojo = new ClassifierRequest();
-		pojo.setPositiveExamples(new File("path/positive"));
+		Map<String, File> positiveExamples = new HashMap<String, File>();
+		positiveExamples.put("Class Name", new File("path/positive"));
+		pojo.setPositiveExamples(positiveExamples);
 		pojo.setNegativeExamples(new File("path/negative"));
-		pojo.setClassName("Class Name");
-		pojo.setClassifierNameOrId("Classifier Id");
 		
-		assertEquals("Class Name", pojo.getClassName());
+		pojo.setClassifierNameOrId("Classifier Id");
 		assertEquals("Classifier Id", pojo.getClassifierNameOrId());
 		assertNotNull(pojo.getPositiveExamples());
-		assertEquals("path/positive", pojo.getPositiveExamples().getPath());
+		assertEquals("path/positive", pojo.getPositiveExamples().get("Class Name").getPath());
 		assertNotNull(pojo.getNegativeExamples());
-		assertEquals("path/negative", pojo.getNegativeExamples().getPath());
+		assertEquals("path/negative", pojo.getPositiveExamples().get("Class Name").getPath());
 	}
 }

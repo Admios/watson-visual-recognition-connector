@@ -1,6 +1,7 @@
 package org.mule.modules.watsonvisualrecognition.model;
 
 import java.io.File;
+import java.util.Map;
 
 import org.mule.api.annotations.Required;
 
@@ -16,19 +17,9 @@ public class ClassifierRequest {
 	 */
 	@Required
 	private String classifierNameOrId;
-
-	/**
-	 * A compressed (.zip) file of images that depict the visual subject for a class within the new classifier. Must
-	 * contain a minimum of 10 images.
-	 */
+	
 	@Required
-	private File positiveExamples;
-
-	/**
-	 * Name of the positive examples.
-	 */
-	@Required
-	private String className;
+	private Map<String, File> positiveExamples;
 
 	/**
 	 * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new
@@ -56,18 +47,10 @@ public class ClassifierRequest {
 	 * 
 	 * @return the positiveExamples
 	 */
-	public File getPositiveExamples() {
+	public Map<String, File> getPositiveExamples() {
 		return positiveExamples;
 	}
 
-	/**
-	 * Name of the positive examples.
-	 * 
-	 * @return the className
-	 */
-	public String getClassName() {
-		return className;
-	}
 
 	/**
 	 * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new
@@ -89,15 +72,8 @@ public class ClassifierRequest {
 	/**
 	 * @param positiveExamples the positiveExamples to set
 	 */
-	public void setPositiveExamples(File positiveExamples) {
+	public void setPositiveExamples(Map<String, File> positiveExamples) {
 		this.positiveExamples = positiveExamples;
-	}
-
-	/**
-	 * @param className the className to set
-	 */
-	public void setClassName(String className) {
-		this.className = className;
 	}
 
 	/**

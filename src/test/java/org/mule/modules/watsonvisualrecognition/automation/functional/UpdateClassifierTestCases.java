@@ -1,86 +1,82 @@
 package org.mule.modules.watsonvisualrecognition.automation.functional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.UUID;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class UpdateClassifierTestCases extends AbstractTestCases {
 	
-	private ClassifierRequest request;
-	private String className;
-	private String classifierName;
-	private VisualClassifier classifier;
+	private ClassifierRequest cr;
 	
-	/**
-	 * Test with null file for UpdateClassifierTestCases class
-	 * @throws VisualRecognitionException
-	 */
-	@Test(expected=IllegalArgumentException.class)
-	public void testWithNullFile() throws VisualRecognitionException {
-		request.setClassName("test_class");
-		request.setClassifierNameOrId("test");
-		getConnector().updateClassifier(request);
-	}
-
-	@Before
-	public void setupRequest() {
-		request = new ClassifierRequest();
-	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateClassifierWithNull() {
+		cr = new ClassifierRequest();
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
+		Map<String, File> positiveExamples = new HashMap<>();
+		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
+		cr.setNegativeExamples(negativeExamples);
+		cr.setPositiveExamples(positiveExamples);
 	
-	public void setupClassifier() {
-		className = UUID.randomUUID().toString().replaceAll("-", "");
-		classifierName = UUID.randomUUID().toString().replaceAll("-", "");
-		ClassifierRequest request = new ClassifierRequest();
-		request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
-		request.setClassName(className);
-		request.setClassifierNameOrId(classifierName);
-		request.setNegativeExamples( new File(TestDataBuilder.negativeSampleZipPath()));
 		try {
-			classifier = getConnector().createClassifier(request);
+			getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
+			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 	}
 	
-	/**
-	 * Test with not null file for UpdateClassifierTestCases class
-	 */
 	@Test
-	public void testWithFile() {
-
-		setupClassifier();
+	public void testSuccessUpdate() {
+		VisualClassifier dummyClassifier = null;
 		try {
-			request.setPositiveExamples(new File(TestDataBuilder.sampleZipPath()));
-			request.setClassName(className);
-			request.setClassifierNameOrId(classifierName);
-			request.setNegativeExamples( new File(TestDataBuilder.negativeSampleZipPath()));
-			classifier = getConnector().updateClassifier(request);
+			buildCreateRequest();
+			dummyClassifier = getConnector().createClassifier(cr);
+			cr.setClassifierNameOrId(dummyClassifier.getId());
+			buildUpdateRequest();
+			Thread.sleep(60000); //We need to wait a while to make the update because the classifier is in training status
+			dummyClassifier = getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());
+		} catch (InterruptedException e) {
+			fail(e.getMessage());
 		}
-
-		assertNotNull(classifier);
-		assertEquals(classifier.getName(),className);
-		assertEquals(classifier.getStatus().toString(),classifierName);
-
-		deleteClassifier();
-
+		getConnector().deleteClassifier(dummyClassifier.getId());
 	}
-
-	public void deleteClassifier() {
-		getConnector().deleteClassifier(classifierName);
-		Config config = new Config();
-		config.getService().deleteClassifier(classifierName).execute();
+	
+	private void buildCreateRequest() {
+	    cr = new ClassifierRequest();
+		
+		String rvalue = String.valueOf(new Date().getTime());
+		cr.setClassifierNameOrId("dogs" + rvalue);
+		
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
+		Map<String, File> positiveExamples = new HashMap<>();
+		
+		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
+		positiveExamples.put("beagle", new File(TestDataBuilder.positiveBeagleExamplePath()));
+		positiveExamples.put("husky", new File(TestDataBuilder.positiveHuskyExamplePath()));
+		
+		
+		cr.setNegativeExamples(negativeExamples);
+		
+		cr.setPositiveExamples(positiveExamples);
+	}
+	
+	private void buildUpdateRequest() {
+		File negativeExamples = new File(TestDataBuilder.negativeMoreCatsExamplePath());
+		Map<String, File> positiveExamples = new HashMap<>();
+		positiveExamples.put("dalmations", new File(TestDataBuilder.positiveDalmationsExamplePath()));
+		cr.setNegativeExamples(negativeExamples);
+		cr.setPositiveExamples(positiveExamples);
 	}
 }

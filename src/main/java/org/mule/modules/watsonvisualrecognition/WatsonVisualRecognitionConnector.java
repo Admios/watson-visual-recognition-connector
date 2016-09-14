@@ -165,7 +165,7 @@ public class WatsonVisualRecognitionConnector {
 	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
-				.addPositiveExamples(request.getClassName(), request.getPositiveExamples())
+				.addPositiveExamples(request.getPositiveExamples())
 				.addNegativeExamples(request.getNegativeExamples())
 				.addClassifierId(request.getClassifierNameOrId())
 				.execute();
@@ -185,7 +185,7 @@ public class WatsonVisualRecognitionConnector {
 	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
-				.addPositiveSamples(request.getClassName(), request.getPositiveExamples())
+				.addPositiveSamples(request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
 	}
