@@ -31,7 +31,8 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	@Override
 	public VisualClassifier execute() {
-		return service.updateClassifier(classifierId, builder.build()).execute();
+		ClassifierOptions classifierOptions = builder.build();
+		return service.updateClassifier(classifierId, classifierOptions).execute();
 	}
 	
 	/**
@@ -44,9 +45,7 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 	public UpdateClassifierHandler addPositiveSamples(Map<String, File> positiveExamples) throws VisualRecognitionException {
 		for(String key: positiveExamples.keySet()) {
 			File file = positiveExamples.get(key);
-			if(isValidZipFile(file, 1, -1)) {
-				builder.addClass(key, file);
-			}
+			builder.addClass(key, file);
 		}
 		
 		return this;
@@ -59,9 +58,7 @@ public class UpdateClassifierHandler extends CommonHandler<VisualClassifier> {
 	 * @throws VisualRecognitionException Common exception used in the visual recognition project
 	 */
 	public UpdateClassifierHandler addNegativeSamples(File file) throws VisualRecognitionException {
-		if(isValidZipFile(file, 1, -1)) {
-			builder.negativeExamples(file);
-		}
+		builder.negativeExamples(file);
 		return this;
 	}
 

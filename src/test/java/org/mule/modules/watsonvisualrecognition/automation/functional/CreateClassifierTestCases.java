@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
@@ -18,14 +17,14 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 
 	private ClassifierRequest request;
 	
-	@Before
-	public void createRequest() {
-		request = new ClassifierRequest();
-	}
-	
+	/**
+	 * Test case for illegal argument request
+	 * @throws VisualRecognitionException
+	 */
 	@Test(expected=IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
 		
+		request = new ClassifierRequest();
 		Map<String, File> positiveExamples = new HashMap<>();
 		positiveExamples.put("test_class", null);
 		request.setPositiveExamples(positiveExamples);
@@ -33,6 +32,9 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 		getConnector().createClassifier(request);
 	}
 
+	/**
+	 * Test case for success case of creating a classifier
+	 */
 	@Test
 	public void testSuccessCreation() {
 		ClassifierRequest cr = buildRequest();
@@ -51,13 +53,10 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 		String rvalue = String.valueOf(new Date().getTime());
 		cr.setClassifierNameOrId("dogs" + rvalue);
 		
-		File negativeExamples = new File(TestDataBuilder.TEST_NEGATIVE_CAT_FILE); 
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
 		Map<String, File> positiveExamples = new HashMap<>();
 		
 		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
-		positiveExamples.put("beagle", new File(TestDataBuilder.positiveBeagleExamplePath()));
-		positiveExamples.put("husky", new File(TestDataBuilder.positiveHuskyExamplePath()));
-		
 		
 		cr.setNegativeExamples(negativeExamples);
 		

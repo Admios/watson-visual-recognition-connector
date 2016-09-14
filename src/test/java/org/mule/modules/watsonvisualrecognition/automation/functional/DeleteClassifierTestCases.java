@@ -16,16 +16,25 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 
 public class DeleteClassifierTestCases extends AbstractTestCases {
 	
+	/**
+	 * Test case for deleting a non existing classifier
+	 */
 	@Test(expected = NotFoundException.class)
 	public void testDeleteClassifierWithInvalidId() {
 		getConnector().deleteClassifier("test");
 	}
 
+	/**
+	 * Test case for illegal arguments
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeleteClassifierWithNull() {
 		getConnector().deleteClassifier(null);
 	}
 	
+	/**
+	 * Test case that verifies if a classifier is eliminated in the proper way
+	 */
 	@Test
 	public void testEfectiveDeleteClassifier() {
 		ClassifierRequest cr = buildRequest();
@@ -44,13 +53,10 @@ public class DeleteClassifierTestCases extends AbstractTestCases {
 		String rvalue = String.valueOf(new Date().getTime());
 		cr.setClassifierNameOrId("dogs" + rvalue);
 		
-		File negativeExamples = new File(TestDataBuilder.TEST_NEGATIVE_CAT_FILE); 
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
 		Map<String, File> positiveExamples = new HashMap<>();
 		
 		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
-		positiveExamples.put("beagle", new File(TestDataBuilder.positiveBeagleExamplePath()));
-		positiveExamples.put("husky", new File(TestDataBuilder.positiveHuskyExamplePath()));
-		
 		
 		cr.setNegativeExamples(negativeExamples);
 		

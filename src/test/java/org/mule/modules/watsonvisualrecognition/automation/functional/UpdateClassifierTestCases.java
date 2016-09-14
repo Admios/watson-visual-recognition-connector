@@ -18,25 +18,36 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 	
 	private ClassifierRequest cr;
 	
-	@Test(expected = NotFoundException.class)
-	public void testDeleteClassifierWithInvalidId() {
-		getConnector().deleteClassifier("test");
-	}
-
 	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteClassifierWithNull() {
-		getConnector().deleteClassifier(null);
+	public void testUpdateClassifierWithNull() {
+		cr = new ClassifierRequest();
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
+		Map<String, File> positiveExamples = new HashMap<>();
+		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
+		cr.setNegativeExamples(negativeExamples);
+		cr.setPositiveExamples(positiveExamples);
+	
+		try {
+			getConnector().updateClassifier(cr);
+		} catch (VisualRecognitionException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
-	public void testSuccessCreation() {
-	    buildCreateRequest();
+	public void testSuccessUpdate() {
 		VisualClassifier dummyClassifier = null;
 		try {
+			buildCreateRequest();
 			dummyClassifier = getConnector().createClassifier(cr);
+			cr.setClassifierNameOrId(dummyClassifier.getId());
 			buildUpdateRequest();
+			Thread.sleep(60000); //We need to wait a while to make the update because the classifier is in training status
 			dummyClassifier = getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
+			fail(e.getMessage());
+		} catch (InterruptedException e) {
 			fail(e.getMessage());
 		}
 		getConnector().deleteClassifier(dummyClassifier.getId());
@@ -48,7 +59,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		String rvalue = String.valueOf(new Date().getTime());
 		cr.setClassifierNameOrId("dogs" + rvalue);
 		
-		File negativeExamples = new File(TestDataBuilder.TEST_NEGATIVE_CAT_FILE); 
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
 		Map<String, File> positiveExamples = new HashMap<>();
 		
 		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
