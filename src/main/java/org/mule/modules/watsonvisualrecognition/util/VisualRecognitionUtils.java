@@ -56,7 +56,7 @@ public class VisualRecognitionUtils {
 	 * @param minimum Minimum quantity inside the zip file. Send -1 to ignore minimum
 	 * @param maximum Maximum quantity inside the zip file. Send -1 to ignore maximum
 	 * @return Return true if is a valid existing file, with a content between the range of minimum and maximum.
-	 * @throws VisualRecognitionException
+	 * @throws VisualRecognitionException If the the file is invalid
 	 */
 	@SuppressWarnings("resource")
 	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
@@ -100,6 +100,7 @@ public class VisualRecognitionUtils {
 	 * Create a temporal file with the content of data.
 	 * 
 	 * @param data The content to put in the file.
+	 * @param extension The Extension of the file.
 	 * @return return A temporal file with the contend of the byte array.
 	 * @throws IOException If there is any problem creating the temporal file.
 	 */
@@ -115,6 +116,7 @@ public class VisualRecognitionUtils {
 	 * Create a temporal file with the content of data.
 	 * 
 	 * @param data The content to put in the file.
+	 * @param extension The Extension of the file.
 	 * @return return A temporal file with the contend of the InputStream.
 	 * @throws IOException If there is any problem creating the temporal file.
 	 */

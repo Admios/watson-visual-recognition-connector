@@ -62,7 +62,7 @@ public class WatsonVisualRecognitionConnector {
 	 * Upload images or URLs to identify built-in classifiers by default. To identify custom classifiers, include the
 	 * classifier_ids parameters. Images must be in .jpeg, or .png format.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
 	 * @param request Request with all the options for the classify an image operation.
 	 * 
@@ -81,7 +81,7 @@ public class WatsonVisualRecognitionConnector {
 	 * Analyze faces in images and get data about them, such as estimated age and gender. Images must be in .jpeg, or
 	 * .png format.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
 	 * @param request Request with all the options for the detect faces operation.
 	 * 
@@ -98,7 +98,7 @@ public class WatsonVisualRecognitionConnector {
 	 * Recognizes text in images. This is a beta function of the Visual Recognition service that supports only English
 	 * language text identification.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text">API Doc</a>
 	 *
 	 * @param request Request with all the options for the recognize text operation.
 	 * 
@@ -114,7 +114,8 @@ public class WatsonVisualRecognitionConnector {
 	/**
 	 * Retrieve a list of user-created classifiers.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#create_a_classifier">API
+	 * Doc</a>
 	 * 
 	 * @return A list of classifiers associated with your API Key.
 	 */
@@ -126,8 +127,8 @@ public class WatsonVisualRecognitionConnector {
 	/**
 	 * Retrieve information about a specific classifier.
 	 * 
-	 * API Doc:
-	 * {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#retrieve_classifier_details}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#retrieve_classifier_details">
+	 * API Doc</a>
 	 * 
 	 * @param classifierId The ID of the classifier for which you want details.
 	 * 
@@ -141,7 +142,8 @@ public class WatsonVisualRecognitionConnector {
 	/**
 	 * Delete a custom classifier with the specified classifier ID.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#delete_a_classifier}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#delete_a_classifier">API
+	 * Doc</a>
 	 * 
 	 * @param classifierId The ID of the classifier you want to delete.
 	 * 
@@ -157,7 +159,8 @@ public class WatsonVisualRecognitionConnector {
 	 * supply at least two compressed files, either two positive example files or one positive and one negative example
 	 * file.
 	 * 
-	 * API Doc: {@see http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier}
+	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier">API
+	 * Doc</a>
 	 * 
 	 * @param request Request with all the options for the create classifier operation.
 	 * 
@@ -177,7 +180,7 @@ public class WatsonVisualRecognitionConnector {
 	/**
 	 * Update an existing classifier by adding new classes, or by adding new images to existing classes
 	 * 
-	 * API Doc: {@see https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier}
+	 * <a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
 	 * 
 	 * @param request Request with all the options for the update classifier operation.
 	 * 

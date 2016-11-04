@@ -36,7 +36,7 @@ public class Config {
 	 *
 	 * @param apiKey A apiKey
 	 * @param versionDate Version date of the API
-	 * @throws ConnectionException
+	 * @throws ConnectionException If there is any connectivity error like an invalid apiKey.
 	 */
 	@Connect
 	@TestConnectivity
@@ -60,6 +60,8 @@ public class Config {
 
 	/**
 	 * Are we connected
+	 * 
+	 * @return if the connection is open
 	 */
 	@ValidateConnection
 	public boolean isConnected() {
@@ -67,7 +69,9 @@ public class Config {
 	}
 
 	/**
-	 * Are we connected
+	 * Get connection id
+	 * 
+	 * @return connection id
 	 */
 	@ConnectionIdentifier
 	public String connectionId() {
