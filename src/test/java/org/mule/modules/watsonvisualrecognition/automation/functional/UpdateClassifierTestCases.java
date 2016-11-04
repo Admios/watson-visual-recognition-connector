@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class UpdateClassifierTestCases extends AbstractTestCases {
@@ -30,7 +29,6 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 		try {
 			getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
-			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 	}
@@ -43,7 +41,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 			dummyClassifier = getConnector().createClassifier(cr);
 			cr.setClassifierNameOrId(dummyClassifier.getId());
 			buildUpdateRequest();
-			Thread.sleep(60000); //We need to wait a while to make the update because the classifier is in training status
+			Thread.sleep(1000); //We need to wait a while to make the update because the classifier is in training status
 			dummyClassifier = getConnector().updateClassifier(cr);
 		} catch (VisualRecognitionException e) {
 			fail(e.getMessage());

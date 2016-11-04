@@ -25,6 +25,6 @@ public class ClassifierRequestTest {
 		assertNotNull(pojo.getPositiveExamples());
 		assertEquals("path/positive", pojo.getPositiveExamples().get("Class Name").getPath());
 		assertNotNull(pojo.getNegativeExamples());
-		assertEquals("path/negative", pojo.getPositiveExamples().get("Class Name").getPath());
+		assertEquals("path/negative", pojo.getNegativeExamples().getPath());
 	}
 }

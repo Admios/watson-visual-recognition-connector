@@ -11,10 +11,12 @@ public class TestDataBuilder {
 
 	public static final String TEST_GROUP_URL_IMAGE;
 	public static final File TEST_IMAGE_GROUP;
+	public static final String TEST_PERSON_URL_IMAGE;
+	public static final File TEST_PERSON_IMAGE;
 	public static final String TEST_TEXT_URL_IMAGE;
 	public static final File TEST_IMAGE_TEXT;
 	public static final String TEST_GROUP_IMAGE_CLASS;
-	public static final Integer TEST_GROUP_IMAGE_RECOGNIZED_FACES;
+	public static final Integer TEST_PERSON_IMAGE_RECOGNIZED_FACES;
 	public static final String TEST_TEXT_IMAGE_TEXT;
 	public static final String TEST_SAMPLE_ZIP_FILE;
 	public static final String TEST_NEGATIVE_ZIP_FILE;
@@ -33,8 +35,9 @@ public class TestDataBuilder {
 			e.printStackTrace();
 		}
 		TEST_GROUP_URL_IMAGE = constants.getProperty("url_group_image");
+		TEST_PERSON_URL_IMAGE = constants.getProperty("url_person_image");
 		TEST_GROUP_IMAGE_CLASS = constants.getProperty("group_image_class1");
-		TEST_GROUP_IMAGE_RECOGNIZED_FACES = Integer.valueOf(constants.getProperty("group_image_reconigzed_faces"));
+		TEST_PERSON_IMAGE_RECOGNIZED_FACES = Integer.valueOf(constants.getProperty("person_image_reconigzed_faces"));
 		TEST_TEXT_URL_IMAGE = constants.getProperty("url_text_image");
 		TEST_TEXT_IMAGE_TEXT = constants.getProperty("text_image_text");
 		TEST_SAMPLE_ZIP_FILE = constants.getProperty("sample_zip_file");
@@ -45,57 +48,59 @@ public class TestDataBuilder {
 		TEST_BEAGLE_FILE = constants.getProperty("beagle_file");
 		TEST_NEGATIVE_MORE_CATS_FILE = constants.getProperty("negative_morecats_file");
 		TEST_DALMATION_FILE = constants.getProperty("dalmation_file");
-		
-		
+
 		File group_image = null;
+		File person_image = null;
 		File logo_image = null;
 		try {
 			group_image = new File(TestDataBuilder.class.getResource("/images/Team2016.jpg").toURI());
+			person_image = new File(TestDataBuilder.class.getResource("/images/person.jpg").toURI());
 			logo_image = new File(TestDataBuilder.class.getResource("/images/text.jpg").toURI());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		TEST_IMAGE_GROUP = group_image;
 		TEST_IMAGE_TEXT = logo_image;
+		TEST_PERSON_IMAGE = person_image;
 	}
-	
+
 	public static String sampleZipPath() {
-		String[] path = { "src", "test", "resources", TEST_SAMPLE_ZIP_FILE};
+		String[] path = { "src", "test", "resources", TEST_SAMPLE_ZIP_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String negativeSampleZipPath() {
-		String[] path = { "src", "test", "resources", TEST_NEGATIVE_ZIP_FILE};
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_ZIP_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String negativeCatExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_NEGATIVE_CAT_FILE};
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_CAT_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String positiveHuskyExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_HUSKY_FILE};
+		String[] path = { "src", "test", "resources", TEST_HUSKY_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String positiveGoldenExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_GOLDEN_FILE};
+		String[] path = { "src", "test", "resources", TEST_GOLDEN_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String positiveBeagleExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_BEAGLE_FILE};
+		String[] path = { "src", "test", "resources", TEST_BEAGLE_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String negativeMoreCatsExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_NEGATIVE_MORE_CATS_FILE};
+		String[] path = { "src", "test", "resources", TEST_NEGATIVE_MORE_CATS_FILE };
 		return StringUtils.join(path, File.separator);
 	}
-	
+
 	public static String positiveDalmationsExamplePath() {
-		String[] path = { "src", "test", "resources", TEST_DALMATION_FILE};
+		String[] path = { "src", "test", "resources", TEST_DALMATION_FILE };
 		return StringUtils.join(path, File.separator);
 	}
 }
