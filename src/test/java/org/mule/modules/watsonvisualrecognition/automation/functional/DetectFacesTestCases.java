@@ -36,7 +36,6 @@ public class DetectFacesTestCases extends AbstractTestCases {
 	}
 
 	public void assertVisualClassification(DetectedFaces detectedFaces) {
-		System.out.println(detectedFaces);
 		assertNotNull(detectedFaces);
 		assertEquals(detectedFaces.getImages().size(), 1);
 		assertEquals(TestDataBuilder.TEST_PERSON_IMAGE_RECOGNIZED_FACES,
