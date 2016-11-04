@@ -1,0 +1,306 @@
+////
+The following is the approved connector user guide template for documenting MuleSoft Supported Connectors.
+////
+
+= Watson Visual Recognition Connector User Guide
+:keywords: add_keywords_separated_by_commas
+:imagesdir: ./_images
+:toc: macro
+:toclevels: 2
+////
+Image names follow "image:". Identify images using the connector name, preferably without the word "connector"
+URLs should always follow "link:"
+////
+
+// Dropdown for Connector Version
+//  Children: Technical Reference / Demos
+
+toc::[]
+
+
+== Introduction
+
+Visual Recognition allows users to understand the contents of an image or video frame, answering the question: “What is in this image?” Submit an image, and the service returns scores for relevant classifiers representing things such as objects, events and settings.
+
+Read through this user guide to understand how to set up and configure a basic flow using the connector. Track feature additions, compatibility, limitations and API version updates with each release of the connector using the link:release-notes.html[Connector Release Notes]. Review the connector operations and functionality using the link:https://github.com/Admios/watson-visual-recognition-connector/tree/master/demo/classify-url-image-demo[demo application].
+
+MuleSoft maintains this connector under the link:https://docs.mulesoft.com/mule-user-guide/v/3.8/anypoint-connectors#connector-categories[Certified] support policy.
+
+
+== Prerequisites
+
+This document assumes that you are familiar with Mule,
+link:https://docs.mulesoft.com/mule-user-guide/v/3.8/anypoint-connectors[Anypoint Connectors], and
+link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/anypoint-studio-essentials[Anypoint Studio Essentials]. To increase your familiarity with Studio, consider completing a link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/basic-studio-tutorial[Anypoint Studio Tutorial]. This page requires some basic knowledge of link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/mule-concepts[Mule Concepts], link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/elements-in-a-mule-flow[Elements in a Mule Flow], and link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/global-elements[Global Elements].
+
+
+[[requirements]]
+=== Hardware and Software Requirements
+
+For hardware and software requirements, please visit the link:https://docs.mulesoft.com/mule-user-guide/v/3.8/hardware-and-software-requirements[Hardware and Software Requirements] page.
+
+
+
+=== Compatibility
+[width="100%", cols=",", options="header"]
+|===
+|Software |Version
+|Mule Runtime |3.6
+|Watson Visual Recognition |v3
+|===
+
+== Installing the Connector
+
+You can install the connector in Anypoint Studio using the instructions in
+link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/anypoint-exchange#installing-a-connector-from-anypoint-exchange[Installing a Connector from Anypoint Exchange].
+
+== Configuring the Connector Global Element
+
+To use the Watson Visual Recognition connector in your Mule application, you must configure a global Watson Visual Recognition element that can be used by the Watson Visual Recognition connector (read more about  link:https://docs.mulesoft.com/mule-fundamentals/v/3.8/global-elements[Global Elements]). The Watson Visual Recognition connector offers the following global configuration(s), requiring the following credentials: *Api Key*, *Version Date*:
+
+[width="100a",cols="50a,50a",options="header",]
+|===
+|Field |Description
+|*Api Key* |Enter the API Key retrieved from IBM Bluemix that will be used in all the request.
+|*Version Date* |Enter the release date of the version of the API you want to use, the current version is *2016-05-20*.
+|===
+
+image::watson-visual-recognition-global-element-props.png[watson-alchemy-language-config]
+
+== Using the Connector
+
+=== Connector Namespace and Schema
+
+When designing your application in Studio, the act of dragging the connector from the palette onto the Anypoint Studio canvas should automatically populate the XML code with the connector *namespace* and *schema location*.
+
+*Namespace:* `http://www.mulesoft.org/schema/mule/watson-visual-recognition`
+
+*Schema Location:* `http://www.mulesoft.org/schema/mule/connector/current/mule-connector.xsd`
+
+[TIP]
+If you are manually coding the Mule application in Studio's XML editor or other text editor, define the namespace and schema location in the header of your *Configuration XML*, inside the `<mule>` tag.
+
+[source, xml,linenums]
+----
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:watson-visual-recognition="http://www.mulesoft.org/schema/mule/watson-visual-recognition"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core
+               http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/watson-visual-recognition http://www.mulesoft.org/schema/mule/watson-visual-recognition/current/watson-visual-recognition.xsd">
+
+      <!-- put your global configuration elements and flows here -->
+
+</mule>
+----
+
+
+=== Using the Connector in a Mavenized Mule App
+
+If you are coding a Mavenized Mule application, this XML snippet must be included in your `pom.xml` file.
+
+[source,xml,linenums]
+----
+<dependency>
+	<groupId>com.admios.connector</groupId>
+	<artifactId>watson-visual-recognition-connector</artifactId>
+	<version>1.0.0</version>
+</dependency>
+----
+
+[TIP]
+====
+Inside the `<version>` tags, put the desired version number, the word `RELEASE` for the latest release, or `SNAPSHOT` for the latest available version. The available versions to date are:
+
+* *1.0.0*
+====
+
+
+== Demo Mule Applications Using Connector
+link:https://github.com/Admios/watson-visual-recognition-connector/tree/master/demo/classify-url-image-demo[Demo Application]
+
+
+=== Example Use Case
+
+* Automatize the registration of new car accidents for an Insurance classifying the images with Watson first, so based on the classification you can validate that the image of the accident is valid and avoid to pass invalid cases to a human operator.
+* Automatize the ingestion of digitalized invoices saved in a file system, for then be processed by Mule and Watson to extract the text and save the invoice with his metadata in a management system.
+
+==== Insurance Car Accidents
+* Create a new *Mule Project*.
+* In the Mule Palette, select connectors and drag and drop *HTTP Connector* in to the flow designer.
+* First we need to config the HTTP request service before using it. Click on the http connector and later in the HTTP tab below.
+* Add a new HTTP Listener Configuration and set the port to 8081, back into the http connector set the *Path* to "/car-accident".
+
+image::user-guide-01.png[Select Http tab]
+
+* In the Mule Palette, drag and drop a *Transform Message* in to the flow designer, and then use the following snippet to build our request for Watson:
+
+[source,Javascript]
+----
+%dw 1.0
+%output application/java
+---
+{
+	url: inboundProperties."http.query.params".image as :string
+} as :object {
+	class : "org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest"
+}
+----
+
+image::user-guide-02.png[Watson Request]
+
+* In the Mule Palette, select connectors and drag and drop *Watson Visual Recognition* in to the flow designer, then create a new configuration and set your **Api Key** from your Bluemix account ,and select the operation *Classify image*.
+
+image::user-guide-03.png[Watson Request]
+
+* Then you can add a *Transform Message* and use the following snippet to extract the classes from the response.
+
+[source,Javascript]
+----
+%dw 1.0
+%output application/java
+---
+payload.images.classifiers[0].classes map {
+	classes: $.name
+}
+----
+
+image::user-guide-04.png[Classes]
+
+* Now we want to check if there is a car in the image, drag and drop a *Choice* and put a *Set Payload* in the default box with the value:
+
+[source,Javascript]
+----
+{"status": "Error", "Description": "The image is invalid, doesn't contain any car"}
+----
+
+image::user-guide-05.png[Choice]
+
+* In the *Choice* box drag and drop another *Transform Message* and build the response with the following:
+
+[source,Javascript]
+----
+%dw 1.0
+%output application/json
+---
+{
+	client: inboundProperties."http.query.params".client,
+	description: inboundProperties."http.query.params".description,
+	image: inboundProperties."http.query.params".image
+}
+----
+
+image::user-guide-06.png[Choice]
+
+* Then in the *Choice* component configure the *When* to go to the *Transform Message* if the class is "car" otherwise go to *Set Payload*: 
+
+[source,Javascript]
+----
+#[payload.get(0).classes.contains("car")]
+----
+
+image::user-guide-07.png[Choice]
+
+* To finish you can add a subflow to save the response in your external system:
+
+image::user-guide-08.png[Flow Finished]
+
+* Finally you can try the demo making a request to *http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://thejmhlawfirm.com/wp-content/uploads/2015/07/car-wreck-one.jpg*:
+
+[source,javascript]
+----
+{
+  "client": "test",
+  "description": "An accident in Panama",
+  "image": "http://thejmhlawfirm.com/wp-content/uploads/2015/07/car-wreck-one.jpg"
+}
+----
+
+* Or try with a invalid car image *http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://www.capatec.org.pa/wp-content/uploads/2014/08/Logo-Admios-.jpg*:
+
+[source,javascript]
+----
+{
+    "status": "Error",
+    "Description": "The image is invalid, doesn't contain any car"
+}
+----
+
+=== Example Use Case - XML
+
+Paste this into Anypoint Studio to interact with the example use case application discussed in this guide.
+
+[source,xml,linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:watson-visual-recognition="http://www.mulesoft.org/schema/mule/watson-visual-recognition" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/watson-visual-recognition http://www.mulesoft.org/schema/mule/watson-visual-recognition/current/mule-watson-visual-recognition.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <watson-visual-recognition:config name="Watson_Visual_Recognition__Configuration" apiKey="${watson.apikey}" doc:name="Watson Visual Recognition: Configuration"/>
+    <flow name="RegisterCarAccidentFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/car-accident" doc:name="HTTP"/>
+        <dw:transform-message doc:name="Build Request">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	url: inboundProperties."http.query.params".image as :string
+} as :object {
+	class : "org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest"
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <watson-visual-recognition:classify-image config-ref="Watson_Visual_Recognition__Configuration" doc:name="Classify Image"/>
+        <dw:transform-message doc:name="Get Classes">
+            <dw:input-payload doc:sample="sample_data/VisualClassification.dwl"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload.images.classifiers[0].classes map {
+	classes: $.name
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <choice doc:name="Validate the image">
+            <when expression="#[payload.get(0).classes.contains(&quot;car&quot;)]">
+                <dw:transform-message doc:name="Generate Response">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	client: inboundProperties."http.query.params".client,
+	description: inboundProperties."http.query.params".description,
+	image: inboundProperties."http.query.params".image
+}]]></dw:set-payload>
+                </dw:transform-message>
+                <flow-ref name="SaveAccidentInExternalSystem" doc:name="SaveAccidentInExternalSystem"/>
+            </when>
+            <otherwise>
+                <set-payload value="{&quot;status&quot;: &quot;Error&quot;, &quot;Description&quot;: &quot;The image is invalid, doesn't contain any car&quot;}" doc:name="Invalid Image"/>
+            </otherwise>
+        </choice>
+    </flow>
+    <sub-flow name="SaveAccidentInExternalSystem">
+        <logger level="INFO" doc:name="Logger"/>
+    </sub-flow>
+</mule>
+----
+
+
+== Connector Performance
+
+To define the pooling profile for the connector manually, access the *Pooling Profile* tab in the applicable global element for the connector.
+
+For background information on pooling, see link:https://docs.mulesoft.com/mule-user-guide/v/3.8/tuning-performance[Tuning Performance].
+
+== Resources
+
+* Access the link:release-notes.html[Watson Visual Recognition Connector Release Notes].
