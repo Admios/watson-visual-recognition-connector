@@ -1,7 +1,5 @@
 package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
-import static org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils.isValidZipFile;
-
 import java.io.File;
 import java.util.Map;
 

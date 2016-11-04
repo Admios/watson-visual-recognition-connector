@@ -14,29 +14,30 @@ public class DetectFacesTestCases extends AbstractTestCases {
 	private ImageRequest request;
 
 	@Before
-	public void createRequest(){
+	public void createRequest() {
 		request = new ImageRequest();
 	}
-	
+
 	@Test
 	public void testWithURL() {
-		request.setUrl(TestDataBuilder.TEST_GROUP_URL_IMAGE);
+		request.setUrl(TestDataBuilder.TEST_PERSON_URL_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);
 		assertVisualClassification(detectedFaces);
 	}
 
 	@Test
 	public void testWithFile() {
-		request.setImage(TestDataBuilder.TEST_IMAGE_GROUP);
+		request.setImage(TestDataBuilder.TEST_PERSON_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);
 		assertVisualClassification(detectedFaces);
 	}
 
 	public void assertVisualClassification(DetectedFaces detectedFaces) {
+		System.out.println(detectedFaces);
 		assertNotNull(detectedFaces);
 		assertEquals(detectedFaces.getImages().size(), 1);
-		assertEquals((Integer) detectedFaces.getImages().get(0).getFaces().size(),
-				TestDataBuilder.TEST_GROUP_IMAGE_RECOGNIZED_FACES);
+		assertEquals(TestDataBuilder.TEST_PERSON_IMAGE_RECOGNIZED_FACES,
+				(Integer) detectedFaces.getImages().get(0).getFaces().size());
 	}
 
 }
