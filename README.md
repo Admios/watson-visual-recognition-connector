@@ -27,9 +27,9 @@ Need to figure out what is contained in many images, but don’t have the man-po
 
 ## Version 1.0.0
 
-- User Guide - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/user-manual.html
-- Release Notes - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/release-notes.html
-- Apidocs - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/apidocs/watson-alchemy-language-apidoc.html
+- User Guide - https://admios.github.io/watson-visual-recognition-connector/1.0.0/user-manual.html
+- Release Notes - https://admios.github.io/watson-visual-recognition-connector/1.0.0/release-notes.html
+- Apidocs - https://admios.github.io/watson-visual-recognition-connector/1.0.0/apidocs/watson-visual-recognition-apidoc.html
 
 # Reporting Issues
 
