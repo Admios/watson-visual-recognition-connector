@@ -1,7 +1,0 @@
-org.mule.modules.watsonvisualrecognition
-org.mule.modules.watsonvisualrecognition.config
-org.mule.modules.watsonvisualrecognition.exceptions
-org.mule.modules.watsonvisualrecognition.handler
-org.mule.modules.watsonvisualrecognition.handler.implementation
-org.mule.modules.watsonvisualrecognition.model
-org.mule.modules.watsonvisualrecognition.util

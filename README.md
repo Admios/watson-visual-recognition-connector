@@ -23,6 +23,14 @@ Need to figure out what is contained in many images, but don’t have the man-po
 - Find great images with specific content faster
 - Recognize custom content from images
 
+# Documentation
+
+## Version 1.0.0
+
+- User Guide - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/user-manual.html
+- Release Notes - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/release-notes.html
+- Apidocs - https://admios.github.io/watson-alchemy-language-connecto/1.0.0/apidocs/watson-alchemy-language-apidoc.html
+
 # Reporting Issues
 
 We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link http://github.com/Admios/watson-alchemy-language-connector/issues.
