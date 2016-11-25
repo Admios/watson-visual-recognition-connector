@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -93,7 +95,8 @@ public class VisualRecognitionUtils {
 				}
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.getLogger(VisualRecognitionUtils.class.getCanonicalName())
+						.log(Level.FINEST, e.getMessage(), e);
 				return false;
 			}
 		}
