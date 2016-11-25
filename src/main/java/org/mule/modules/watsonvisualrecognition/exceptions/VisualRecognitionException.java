@@ -10,8 +10,12 @@ public class VisualRecognitionException extends Exception {
 	public VisualRecognitionException() {
 		super();
 	}
-	
-	public VisualRecognitionException(String message){
+
+	public VisualRecognitionException(Throwable cause) {
+		super(cause);
+	}
+
+	public VisualRecognitionException(String message) {
 		super(message);
 	}
 
