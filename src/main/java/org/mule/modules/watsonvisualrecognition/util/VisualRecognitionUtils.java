@@ -19,6 +19,9 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognit
 
 public class VisualRecognitionUtils {
 
+	private VisualRecognitionUtils() {
+	}
+
 	public static VisualRecognitionOptions.Builder addSource(VisualRecognitionOptions.Builder options,
 			String url, File image) {
 
@@ -90,6 +93,7 @@ public class VisualRecognitionUtils {
 				}
 
 			} catch (IOException e) {
+				e.printStackTrace();
 				return false;
 			}
 		}
