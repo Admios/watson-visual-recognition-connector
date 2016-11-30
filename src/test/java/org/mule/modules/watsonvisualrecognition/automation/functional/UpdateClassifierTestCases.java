@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
@@ -37,6 +38,7 @@ public class UpdateClassifierTestCases extends AbstractTestCases {
 	}
 	
 	@Test
+	@Ignore("This tests is very expensive using the Watson API")
 	public void testSuccessUpdate() {
 		VisualClassifier dummyClassifier = null;
 		try {
