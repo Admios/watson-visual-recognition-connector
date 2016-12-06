@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.admios.connector</groupId>
 	<artifactId>watson-visual-recognition-connector</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-module</packaging>
 	<name>Mule Watson Visual Recognition Anypoint Connector</name>
 

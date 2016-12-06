@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
@@ -23,6 +24,7 @@ public class RecognizeTextTestCases extends AbstractTestCases {
 	}
 	
 	@Test
+	@Ignore("The URL image changes too often")
 	public void testWithURL() {
 		request.setUrl(TestDataBuilder.TEST_TEXT_URL_IMAGE);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
