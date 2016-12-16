@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
-import org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils;
+import org.mule.modules.watsonvisualrecognition.util.BuilderUtils;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
@@ -22,7 +22,7 @@ public class ClassifyImageHandler extends CommonHandler<VisualClassification> {
 	}
 
 	public ClassifyImageHandler addSource(String url, File image) {
-		VisualRecognitionUtils.addSource(options, url, image);
+		BuilderUtils.addSource(options, url, image);
 		return this;
 	}
 

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
@@ -22,6 +23,7 @@ public class DetectFacesTestCases extends AbstractTestCases {
 	}
 
 	@Test
+	@Ignore("The URL image changes too often")
 	public void testWithURL() {
 		request.setUrl(TestDataBuilder.TEST_PERSON_URL_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);

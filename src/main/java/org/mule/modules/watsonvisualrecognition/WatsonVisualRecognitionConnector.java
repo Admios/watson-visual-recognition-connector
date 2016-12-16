@@ -27,7 +27,7 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateCla
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
-import org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils;
+import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -48,7 +48,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 public class WatsonVisualRecognitionConnector {
 
 	@org.mule.api.annotations.Config
-	Config config;
+	private Config config;
 
 	public Config getConfig() {
 		return config;
@@ -211,7 +211,7 @@ public class WatsonVisualRecognitionConnector {
 		if (!(data instanceof byte[])) {
 			throw new IllegalArgumentException("The data parameter should be a byte[] but was " + data.getClass());
 		}
-		return VisualRecognitionUtils.byteArrayToFile((byte[]) data, extension);
+		return FileUtils.byteArrayToFile((byte[]) data, extension);
 	}
 
 	/**
@@ -225,6 +225,6 @@ public class WatsonVisualRecognitionConnector {
 	 */
 	@Processor
 	public File inputStreamToFile(@Default("#[payload]") InputStream data, String extension) throws IOException {
-		return VisualRecognitionUtils.inputStreamToFile(data, extension);
+		return FileUtils.inputStreamToFile(data, extension);
 	}
 }

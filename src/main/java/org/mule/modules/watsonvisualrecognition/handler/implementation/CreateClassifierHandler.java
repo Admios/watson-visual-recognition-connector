@@ -3,7 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
-import static org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils.isValidZipFile;
+import static org.mule.modules.watsonvisualrecognition.util.FileUtils.isValidZipFile;
 
 import java.io.File;
 import java.util.Map;
@@ -19,7 +19,6 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 
 	private ClassifierOptions.Builder builder = new ClassifierOptions.Builder();
 
-
 	public CreateClassifierHandler(VisualRecognition service) {
 		super(service);
 	}
@@ -30,19 +29,20 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 		return service.createClassifier(builder.build()).execute();
 	}
 
-	public CreateClassifierHandler addPositiveExamples(Map<String, File> positiveExamples) throws VisualRecognitionException {
-		for(String key: positiveExamples.keySet()) {
+	public CreateClassifierHandler addPositiveExamples(Map<String, File> positiveExamples)
+			throws VisualRecognitionException {
+		for (String key : positiveExamples.keySet()) {
 			File file = positiveExamples.get(key);
-			if(isValidZipFile(file, 10, -1)) {
+			if (isValidZipFile(file, 10, -1)) {
 				builder.addClass(key, file);
 			}
 		}
-		
+
 		return this;
 	}
 
 	public CreateClassifierHandler addNegativeExamples(File file) throws VisualRecognitionException {
-		if(isValidZipFile(file, 10, -1)) {
+		if (isValidZipFile(file, 10, -1)) {
 			builder.negativeExamples(file);
 		}
 		return this;
