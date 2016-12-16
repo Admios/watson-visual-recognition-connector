@@ -68,7 +68,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A list of detected classes in the image.
 	 */
-	@Processor
+	@Processor(friendlyName = "Classify an Image")
 	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
 		return new ClassifyImageHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
@@ -87,7 +87,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A list of detected faces, his age, gender and position in the image.
 	 */
-	@Processor
+	@Processor(friendlyName = "Detect Faces")
 	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new DetectFacesHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
@@ -104,7 +104,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return The text recognized in the image.
 	 */
-	@Processor
+	@Processor(friendlyName = "Recognize Text")
 	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
 		return new RecognizeTextHandler(config.getService())
 				.addSource(request.getUrl(), request.getImage())
@@ -119,7 +119,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A list of classifiers associated with your API Key.
 	 */
-	@Processor
+	@Processor(friendlyName = "Retrieve the List of Classifiers")
 	public List<VisualClassifier> retrieveListOfClassifiers() {
 		return new RetrieveListClassifiersHandler(config.getService()).execute();
 	}
@@ -134,7 +134,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A classifier associated with your API Key.
 	 */
-	@Processor
+	@Processor(friendlyName = "Retrieve Classifier Details")
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
 		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
 	}
@@ -148,7 +148,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @param classifierId The ID of the classifier you want to delete.
 	 * 
 	 */
-	@Processor
+	@Processor(friendlyName = "Delete a Classifier")
 	public void deleteClassifier(@Default("#[payload]") String classifierId) {
 		new DeleteClassifierHandler(config.getService(), classifierId).execute();
 	}
@@ -167,7 +167,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return The classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
-	@Processor
+	@Processor(friendlyName = "Create a Classifier")
 	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
@@ -187,7 +187,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @return The classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
 	 */
-	@Processor
+	@Processor(friendlyName = "Update a Classifier")
 	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
