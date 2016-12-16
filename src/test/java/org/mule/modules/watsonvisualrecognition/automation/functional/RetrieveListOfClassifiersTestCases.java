@@ -5,7 +5,7 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
