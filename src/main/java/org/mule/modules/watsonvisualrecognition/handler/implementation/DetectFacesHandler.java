@@ -6,7 +6,7 @@ package org.mule.modules.watsonvisualrecognition.handler.implementation;
 import java.io.File;
 
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
-import org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils;
+import org.mule.modules.watsonvisualrecognition.util.BuilderUtils;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -22,7 +22,7 @@ public class DetectFacesHandler extends CommonHandler<DetectedFaces> {
 	}
 
 	public DetectFacesHandler addSource(String url, File image) {
-		VisualRecognitionUtils.addSource(options, url, image);
+		BuilderUtils.addSource(options, url, image);
 		return this;
 	}
 

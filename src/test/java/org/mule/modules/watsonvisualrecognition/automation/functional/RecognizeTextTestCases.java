@@ -7,6 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,14 +27,14 @@ public class RecognizeTextTestCases extends AbstractTestCases {
 	
 	@Test
 	@Ignore("The URL image changes too often")
-	public void testWithURL() {
+	public void testWithURL() throws IOException {
 		request.setUrl(TestDataBuilder.TEST_TEXT_URL_IMAGE);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);
 	}
 
 	@Test
-	public void testWithFile() {
+	public void testWithFile() throws IOException {
 		request.setImage(TestDataBuilder.TEST_IMAGE_TEXT);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);

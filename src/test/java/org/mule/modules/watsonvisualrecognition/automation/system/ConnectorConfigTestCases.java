@@ -3,7 +3,8 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.system;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Properties;
 

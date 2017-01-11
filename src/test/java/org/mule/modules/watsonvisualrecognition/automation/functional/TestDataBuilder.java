@@ -5,7 +5,7 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,11 +13,11 @@ import org.apache.commons.lang3.StringUtils;
 public class TestDataBuilder {
 
 	public static final String TEST_GROUP_URL_IMAGE;
-	public static final File TEST_IMAGE_GROUP;
+	public static final InputStream TEST_IMAGE_GROUP;
 	public static final String TEST_PERSON_URL_IMAGE;
-	public static final File TEST_PERSON_IMAGE;
+	public static final InputStream TEST_PERSON_IMAGE;
 	public static final String TEST_TEXT_URL_IMAGE;
-	public static final File TEST_IMAGE_TEXT;
+	public static final InputStream TEST_IMAGE_TEXT;
 	public static final String TEST_GROUP_IMAGE_CLASS;
 	public static final Integer TEST_PERSON_IMAGE_RECOGNIZED_FACES;
 	public static final String TEST_TEXT_IMAGE_TEXT;
@@ -52,19 +52,9 @@ public class TestDataBuilder {
 		TEST_NEGATIVE_MORE_CATS_FILE = constants.getProperty("negative_morecats_file");
 		TEST_DALMATION_FILE = constants.getProperty("dalmation_file");
 
-		File group_image = null;
-		File person_image = null;
-		File logo_image = null;
-		try {
-			group_image = new File(TestDataBuilder.class.getResource("/images/Team2016.jpg").toURI());
-			person_image = new File(TestDataBuilder.class.getResource("/images/person.jpg").toURI());
-			logo_image = new File(TestDataBuilder.class.getResource("/images/text.jpg").toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		TEST_IMAGE_GROUP = group_image;
-		TEST_IMAGE_TEXT = logo_image;
-		TEST_PERSON_IMAGE = person_image;
+		TEST_IMAGE_GROUP = TestDataBuilder.class.getResourceAsStream("/images/Team2016.jpg");
+		TEST_IMAGE_TEXT = TestDataBuilder.class.getResourceAsStream("/images/text.jpg");
+		TEST_PERSON_IMAGE = TestDataBuilder.class.getResourceAsStream("/images/person.jpg");
 	}
 
 	public static String sampleZipPath() {

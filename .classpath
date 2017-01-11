@@ -37,7 +37,6 @@
 	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/tone-analyzer/3.5.1/tone-analyzer-3.5.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/tradeoff-analytics/3.5.1/tradeoff-analytics-3.5.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/visual-recognition/3.5.1/visual-recognition-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/mule-core/3.7.0/mule-core-3.7.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/extensions/mule-extensions-api/1.0.0-alpha/mule-extensions-api-1.0.0-alpha.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar"/>
@@ -239,6 +238,7 @@
 	<classpathentry kind="var" path="M2_REPO/net/java/dev/jna/jna/4.0.0/jna-4.0.0.jar" sourcepath="M2_REPO/net/java/dev/jna/jna/4.0.0/jna-4.0.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/net/java/dev/jna/jna-platform/4.0.0/jna-platform-4.0.0.jar" sourcepath="M2_REPO/net/java/dev/jna/jna-platform/4.0.0/jna-platform-4.0.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/mulesoft/cloudhub/cloudhub-client-api/1.7.1-HYDRA/cloudhub-client-api-1.7.1-HYDRA.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/mulesoft/cloudhub/cloudhub-rest-model/1.0.2/cloudhub-rest-model-1.0.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-json/1.9.1/jersey-json-1.9.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar" sourcepath="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1-sources.jar"/>
