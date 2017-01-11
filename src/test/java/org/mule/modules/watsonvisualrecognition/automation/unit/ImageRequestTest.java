@@ -3,7 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.unit;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -16,11 +16,10 @@ public class ImageRequestTest {
 	@Test
 	public void testPojo() {
 		ImageRequest pojo = new ImageRequest();
-		pojo.setImage(new File("test/path"));
+		pojo.setImage(new ByteArrayInputStream(new byte[] { 0, 1 }));
 		pojo.setUrl("http//:www.page.com");
 
 		assertEquals("http//:www.page.com", pojo.getUrl());
 		assertNotNull(pojo.getImage());
-		assertEquals("test/path", pojo.getImage().getPath());
 	}
 }

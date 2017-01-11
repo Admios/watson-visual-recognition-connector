@@ -5,6 +5,9 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -24,14 +27,14 @@ public class ClassifyImageTestCases extends AbstractTestCases {
 	}
 
 	@Test
-	public void testWithURL() {
+	public void testWithURL() throws IOException {
 		request.setUrl(TestDataBuilder.TEST_GROUP_URL_IMAGE);
 		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
 	}
 
 	@Test
-	public void testWithFile() {
+	public void testWithFile() throws IOException {
 		request.setImage(TestDataBuilder.TEST_IMAGE_GROUP);
 		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);

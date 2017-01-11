@@ -1,7 +1,6 @@
 package org.mule.modules.watsonvisualrecognition.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -73,37 +72,12 @@ public class FileUtils {
 	 * 
 	 * @param data The content to put in the file.
 	 * @param extension The Extension of the file.
-	 * @return return A temporal file with the contend of the byte array.
-	 * @throws IOException If there is any problem creating the temporal file.
-	 */
-	public static File byteArrayToFile(byte[] data, String extension) throws IOException {
-		File file = File.createTempFile("Watson-VR-" + UUID.randomUUID(), "." + extension);
-		try (FileOutputStream outputStream = new FileOutputStream(file)) {
-			outputStream.write(data);
-		}
-		return file;
-	}
-
-	/**
-	 * Create a temporal file with the content of data.
-	 * 
-	 * @param data The content to put in the file.
-	 * @param extension The Extension of the file.
 	 * @return return A temporal file with the contend of the InputStream.
 	 * @throws IOException If there is any problem creating the temporal file.
 	 */
 	public static File inputStreamToFile(InputStream data, String extension) throws IOException {
 		File file = File.createTempFile("Watson-VR-" + UUID.randomUUID(), "." + extension);
-
-		try (FileOutputStream outputStream = new FileOutputStream(file)) {
-
-			int read = 0;
-			byte[] bytes = new byte[1024];
-
-			while ((read = data.read(bytes)) != -1) {
-				outputStream.write(bytes, 0, read);
-			}
-		}
+		org.apache.commons.io.FileUtils.copyInputStreamToFile(data, file);
 		return file;
 	}
 

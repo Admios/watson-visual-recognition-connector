@@ -27,7 +27,6 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateCla
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
-import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -67,11 +66,13 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request with all the options for the classify an image operation.
 	 * 
 	 * @return A list of detected classes in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
 	@Processor(friendlyName = "Classify an Image")
-	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
+	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request)
+			throws IOException {
 		return new ClassifyImageHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.addClassifierId(request.getClassifierIds())
 				.addThreshold(request.getThreshold())
 				.execute();
@@ -86,11 +87,12 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request with all the options for the detect faces operation.
 	 * 
 	 * @return A list of detected faces, his age, gender and position in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
 	@Processor(friendlyName = "Detect Faces")
-	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
+	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
 		return new DetectFacesHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
 	}
 
@@ -103,11 +105,12 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request with all the options for the recognize text operation.
 	 * 
 	 * @return The text recognized in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
 	@Processor(friendlyName = "Recognize Text")
-	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
+	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
 		return new RecognizeTextHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
 	}
 
@@ -194,37 +197,5 @@ public class WatsonVisualRecognitionConnector {
 				.addPositiveSamples(request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
-	}
-
-	/**
-	 * Convert an array of bytes into a File object to use it in the other operations.
-	 *
-	 * @param data The array of byte to convert.
-	 * @param extension The extension of the file you want to create.
-	 * 
-	 * @return return A temporal file with the contend of the byte array.
-	 * @throws IOException If there is any problem creating the temporal file.
-	 * @throws IllegalArgumentException When the data parameter is not a byte[].
-	 */
-	@Processor
-	public File byteArrayToFile(@Default("#[payload]") Object data, String extension) throws IOException {
-		if (!(data instanceof byte[])) {
-			throw new IllegalArgumentException("The data parameter should be a byte[] but was " + data.getClass());
-		}
-		return FileUtils.byteArrayToFile((byte[]) data, extension);
-	}
-
-	/**
-	 * Convert an array of bytes into a File object to use it in the other operations.
-	 *
-	 * @param data The InputStream to convert.
-	 * @param extension The extension of the file you want to create.
-	 * 
-	 * @return return A temporal file with the contend of the InputStream.
-	 * @throws IOException If there is any problem creating the temporal file.
-	 */
-	@Processor
-	public File inputStreamToFile(@Default("#[payload]") InputStream data, String extension) throws IOException {
-		return FileUtils.inputStreamToFile(data, extension);
 	}
 }
