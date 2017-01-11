@@ -15,7 +15,7 @@ import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionExce
 public class FileUtils {
 
 	public static boolean isValidFile(File file) {
-		return (file != null && file.exists() && file.isFile());
+		return file != null && file.exists() && file.isFile();
 	}
 
 	/**
@@ -27,12 +27,10 @@ public class FileUtils {
 	 * @return Return true if is a valid existing file, with a content between the range of minimum and maximum.
 	 * @throws VisualRecognitionException If the the file is invalid
 	 */
-	@SuppressWarnings("resource")
 	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
 			throws VisualRecognitionException {
 		if (isValidFile(zipFile)) {
-			try {
-				ZipFile zf = new ZipFile(zipFile);
+			try (ZipFile zf = new ZipFile(zipFile)) {
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
 				int stop = maximum == -1 ? minimum : maximum;
@@ -60,7 +58,7 @@ public class FileUtils {
 
 			} catch (IOException e) {
 				Logger.getLogger(BuilderUtils.class.getCanonicalName())
-						.log(Level.FINEST, e.getMessage(), e);
+						.log(Level.SEVERE, e.getMessage(), e);
 				return false;
 			}
 		}

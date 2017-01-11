@@ -43,9 +43,6 @@ public class ClassifyImageRequest {
 	@Optional
 	private InputStream image;
 
-	public ClassifyImageRequest() {
-	}
-
 	/**
 	 * An array of classifier IDs to classify the images against.
 	 * 

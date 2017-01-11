@@ -30,9 +30,6 @@ public class ImageRequest {
 	@Optional
 	private InputStream image;
 
-	public ImageRequest() {
-	}
-
 	/**
 	 * The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
 	 * 
