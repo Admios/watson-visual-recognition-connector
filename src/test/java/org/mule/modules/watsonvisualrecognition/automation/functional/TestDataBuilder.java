@@ -6,9 +6,15 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
+import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
+import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 public class TestDataBuilder {
 
@@ -55,6 +61,43 @@ public class TestDataBuilder {
 		TEST_IMAGE_GROUP = TestDataBuilder.class.getResourceAsStream("/images/Team2016.jpg");
 		TEST_IMAGE_TEXT = TestDataBuilder.class.getResourceAsStream("/images/text.jpg");
 		TEST_PERSON_IMAGE = TestDataBuilder.class.getResourceAsStream("/images/person.jpg");
+	}
+
+	public static ClassifyImageRequest buildClassifyImageRequest() {
+		return new ClassifyImageRequest();
+	}
+
+	public static ImageRequest buildImageRequest() {
+		return new ImageRequest();
+	}
+
+	public static ClassifierRequest buildClassifierRequest() {
+		ClassifierRequest cr = new ClassifierRequest();
+
+		String rvalue = String.valueOf(new Date().getTime());
+		cr.setClassifierNameOrId("dogs" + rvalue);
+
+		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath());
+		Map<String, File> positiveExamples = new HashMap<>();
+
+		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
+
+		cr.setNegativeExamples(negativeExamples);
+
+		cr.setPositiveExamples(positiveExamples);
+		return cr;
+	}
+
+	public static ClassifierRequest buildUpdateRequest() {
+
+		ClassifierRequest classifierRequest = new ClassifierRequest();
+
+//		File negativeExamples = new File(TestDataBuilder.negativeMoreCatsExamplePath());
+		Map<String, File> positiveExamples = new HashMap<>();
+		positiveExamples.put("husky", new File(TestDataBuilder.positiveHuskyExamplePath()));
+//		classifierRequest.setNegativeExamples(negativeExamples);
+		classifierRequest.setPositiveExamples(positiveExamples);
+		return classifierRequest;
 	}
 
 	public static String sampleZipPath() {

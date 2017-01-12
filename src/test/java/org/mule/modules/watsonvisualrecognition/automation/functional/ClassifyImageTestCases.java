@@ -8,9 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 
@@ -21,13 +19,10 @@ public class ClassifyImageTestCases extends AbstractTestCases {
 
 	private ClassifyImageRequest request;
 
-	@Before
-	public void createRequest() {
-		request = new ClassifyImageRequest();
-	}
-
 	@Test
+	@Ignore("The URL image changes too often")
 	public void testWithURL() throws IOException {
+		request = TestDataBuilder.buildClassifyImageRequest();
 		request.setUrl(TestDataBuilder.TEST_GROUP_URL_IMAGE);
 		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
@@ -35,13 +30,13 @@ public class ClassifyImageTestCases extends AbstractTestCases {
 
 	@Test
 	public void testWithFile() throws IOException {
+		request = TestDataBuilder.buildClassifyImageRequest();
 		request.setImage(TestDataBuilder.TEST_IMAGE_GROUP);
 		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
 	}
 
 	public void assertVisualClassification(VisualClassification classification) {
-		assertNotNull(classification);
 		assertEquals(classification.getImages().size(), 1);
 
 		boolean containsClass = false;
