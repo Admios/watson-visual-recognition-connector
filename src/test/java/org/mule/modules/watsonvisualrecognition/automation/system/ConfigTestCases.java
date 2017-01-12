@@ -3,9 +3,6 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.system;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.Properties;
 
 import org.junit.Before;
@@ -14,7 +11,7 @@ import org.mule.api.ConnectionException;
 import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.tools.devkit.ctf.configuration.util.ConfigurationUtils;
 
-public class ConnectorConfigTestCases {
+public class ConfigTestCases {
 
 	private Properties validCredentials;
 	private static String API_KEY;
@@ -34,19 +31,31 @@ public class ConnectorConfigTestCases {
 	@Test
 	public void testConnect() throws ConnectionException {
 		config.connect(API_KEY, VERSION_DATE);
-		assertTrue("Connect should success", true);
 	}
 
 	@Test(expected = ConnectionException.class)
 	public void testConnectFail() throws ConnectionException {
-		config.connect(BAD_API_KEY, "");
-		fail("Connect should fail due to bad Api Key");
+		config.connect(BAD_API_KEY, VERSION_DATE);
 	}
-
+	
+	@Test(expected = ConnectionException.class)
+	public void testConnectWithNullVersion() throws ConnectionException {
+		config.connect(API_KEY, null);
+	}
+	
+	@Test(expected = ConnectionException.class)
+	public void testConnectWithEmptyVersion() throws ConnectionException {
+		config.connect(API_KEY, "");
+	}
+	
 	@Test(expected = ConnectionException.class)
 	public void testConnectWithNullKey() throws ConnectionException {
+		config.connect(null, VERSION_DATE);
+	}
+	
+	@Test(expected = ConnectionException.class)
+	public void testConnectWithNullKeyVersion() throws ConnectionException {
 		config.connect(null, null);
-		fail("Connect should fail due to bad Api Key");
 	}
 
 }

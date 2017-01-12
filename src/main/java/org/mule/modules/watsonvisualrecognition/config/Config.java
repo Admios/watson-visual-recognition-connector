@@ -14,6 +14,7 @@ import org.mule.api.annotations.components.ConnectionManagement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -42,6 +43,7 @@ public class Config {
 	@TestConnectivity
 	public void connect(@ConnectionKey String apiKey, @Default("2016-05-20") String versionDate)
 			throws ConnectionException {
+		validateConnectionArguments(apiKey, versionDate);
 		try {
 			setService(new VisualRecognition(versionDate, apiKey));
 		} catch (IllegalArgumentException e) {
@@ -78,10 +80,21 @@ public class Config {
 		return "001";
 	}
 
+	private void validateConnectionArguments(String apiKey, String versionDate) throws ConnectionException {
+		if (apiKey == null || apiKey.isEmpty()) {
+			throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, "",
+					"The API key can't be null or empty");
+		}
+		if (versionDate == null || versionDate.isEmpty()) {
+			throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, "",
+					"The version date can't be null or empty");
+		}
+	}
+
 	private void testConnectivity() throws ConnectionException {
 		try {
 			getService().getClassifiers().execute();
-		} catch (UnauthorizedException | ForbiddenException | IllegalArgumentException e) {
+		} catch (UnauthorizedException | ForbiddenException | IllegalArgumentException | BadRequestException e) {
 			throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, "", e.getMessage(), e);
 		}
 	}

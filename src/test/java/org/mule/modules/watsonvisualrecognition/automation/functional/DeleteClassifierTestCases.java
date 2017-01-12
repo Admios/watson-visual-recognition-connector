@@ -3,13 +3,6 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.functional;
 
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
@@ -19,7 +12,9 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class DeleteClassifierTestCases extends AbstractTestCases {
-	
+
+	private VisualClassifier dummyClassifier;
+
 	/**
 	 * Test case for deleting a non existing classifier
 	 */
@@ -35,37 +30,20 @@ public class DeleteClassifierTestCases extends AbstractTestCases {
 	public void testDeleteClassifierWithNull() {
 		getConnector().deleteClassifier(null);
 	}
-	
+
 	/**
 	 * Test case that verifies if a classifier is eliminated in the proper way
+	 * 
+	 * @throws VisualRecognitionException
 	 */
-	@Test
+	@Test(expected = NotFoundException.class)
 	@Ignore("This tests is very expensive using the Watson API")
-	public void testEfectiveDeleteClassifier() {
-		ClassifierRequest cr = buildRequest();
-		VisualClassifier dummyClassifier = null;
-		try {
-			dummyClassifier = getConnector().createClassifier(cr);
-			getConnector().deleteClassifier(dummyClassifier.getId());
-		} catch (VisualRecognitionException e) {
-			fail(e.getMessage());
-		}
-	}
-	
-	private ClassifierRequest buildRequest() {
-		ClassifierRequest cr = new ClassifierRequest();
-		
-		String rvalue = String.valueOf(new Date().getTime());
-		cr.setClassifierNameOrId("dogs" + rvalue);
-		
-		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
-		Map<String, File> positiveExamples = new HashMap<>();
-		
-		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
-		
-		cr.setNegativeExamples(negativeExamples);
-		
-		cr.setPositiveExamples(positiveExamples);
-		return cr;
+	public void testEffectiveDeleteClassifier() throws VisualRecognitionException {
+		// The classifier creation is not in the @Before to avoid the creation of classifiers in the negative cases
+		ClassifierRequest cr = TestDataBuilder.buildClassifierRequest();
+		dummyClassifier = getConnector().createClassifier(cr);
+
+		getConnector().deleteClassifier(dummyClassifier.getId());
+		getConnector().retrieveClassifierDetails(dummyClassifier.getId());
 	}
 }

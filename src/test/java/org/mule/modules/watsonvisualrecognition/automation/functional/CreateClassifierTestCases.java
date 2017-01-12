@@ -3,13 +3,13 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.functional;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
@@ -20,14 +20,23 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 public class CreateClassifierTestCases extends AbstractTestCases {
 
 	private ClassifierRequest request;
-	
+	private VisualClassifier dummyClassifier;
+
+	@After
+	public void deleteClassifier() {
+		if (dummyClassifier != null) {
+			getConnector().deleteClassifier(dummyClassifier.getId());
+		}
+	}
+
 	/**
 	 * Test case for illegal argument request
+	 * 
 	 * @throws VisualRecognitionException
 	 */
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
-		
+
 		request = new ClassifierRequest();
 		Map<String, File> positiveExamples = new HashMap<>();
 		positiveExamples.put("test_class", null);
@@ -38,34 +47,17 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 
 	/**
 	 * Test case for success case of creating a classifier
+	 * 
+	 * @throws VisualRecognitionException
 	 */
 	@Test
 	@Ignore("This tests is very expensive using the Watson API")
-	public void testSuccessCreation() {
-		ClassifierRequest cr = buildRequest();
-		VisualClassifier dummyClassifier = null;
-		try {
-			dummyClassifier = getConnector().createClassifier(cr);
-		} catch (VisualRecognitionException e) {
-			fail(e.getMessage());
-		}
-		getConnector().deleteClassifier(dummyClassifier.getId());
-	}
-	
-	private ClassifierRequest buildRequest() {
-		ClassifierRequest cr = new ClassifierRequest();
-		
-		String rvalue = String.valueOf(new Date().getTime());
-		cr.setClassifierNameOrId("dogs" + rvalue);
-		
-		File negativeExamples = new File(TestDataBuilder.negativeCatExamplePath()); 
-		Map<String, File> positiveExamples = new HashMap<>();
-		
-		positiveExamples.put("golden", new File(TestDataBuilder.positiveGoldenExamplePath()));
-		
-		cr.setNegativeExamples(negativeExamples);
-		
-		cr.setPositiveExamples(positiveExamples);
-		return cr;
+	public void testSuccessCreation() throws VisualRecognitionException {
+		ClassifierRequest cr = TestDataBuilder.buildClassifierRequest();
+		dummyClassifier = getConnector().createClassifier(cr);
+
+		assertEquals(cr.getClassifierNameOrId(), dummyClassifier.getName());
+		assertEquals("golden", dummyClassifier.getClasses().get(0).getName());
+		assertEquals("TRAINING", dummyClassifier.getStatus().name());
 	}
 }
