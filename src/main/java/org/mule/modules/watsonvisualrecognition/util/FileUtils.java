@@ -29,8 +29,11 @@ public class FileUtils {
 	 */
 	public static boolean isValidZipFile(File zipFile, final int minimum, final int maximum)
 			throws VisualRecognitionException {
+
+		boolean isValid = false;
 		if (isValidFile(zipFile)) {
 			try (ZipFile zf = new ZipFile(zipFile)) {
+
 				Enumeration<? extends ZipEntry> e = zf.entries();
 				int count = 0;
 				int stop = maximum == -1 ? minimum : maximum;
@@ -39,30 +42,33 @@ public class FileUtils {
 					count++;
 				}
 
-				if (count == 0) {
-					return false;
-				}
-
-				if (maximum == -1 && minimum != -1 && count < minimum) {
-					throw new VisualRecognitionException("Must be " + minimum + " or more images.");
-
-				} else if (minimum == -1 && maximum != -1 && count > maximum) {
-					throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
-
-				} else if ((maximum != -1 && minimum != -1) && (count < minimum || count > maximum)) {
-					throw new VisualRecognitionException("zip content is out of range.");
-
-				} else {
-					return true;
+				if (count != 0) {
+					isValid = isImageCountValid(count, minimum, maximum);
 				}
 
 			} catch (IOException e) {
 				Logger.getLogger(BuilderUtils.class.getCanonicalName())
 						.log(Level.SEVERE, e.getMessage(), e);
-				return false;
 			}
 		}
-		return false;
+		return isValid;
+	}
+
+	private static boolean isImageCountValid(int count, int minimum, int maximum) throws VisualRecognitionException {
+		boolean isValid = false;
+		if (maximum == -1 && minimum != -1 && count < minimum) {
+			throw new VisualRecognitionException("Must be " + minimum + " or more images.");
+
+		} else if (minimum == -1 && maximum != -1 && count > maximum) {
+			throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
+
+		} else if ((maximum != -1 && minimum != -1) && (count < minimum || count > maximum)) {
+			throw new VisualRecognitionException("zip content is out of range.");
+
+		} else {
+			isValid = true;
+		}
+		return isValid;
 	}
 
 	/**
