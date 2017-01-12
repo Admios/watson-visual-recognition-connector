@@ -10,10 +10,10 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/watson-visual-recognition http://www.mulesoft.org/schema/mule/watson-visual-recognition/current/mule-watson-visual-recognition.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     <watson-visual-recognition:config name="Watson_Visual_Recognition__Configuration" apiKey="${watson.apikey}" doc:name="Watson Visual Recognition: Configuration"/>
+    <file:connector name="File" readFromDirectory="invoices/input" autoDelete="true" streaming="true" validateConnections="true" doc:name="File"/>
     <flow name="ExtractTextFromInvoicesFlow">
-        <file:inbound-endpoint path="invoices/input" moveToDirectory="invoices/output"  responseTimeout="10000" doc:name="File"/>
+        <file:inbound-endpoint path="invoices/input" moveToDirectory="invoices/output"  responseTimeout="10000" doc:name="File" connector-ref="File"/>
         <set-variable variableName="file" value="#[payload]" doc:name="Set File"/>
-        <watson-visual-recognition:input-stream-to-file config-ref="Watson_Visual_Recognition__Configuration" extension="png" doc:name="Convert Data to File"/>
         <dw:transform-message metadata:id="16850ab3-fa70-47a1-ac9b-53db3caa38d2" doc:name="Build Request">
             <dw:input-payload/>
             <dw:set-payload><![CDATA[%dw 1.0
