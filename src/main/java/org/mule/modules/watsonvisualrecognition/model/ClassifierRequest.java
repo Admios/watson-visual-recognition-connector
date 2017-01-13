@@ -9,7 +9,8 @@ import java.util.Map;
 import org.mule.api.annotations.Required;
 
 /**
- * Class with all the options to create or update a classifier.
+ * Class that contains the classifier name or id, the positive examples and the negative examples to be use to create or
+ * update a classifier.
  * 
  * @author Admios
  */
@@ -20,7 +21,7 @@ public class ClassifierRequest {
 	 */
 	@Required
 	private String classifierNameOrId;
-	
+
 	@Required
 	private Map<String, File> positiveExamples;
 
@@ -53,7 +54,6 @@ public class ClassifierRequest {
 	public Map<String, File> getPositiveExamples() {
 		return positiveExamples;
 	}
-
 
 	/**
 	 * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new

@@ -3,7 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition.automation.unit;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -17,16 +17,14 @@ public class ClassifyImageRequestTest {
 	@Test
 	public void testPojo() {
 		ClassifyImageRequest pojo = new ClassifyImageRequest();
-		pojo.setImage(new File("test/path"));
+		pojo.setImage(new ByteArrayInputStream(new byte[] { 0, 1 }));
 		pojo.setUrl("http//:www.page.com");
 		pojo.setThreshold(1.2);
 		pojo.setClassifierIds(new ArrayList<String>());
 		pojo.getClassifierIds().add("test");
-		
-		
+
 		assertEquals("http//:www.page.com", pojo.getUrl());
 		assertNotNull(pojo.getImage());
-		assertEquals("test/path", pojo.getImage().getPath());
 		assertEquals(new Double("1.2"), pojo.getThreshold());
 		assertNotNull(pojo.getClassifierIds());
 		assertEquals("test", pojo.getClassifierIds().get(0));

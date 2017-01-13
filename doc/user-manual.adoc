@@ -1,16 +1,9 @@
-////
-The following is the approved connector user guide template for documenting MuleSoft Supported Connectors.
-////
 
 = Watson Visual Recognition Connector User Guide
 :keywords: add_keywords_separated_by_commas
 :imagesdir: ./_images
 :toc: macro
 :toclevels: 2
-////
-Image names follow "image:". Identify images using the connector name, preferably without the word "connector"
-URLs should always follow "link:"
-////
 
 // Dropdown for Connector Version
 //  Children: Technical Reference / Demos
@@ -45,8 +38,9 @@ For hardware and software requirements, please visit the link:https://docs.mules
 [width="100%", cols=",", options="header"]
 |===
 |Software |Version
-|Mule Runtime |3.6
-|Watson Visual Recognition |v3
+|Mule Runtime |3.6.x and higher
+|Watson Visual Recognition API|v3
+|Watson Java SDK |3.5.1
 |===
 
 == Installing the Connector
@@ -75,7 +69,7 @@ When designing your application in Studio, the act of dragging the connector fro
 
 *Namespace:* `http://www.mulesoft.org/schema/mule/watson-visual-recognition`
 
-*Schema Location:* `http://www.mulesoft.org/schema/mule/connector/current/mule-connector.xsd`
+*Schema Location:* `http://www.mulesoft.org/schema/mule/watson-visual-recognition/current/watson-visual-recognition.xsd`
 
 [TIP]
 If you are manually coding the Mule application in Studio's XML editor or other text editor, define the namespace and schema location in the header of your *Configuration XML*, inside the `<mule>` tag.
@@ -304,3 +298,5 @@ For background information on pooling, see link:https://docs.mulesoft.com/mule-u
 == Resources
 
 * Access the link:release-notes.html[Watson Visual Recognition Connector Release Notes].
+* Access the link:http://www.ibm.com/watson/developercloud/visual-recognition.html[Watson Visual Recognition page].
+* Access the link:http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/[Watson API reference].

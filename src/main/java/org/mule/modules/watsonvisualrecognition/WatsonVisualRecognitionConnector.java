@@ -3,9 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.mule.api.annotations.Connector;
@@ -27,7 +25,6 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateCla
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
-import org.mule.modules.watsonvisualrecognition.util.VisualRecognitionUtils;
 
 import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -48,7 +45,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 public class WatsonVisualRecognitionConnector {
 
 	@org.mule.api.annotations.Config
-	Config config;
+	private Config config;
 
 	public Config getConfig() {
 		return config;
@@ -64,14 +61,16 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
-	 * @param request Request with all the options for the classify an image operation.
+	 * @param request Request object that contains the image and the classifier to be use.
 	 * 
-	 * @return A list of detected classes in the image.
+	 * @return A object containing the list of detected classes in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
-	@Processor
-	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request) {
+	@Processor(friendlyName = "Classify an Image")
+	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request)
+			throws IOException {
 		return new ClassifyImageHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.addClassifierId(request.getClassifierIds())
 				.addThreshold(request.getThreshold())
 				.execute();
@@ -83,14 +82,15 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
-	 * @param request Request with all the options for the detect faces operation.
+	 * @param request Request object that contains the image to be use.
 	 * 
-	 * @return A list of detected faces, his age, gender and position in the image.
+	 * @return A object containing the list of detected faces, age, gender and position in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
-	@Processor
-	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) {
+	@Processor(friendlyName = "Detect Faces")
+	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
 		return new DetectFacesHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
 	}
 
@@ -100,14 +100,15 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text">API Doc</a>
 	 *
-	 * @param request Request with all the options for the recognize text operation.
+	 * @param request Request object that contains the image to be use.
 	 * 
 	 * @return The text recognized in the image.
+	 * @throws IOException When the connector can't process the image input stream.
 	 */
-	@Processor
-	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) {
+	@Processor(friendlyName = "Recognize Text")
+	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
 		return new RecognizeTextHandler(config.getService())
-				.addSource(request.getUrl(), request.getImage())
+				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
 	}
 
@@ -119,7 +120,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A list of classifiers associated with your API Key.
 	 */
-	@Processor
+	@Processor(friendlyName = "Retrieve the List of Classifiers")
 	public List<VisualClassifier> retrieveListOfClassifiers() {
 		return new RetrieveListClassifiersHandler(config.getService()).execute();
 	}
@@ -134,7 +135,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * @return A classifier associated with your API Key.
 	 */
-	@Processor
+	@Processor(friendlyName = "Retrieve Classifier Details")
 	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
 		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
 	}
@@ -148,7 +149,7 @@ public class WatsonVisualRecognitionConnector {
 	 * @param classifierId The ID of the classifier you want to delete.
 	 * 
 	 */
-	@Processor
+	@Processor(friendlyName = "Delete a Classifier")
 	public void deleteClassifier(@Default("#[payload]") String classifierId) {
 		new DeleteClassifierHandler(config.getService(), classifierId).execute();
 	}
@@ -162,12 +163,13 @@ public class WatsonVisualRecognitionConnector {
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier">API
 	 * Doc</a>
 	 * 
-	 * @param request Request with all the options for the create classifier operation.
+	 * @param request Request object that contains the classifier name, the positive examples and the negative examples
+	 *            to be use during the creation of the classifier.
 	 * 
 	 * @return The classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
 	 */
-	@Processor
+	@Processor(friendlyName = "Create a Classifier")
 	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new CreateClassifierHandler(config.getService())
@@ -182,49 +184,18 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
 	 * 
-	 * @param request Request with all the options for the update classifier operation.
+	 * @param request Request object that contains the classifier id, the positive examples and the negative examples to
+	 *            be use to update the classifier.
 	 * 
 	 * @return The classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
 	 */
-	@Processor
+	@Processor(friendlyName = "Update a Classifier")
 	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
 			throws VisualRecognitionException {
 		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
 				.addPositiveSamples(request.getPositiveExamples())
 				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
-	}
-
-	/**
-	 * Convert an array of bytes into a File object to use it in the other operations.
-	 *
-	 * @param data The array of byte to convert.
-	 * @param extension The extension of the file you want to create.
-	 * 
-	 * @return return A temporal file with the contend of the byte array.
-	 * @throws IOException If there is any problem creating the temporal file.
-	 * @throws IllegalArgumentException When the data parameter is not a byte[].
-	 */
-	@Processor
-	public File byteArrayToFile(@Default("#[payload]") Object data, String extension) throws IOException {
-		if (!(data instanceof byte[])) {
-			throw new IllegalArgumentException("The data parameter should be a byte[] but was " + data.getClass());
-		}
-		return VisualRecognitionUtils.byteArrayToFile((byte[]) data, extension);
-	}
-
-	/**
-	 * Convert an array of bytes into a File object to use it in the other operations.
-	 *
-	 * @param data The InputStream to convert.
-	 * @param extension The extension of the file you want to create.
-	 * 
-	 * @return return A temporal file with the contend of the InputStream.
-	 * @throws IOException If there is any problem creating the temporal file.
-	 */
-	@Processor
-	public File inputStreamToFile(@Default("#[payload]") InputStream data, String extension) throws IOException {
-		return VisualRecognitionUtils.inputStreamToFile(data, extension);
 	}
 }

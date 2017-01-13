@@ -4,11 +4,14 @@
 package org.mule.modules.watsonvisualrecognition.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.mule.api.annotations.param.Optional;
+import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 /**
- * Class with all the options for a image request.
+ * Class that contains the image to be use for a image request.
  * 
  * @author Admios
  */
@@ -25,10 +28,7 @@ public class ImageRequest {
 	 * .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
 	 */
 	@Optional
-	private File image;
-
-	public ImageRequest() {
-	}
+	private InputStream image;
 
 	/**
 	 * The URL of an image (.jpg, or .png). Redirects are followed, so you can use shortened URLs.
@@ -40,15 +40,26 @@ public class ImageRequest {
 	}
 
 	/**
-	 * The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of images in a
+	 * The image input stream (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of images in a
 	 * .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
 	 * 
 	 * @return the image
 	 */
-	public File getImage() {
+	public InputStream getImage() {
 		return image;
 	}
 
+	/**
+	 * The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of images in a
+	 * .zip file is limited to 10. <b>If the URL is set the image will be ignored.</b>
+	 * 
+	 * @return the image file if the image input string was set
+	 * @throws IOException When the connector can't process the image input stream.
+	 */
+	public File getImageAsFile() throws IOException {
+		return image != null ? FileUtils.inputStreamToFile(image, "png") : null;
+	}
+	
 	/**
 	 * @param url the url to set
 	 */
@@ -59,7 +70,7 @@ public class ImageRequest {
 	/**
 	 * @param image the image to set
 	 */
-	public void setImage(File image) {
+	public void setImage(InputStream image) {
 		this.image = image;
 	}
 
