@@ -11,7 +11,7 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 /**
- * Class with all the options for a image request.
+ * Class that contains the image to be use for a image request.
  * 
  * @author Admios
  */

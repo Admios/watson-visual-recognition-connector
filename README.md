@@ -5,17 +5,14 @@ Visual Recognition allows users to understand the contents of an image or video 
 # Mule supported versions
 Mule 3.6.x, 3.7.x and 3.8.x.
 
-# Java Runtime version
-7.0
-
-#Service or application supported modules
-Watson Visual Recognition v3
+# Service or application supported modules
+Watson Visual Recognition API v3
 
 # Installation
 You can download the connector from the update site in Anypoint Studio.
 Open Anypoint Studio, go to Help → Install New Software and select Anypoint Connectors Update Site where you’ll find all avaliable connectors.
 
-#Usage
+# Usage
 Need to figure out what is contained in many images, but don’t have the man-power to manually go one-by-one?
 
 - Organize image libraries into categories

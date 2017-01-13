@@ -28,9 +28,15 @@ From the Package Explorer view, expand the demo project and open the mule-app.pr
 
 - **RegisterCarAccidentFlow**
 
-Run the demo project and in the browser hit - **http://localhost:8081/car-accident?client=[CLIENT NAME]&description=[DESCRIPTION]&image=[IMAGE URL]**:
+Run the demo project and in the browser hit:
+```HTML
+http://localhost:8081/car-accident?client=[CLIENT NAME]&description=[DESCRIPTION]&image=[IMAGE URL]
+```
 
-**Input**: Using a image that contain a car - http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://thejmhlawfirm.com/wp-content/uploads/2015/07/car-wreck-one.jpg
+**Input**: Using a image that contain a car:
+```HTML
+http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://thejmhlawfirm.com/wp-content/uploads/2015/07/car-wreck-one.jpg
+```
 
 **Response**: The result will be the request ready to be created in the insurance system, because the image contain a car.
 
@@ -42,7 +48,10 @@ Run the demo project and in the browser hit - **http://localhost:8081/car-accide
 }
 ```
 
-**Input**: Using a image that doesn't contain a car - http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://www.capatec.org.pa/wp-content/uploads/2014/08/Logo-Admios-.jpg
+**Input**: Using a image that doesn't contain a car:
+```HTML
+http://localhost:8081/car-accident?client=test&description=An accident in Panama&image=http://www.capatec.org.pa/wp-content/uploads/2014/08/Logo-Admios-.jpg
+```
 
 **Response**: The result will be an error saying that the image doesn't contain a car.
 

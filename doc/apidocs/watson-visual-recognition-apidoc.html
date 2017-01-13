@@ -2095,16 +2095,14 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_processors">Processors</a>
 <ul class="sectlevel2">
-<li><a href="#_classify_image">Classify image</a></li>
-<li><a href="#_detect_faces">Detect faces</a></li>
-<li><a href="#_recognize_text">Recognize text</a></li>
-<li><a href="#_retrieve_list_of_classifiers">Retrieve list of classifiers</a></li>
-<li><a href="#_retrieve_classifier_details">Retrieve classifier details</a></li>
-<li><a href="#_delete_classifier">Delete classifier</a></li>
-<li><a href="#_create_classifier">Create classifier</a></li>
-<li><a href="#_update_classifier">Update classifier</a></li>
-<li><a href="#_byte_array_to_file">Byte array to file</a></li>
-<li><a href="#_input_stream_to_file">Input stream to file</a></li>
+<li><a href="#_classify_an_image">Classify an Image</a></li>
+<li><a href="#_detect_faces">Detect Faces</a></li>
+<li><a href="#_recognize_text">Recognize Text</a></li>
+<li><a href="#_retrieve_the_list_of_classifiers">Retrieve the List of Classifiers</a></li>
+<li><a href="#_retrieve_classifier_details">Retrieve Classifier Details</a></li>
+<li><a href="#_delete_a_classifier">Delete a Classifier</a></li>
+<li><a href="#_create_a_classifier">Create a Classifier</a></li>
+<li><a href="#_update_a_classifier">Update a Classifier</a></li>
 </ul>
 </li>
 </ul>
@@ -2187,14 +2185,14 @@ as objects, events and settings.
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">apiKey</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A apiKey</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Your API key.</p></td>
 <td class="tableblock halign-left valign-middle"></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">versionDate</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Version date of the API</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">The release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format. The current version is 2016-05-20.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">2016-05-20</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2209,7 +2207,7 @@ as objects, events and settings.
 <div class="sectionbody">
 <hr>
 <div class="sect2">
-<h3 id="_classify_image">Classify image</h3>
+<h3 id="_classify_an_image">Classify an Image</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:classify-image&gt;</code></p>
 </div>
@@ -2250,7 +2248,7 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifyImageRequest.html">ClassifyImageRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request with all the options for the classify an image operation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the image and the classifier to be use.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2273,7 +2271,7 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">VisualClassification</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A list of detected classes in the image.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A object containing the list of detected classes in the image.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2281,7 +2279,7 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_detect_faces">Detect faces</h3>
+<h3 id="_detect_faces">Detect Faces</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:detect-faces&gt;</code></p>
 </div>
@@ -2322,7 +2320,7 @@ Analyze faces in images and get data about them, such as estimated age and gende
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request with all the options for the detect faces operation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the image to be use.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2345,7 +2343,7 @@ Analyze faces in images and get data about them, such as estimated age and gende
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">DetectedFaces</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">A list of detected faces, his age, gender and position in the image.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">A object containing the list of detected faces, age, gender and position in the image.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2353,7 +2351,7 @@ Analyze faces in images and get data about them, such as estimated age and gende
 </div>
 </div>
 <div class="sect2">
-<h3 id="_recognize_text">Recognize text</h3>
+<h3 id="_recognize_text">Recognize Text</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:recognize-text&gt;</code></p>
 </div>
@@ -2394,7 +2392,7 @@ language text identification.
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request with all the options for the recognize text operation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the image to be use.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2425,7 +2423,7 @@ language text identification.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_retrieve_list_of_classifiers">Retrieve list of classifiers</h3>
+<h3 id="_retrieve_the_list_of_classifiers">Retrieve the List of Classifiers</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:retrieve-list-of-classifiers&gt;</code></p>
 </div>
@@ -2490,7 +2488,7 @@ Doc</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_retrieve_classifier_details">Retrieve classifier details</h3>
+<h3 id="_retrieve_classifier_details">Retrieve Classifier Details</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:retrieve-classifier-details&gt;</code></p>
 </div>
@@ -2562,7 +2560,7 @@ API Doc</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_classifier">Delete classifier</h3>
+<h3 id="_delete_a_classifier">Delete a Classifier</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:delete-classifier&gt;</code></p>
 </div>
@@ -2613,7 +2611,7 @@ Doc</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_classifier">Create classifier</h3>
+<h3 id="_create_a_classifier">Create a Classifier</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:create-classifier&gt;</code></p>
 </div>
@@ -2657,7 +2655,7 @@ Doc</a>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request with all the options for the create classifier operation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the classifier name, the positive examples and the negative examples to be use during the creation of the classifier.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2688,7 +2686,7 @@ Doc</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_update_classifier">Update classifier</h3>
+<h3 id="_update_a_classifier">Update a Classifier</h3>
 <div class="paragraph">
 <p><code>&lt;watson-visual-recognition:update-classifier&gt;</code></p>
 </div>
@@ -2728,7 +2726,7 @@ Update an existing classifier by adding new classes, or by adding new images to 
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request with all the options for the update classifier operation.</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the classifier id, the positive examples and the negative examples to be use to update the classifier.</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
 <td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
 </tr>
@@ -2752,160 +2750,6 @@ Update an existing classifier by adding new classes, or by adding new images to 
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">VisualClassifier</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The classifier that was updated.</p></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_byte_array_to_file">Byte array to file</h3>
-<div class="paragraph">
-<p><code>&lt;watson-visual-recognition:byte-array-to-file&gt;</code></p>
-</div>
-<div class="paragraph">
-<p>
-Convert an array of bytes into a File object to use it in the other operations.
-</p>
-</div>
-<div class="sect3">
-<h4 id="_attributes_10">Attributes</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 35%;">
-<col style="width: 20%;">
-<col style="width: 5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Name</th>
-<th class="tableblock halign-left valign-middle">Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Default Value</th>
-<th class="tableblock halign-center valign-middle">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">config-ref</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Specify which config to use</p></td>
-<td class="tableblock halign-left valign-middle"></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">data <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">Object</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The array of byte to convert.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">extension</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The extension of the file you want to create.</p></td>
-<td class="tableblock halign-left valign-middle"></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_returns_8">Returns</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 40%;">
-<col style="width: 60%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Return Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/io/File.html">File</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">return A temporal file with the contend of the byte array.</p></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_input_stream_to_file">Input stream to file</h3>
-<div class="paragraph">
-<p><code>&lt;watson-visual-recognition:input-stream-to-file&gt;</code></p>
-</div>
-<div class="paragraph">
-<p>
-Convert an array of bytes into a File object to use it in the other operations.
-</p>
-</div>
-<div class="sect3">
-<h4 id="_attributes_11">Attributes</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 35%;">
-<col style="width: 20%;">
-<col style="width: 5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Name</th>
-<th class="tableblock halign-left valign-middle">Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Default Value</th>
-<th class="tableblock halign-center valign-middle">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">config-ref</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Specify which config to use</p></td>
-<td class="tableblock halign-left valign-middle"></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">data <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The InputStream to convert.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">extension</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The extension of the file you want to create.</p></td>
-<td class="tableblock halign-left valign-middle"></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_returns_9">Returns</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 40%;">
-<col style="width: 60%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Return Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/io/File.html">File</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">return A temporal file with the contend of the InputStream.</p></td>
 </tr>
 </tbody>
 </table>

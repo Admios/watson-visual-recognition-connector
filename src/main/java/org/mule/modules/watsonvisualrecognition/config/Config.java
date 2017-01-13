@@ -35,8 +35,9 @@ public class Config {
 	/**
 	 * Connect, this method will use one api call to validate the api key
 	 *
-	 * @param apiKey A apiKey
-	 * @param versionDate Version date of the API
+	 * @param apiKey Your API key.
+	 * @param versionDate The release date of the version of the API you want to use. Specify dates in YYYY-MM-DD
+	 *            format. The current version is 2016-05-20.
 	 * @throws ConnectionException If there is any connectivity error like an invalid apiKey.
 	 */
 	@Connect
