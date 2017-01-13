@@ -40,8 +40,8 @@ as objects, events and settings.
 |======================
 | Name | Java Type | Description | Default Value | Required
 |name | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | The name of this configuration. With this name can be later referenced. | | *x*{nbsp}
-| apiKey | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++A apiKey+++ |   | *x*{nbsp}
-| versionDate | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++Version date of the API+++ |  2016-05-20 | {nbsp}
+| apiKey | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++Your API key.+++ |   | *x*{nbsp}
+| versionDate | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++The release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format. The current version is 2016-05-20.+++ |  2016-05-20 | {nbsp}
 |======================
 
 
@@ -50,7 +50,7 @@ as objects, events and settings.
 
 ---
 
-=== Classify image
+=== Classify an Image
 `<watson-visual-recognition:classify-image>`
 
 
@@ -74,7 +74,7 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 
 
 | 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifyImageRequest.html">ClassifyImageRequest</a>+++ | +++Request with all the options for the classify an image operation.+++ | #[payload] | {nbsp}
+request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifyImageRequest.html">ClassifyImageRequest</a>+++ | +++Request object that contains the image and the classifier to be use.+++ | #[payload] | {nbsp}
 
 
 |======================
@@ -83,7 +83,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 [cols=".^40%,.^60%", options="header"]
 |======================
 |Return Java Type | Description
-|+++VisualClassification+++ | +++A list of detected classes in the image.+++
+|+++VisualClassification+++ | +++A object containing the list of detected classes in the image.+++
 |======================
 
 
@@ -91,7 +91,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 
 ---
 
-=== Detect faces
+=== Detect Faces
 `<watson-visual-recognition:detect-faces>`
 
 
@@ -115,7 +115,7 @@ Analyze faces in images and get data about them, such as estimated age and gende
 
 
 | 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a>+++ | +++Request with all the options for the detect faces operation.+++ | #[payload] | {nbsp}
+request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a>+++ | +++Request object that contains the image to be use.+++ | #[payload] | {nbsp}
 
 
 |======================
@@ -124,7 +124,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 [cols=".^40%,.^60%", options="header"]
 |======================
 |Return Java Type | Description
-|+++DetectedFaces+++ | +++A list of detected faces, his age, gender and position in the image.+++
+|+++DetectedFaces+++ | +++A object containing the list of detected faces, age, gender and position in the image.+++
 |======================
 
 
@@ -132,7 +132,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 
 ---
 
-=== Recognize text
+=== Recognize Text
 `<watson-visual-recognition:recognize-text>`
 
 
@@ -156,7 +156,7 @@ language text identification.
 
 
 | 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a>+++ | +++Request with all the options for the recognize text operation.+++ | #[payload] | {nbsp}
+request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ImageRequest.html">ImageRequest</a>+++ | +++Request object that contains the image to be use.+++ | #[payload] | {nbsp}
 
 
 |======================
@@ -173,7 +173,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 
 ---
 
-=== Retrieve list of classifiers
+=== Retrieve the List of Classifiers
 `<watson-visual-recognition:retrieve-list-of-classifiers>`
 
 
@@ -208,7 +208,7 @@ Doc</a>
 
 ---
 
-=== Retrieve classifier details
+=== Retrieve Classifier Details
 `<watson-visual-recognition:retrieve-classifier-details>`
 
 
@@ -249,7 +249,7 @@ classifierId icon:envelope[] | +++<a href="http://docs.oracle.com/javase/7/docs/
 
 ---
 
-=== Delete classifier
+=== Delete a Classifier
 `<watson-visual-recognition:delete-classifier>`
 
 
@@ -284,7 +284,7 @@ classifierId icon:envelope[] | +++<a href="http://docs.oracle.com/javase/7/docs/
 
 ---
 
-=== Create classifier
+=== Create a Classifier
 `<watson-visual-recognition:create-classifier>`
 
 
@@ -311,7 +311,7 @@ Doc</a>
 
 
 | 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a>+++ | +++Request with all the options for the create classifier operation.+++ | #[payload] | {nbsp}
+request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a>+++ | +++Request object that contains the classifier name, the positive examples and the negative examples to be use during the creation of the classifier.+++ | #[payload] | {nbsp}
 
 
 |======================
@@ -328,7 +328,7 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 
 ---
 
-=== Update classifier
+=== Update a Classifier
 `<watson-visual-recognition:update-classifier>`
 
 
@@ -351,7 +351,7 @@ Update an existing classifier by adding new classes, or by adding new images to 
 
 
 | 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a>+++ | +++Request with all the options for the update classifier operation.+++ | #[payload] | {nbsp}
+request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a>+++ | +++Request object that contains the classifier id, the positive examples and the negative examples to be use to update the classifier.+++ | #[payload] | {nbsp}
 
 
 |======================
@@ -361,96 +361,6 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 |======================
 |Return Java Type | Description
 |+++VisualClassifier+++ | +++The classifier that was updated.+++
-|======================
-
-
-
-
----
-
-=== Byte array to file
-`<watson-visual-recognition:byte-array-to-file>`
-
-
-
-
-+++
-Convert an array of bytes into a File object to use it in the other operations.
-+++
-
-
-    
-        
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-
-
-
-| 
-data icon:envelope[] | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html">Object</a>+++ | +++The array of byte to convert.+++ | #[payload] | {nbsp}
-
-
-
-
-| 
-extension  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++The extension of the file you want to create.+++ |  | *x*{nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/io/File.html">File</a>+++ | +++return A temporal file with the contend of the byte array.+++
-|======================
-
-
-
-
----
-
-=== Input stream to file
-`<watson-visual-recognition:input-stream-to-file>`
-
-
-
-
-+++
-Convert an array of bytes into a File object to use it in the other operations.
-+++
-
-
-    
-        
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-
-
-
-| 
-data icon:envelope[] | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a>+++ | +++The InputStream to convert.+++ | #[payload] | {nbsp}
-
-
-
-
-| 
-extension  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++The extension of the file you want to create.+++ |  | *x*{nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/io/File.html">File</a>+++ | +++return A temporal file with the contend of the InputStream.+++
 |======================
 
 
