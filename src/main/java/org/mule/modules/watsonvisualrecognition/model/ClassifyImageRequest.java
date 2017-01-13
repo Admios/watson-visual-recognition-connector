@@ -12,7 +12,7 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 /**
- * Class with all the options for the classify an image operation.
+ * Class that contains the image and the classifier to be use for the classify an image operation.
  * 
  * @author Admios
  */

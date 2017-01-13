@@ -61,9 +61,9 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
-	 * @param request Request with all the options for the classify an image operation.
+	 * @param request Request object that contains the image and the classifier to be use.
 	 * 
-	 * @return A list of detected classes in the image.
+	 * @return A object containing the list of detected classes in the image.
 	 * @throws IOException When the connector can't process the image input stream.
 	 */
 	@Processor(friendlyName = "Classify an Image")
@@ -82,9 +82,9 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 	 *
-	 * @param request Request with all the options for the detect faces operation.
+	 * @param request Request object that contains the image to be use.
 	 * 
-	 * @return A list of detected faces, his age, gender and position in the image.
+	 * @return A object containing the list of detected faces, age, gender and position in the image.
 	 * @throws IOException When the connector can't process the image input stream.
 	 */
 	@Processor(friendlyName = "Detect Faces")
@@ -100,7 +100,7 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text">API Doc</a>
 	 *
-	 * @param request Request with all the options for the recognize text operation.
+	 * @param request Request object that contains the image to be use.
 	 * 
 	 * @return The text recognized in the image.
 	 * @throws IOException When the connector can't process the image input stream.
@@ -163,7 +163,8 @@ public class WatsonVisualRecognitionConnector {
 	 * <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier">API
 	 * Doc</a>
 	 * 
-	 * @param request Request with all the options for the create classifier operation.
+	 * @param request Request object that contains the classifier name, the positive examples and the negative examples
+	 *            to be use during the creation of the classifier.
 	 * 
 	 * @return The classifier that was created.
 	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
@@ -183,7 +184,8 @@ public class WatsonVisualRecognitionConnector {
 	 * 
 	 * <a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
 	 * 
-	 * @param request Request with all the options for the update classifier operation.
+	 * @param request Request object that contains the classifier id, the positive examples and the negative examples to
+	 *            be use to update the classifier.
 	 * 
 	 * @return The classifier that was updated.
 	 * @throws VisualRecognitionException When some of the zip files are empty
