@@ -6,19 +6,17 @@
 Visual Recognition allows users to understand the contents of an image or video frame, answering the question: “What is in this image?” Submit an image, and the service returns scores for relevant classifiers representing things such as objects, events and settings.
 
 link:user-manual.html[Watson Visual Recognition Connector User Guide]
-////
-Points to the docs.mulesoft pages for documentation on the functional aspects of the connector. e.g.: link:/mule-user-guide/v/3.7/microsoft-sharepoint-2013-connector[Microsoft SharePoint 2013 Connector]
-////
 
 == 1.0.0 - September 12, 2016.
 
-=== Version 1.0.0 Compatibility
+=== Compatibility
 
 [width="100%", cols=",", options="header"]
 |===
 |Software |Version
-|Mule Runtime |3.6
-|Watson Visual Recognition |v3
+|Mule Runtime |3.6.x and higher
+|Watson Visual Recognition API|v3
+|Watson Java SDK |3.5.1
 |===
 
 === Features
@@ -31,18 +29,15 @@ Points to the docs.mulesoft pages for documentation on the functional aspects of
 . Update a classifier - Update an existing classifier by adding new classes, or by adding new images to existing classes.
 . Delete a classifier - Delete a custom classifier with the specified classifier ID.
 
-=== 1.0.0 Fixed in this Release
+=== Fixed in this Release
 
 - This version doesn't have bugs fixed.
 
-=== 1.0.0 Known Issues
+=== Known Issues
 
 - This version doesn't have known issues.
 
 === Support Resources
-////
-could also be named See Also
-////
 * Learn how to link:/mule-user-guide/v/3.7/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
 * Access MuleSoft’s MuleForge link:http://forum.mulesoft.org/mulesoft[Forum] to pose questions and get help from Mule’s broad community of users.
 * To access MuleSoft’s expert support team, link:http://www.mulesoft.com/mule-esb-subscription[subscribe] to Mule ESB Enterprise and log in to MuleSoft’s link:http://www.mulesoft.com/support-login[Customer Portal].
