@@ -17,6 +17,10 @@ import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionExce
 
 public class FileUtils {
 
+	private FileUtils() {
+
+	}
+
 	public static boolean isValidFile(File file) {
 		return file != null && file.exists() && file.isFile();
 	}
@@ -62,16 +66,24 @@ public class FileUtils {
 		if (maximum == -1 && minimum != -1 && count < minimum) {
 			throw new VisualRecognitionException("Must be " + minimum + " or more images.");
 
-		} else if (minimum == -1 && maximum != -1 && count > maximum) {
+		} else if (isMaximun(count, minimum, maximum)) {
 			throw new VisualRecognitionException("Must be less than " + (maximum + 1) + " images.");
 
-		} else if ((maximum != -1 && minimum != -1) && (count < minimum || count > maximum)) {
+		} else if (isMinimumn(count, minimum, maximum)) {
 			throw new VisualRecognitionException("zip content is out of range.");
 
 		} else {
 			isValid = true;
 		}
 		return isValid;
+	}
+
+	private static boolean isMaximun(int count, int minimum, int maximum) {
+		return minimum == -1 && maximum != -1 && count > maximum;
+	}
+
+	private static boolean isMinimumn(int count, int minimum, int maximum) {
+		return (maximum != -1 && minimum != -1) && (count < minimum || count > maximum);
 	}
 
 	/**

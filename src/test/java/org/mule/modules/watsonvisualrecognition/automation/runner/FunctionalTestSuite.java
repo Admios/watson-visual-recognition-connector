@@ -15,7 +15,6 @@ import org.mule.modules.watsonvisualrecognition.automation.functional.DetectFace
 import org.mule.modules.watsonvisualrecognition.automation.functional.RecognizeTextTestCases;
 import org.mule.modules.watsonvisualrecognition.automation.functional.RetrieveClassifierDetailsTestCases;
 import org.mule.modules.watsonvisualrecognition.automation.functional.RetrieveListOfClassifiersTestCases;
-import org.mule.modules.watsonvisualrecognition.automation.functional.UpdateClassifierTestCases;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector;
@@ -29,7 +28,6 @@ import org.mule.modules.watsonvisualrecognition.WatsonVisualRecognitionConnector
 		RetrieveClassifierDetailsTestCases.class,
 		DeleteClassifierTestCases.class,
 		CreateClassifierTestCases.class,
-		UpdateClassifierTestCases.class,
 })
 public class FunctionalTestSuite {
 

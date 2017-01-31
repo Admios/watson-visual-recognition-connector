@@ -1,4 +1,4 @@
-About MuleSoft Certified Connectors
+MuleSoft Certified Connectors
 ====================================================
 
 MuleSoft Certified Connectors are developed by MuleSoft’s partners and developer community. These connectors have been reviewed and certified by MuleSoft. To purchase the Watson Visual Recognition Anypoint Connector or to receive assistance or support for it, please contact Admios directly at support@admios-sa.com. MuleSoft disclaims any support obligation for MuleSoft Certified Connectors.

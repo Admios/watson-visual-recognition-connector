@@ -52,11 +52,12 @@
 	</scm>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.mule.tools.devkit</groupId>
 			<artifactId>connector-testing-framework</artifactId>
 			<version>1.0.2</version>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.code.gson</groupId>
@@ -64,13 +65,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.ibm.watson.developer_cloud</groupId>
 			<artifactId>java-sdk</artifactId>
 			<version>3.5.1</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
