@@ -2102,7 +2102,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_retrieve_classifier_details">Retrieve Classifier Details</a></li>
 <li><a href="#_delete_a_classifier">Delete a Classifier</a></li>
 <li><a href="#_create_a_classifier">Create a Classifier</a></li>
-<li><a href="#_update_a_classifier">Update a Classifier</a></li>
 </ul>
 </li>
 </ul>
@@ -2219,6 +2218,15 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 </p>
 </div>
 <div class="sect3">
+<h4 id="_xml_sample">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:classify-image</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">equest-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#[flowVars.request]</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_attributes_2">Attributes</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -2289,6 +2297,15 @@ Analyze faces in images and get data about them, such as estimated age and gende
 .png format.
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 </p>
+</div>
+<div class="sect3">
+<h4 id="_xml_sample_2">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:detect-faces</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">request-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#[flowVars.request]</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_attributes_3">Attributes</h4>
@@ -2363,6 +2380,15 @@ language text identification.
 </p>
 </div>
 <div class="sect3">
+<h4 id="_xml_sample_3">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:recognize-text</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">request-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#[flowVars.request]</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_attributes_4">Attributes</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -2435,6 +2461,14 @@ Doc</a>
 </p>
 </div>
 <div class="sect3">
+<h4 id="_xml_sample_4">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:retrieve-list-of-classifiers</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_attributes_5">Attributes</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -2498,6 +2532,15 @@ Retrieve information about a specific classifier.
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#retrieve_classifier_details">
 API Doc</a>
 </p>
+</div>
+<div class="sect3">
+<h4 id="_xml_sample_5">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:retrieve-classifier-details</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">classifierId</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">8fce44082c5d4c98a965bf2c8aa249ea</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_attributes_6">Attributes</h4>
@@ -2572,6 +2615,15 @@ Doc</a>
 </p>
 </div>
 <div class="sect3">
+<h4 id="_xml_sample_6">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:delete-classifier</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">classifierId</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">8fce44082c5d4c98a965bf2c8aa249ea</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_attributes_7">Attributes</h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -2624,6 +2676,15 @@ file.
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?java#create_a_classifier">API
 Doc</a>
 </p>
+</div>
+<div class="sect3">
+<h4 id="_xml_sample_7">XML Sample</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;watson-visual-recognition:create-classifier</span> <span class="attribute-name">config-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Watson_Visual_Recognition__Configuration</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">request-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#[flowVars.request]</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_attributes_8">Attributes</h4>
@@ -2679,77 +2740,6 @@ Doc</a>
 <tr>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">VisualClassifier</p></td>
 <td class="tableblock halign-left valign-middle"><p class="tableblock">The classifier that was created.</p></td>
-</tr>
-</tbody>
-</table>
-<hr>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_update_a_classifier">Update a Classifier</h3>
-<div class="paragraph">
-<p><code>&lt;watson-visual-recognition:update-classifier&gt;</code></p>
-</div>
-<div class="paragraph">
-<p>
-Update an existing classifier by adding new classes, or by adding new images to existing classes
-<a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
-</p>
-</div>
-<div class="sect3">
-<h4 id="_attributes_9">Attributes</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 35%;">
-<col style="width: 20%;">
-<col style="width: 5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Name</th>
-<th class="tableblock halign-left valign-middle">Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-<th class="tableblock halign-left valign-middle">Default Value</th>
-<th class="tableblock halign-center valign-middle">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">config-ref</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Specify which config to use</p></td>
-<td class="tableblock halign-left valign-middle"></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock"><strong>x</strong>&#160;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">request <span class="icon"><i class="fa fa-envelope"></i></span></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a></p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">Request object that contains the classifier id, the positive examples and the negative examples to be use to update the classifier.</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">#[payload]</p></td>
-<td class="tableblock halign-center valign-middle"><p class="tableblock">&#160;</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_returns_7">Returns</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 40%;">
-<col style="width: 60%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-middle">Return Java Type</th>
-<th class="tableblock halign-left valign-middle">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">VisualClassifier</p></td>
-<td class="tableblock halign-left valign-middle"><p class="tableblock">The classifier that was updated.</p></td>
 </tr>
 </tbody>
 </table>
