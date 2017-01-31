@@ -1,0 +1,33 @@
+<!-- BEGIN_INCLUDE(watson-visual-recognition:classify-image) -->
+	<watson-visual-recognition:classify-image config-ref="Watson_Visual_Recognition__Configuration" 
+	equest-ref="#[flowVars.request]" />
+<!-- END_INCLUDE(watson-visual-recognition:classify-image) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:detect-faces) -->
+	<watson-visual-recognition:detect-faces config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+<!-- END_INCLUDE(watson-visual-recognition:detect-faces) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:recognize-text) -->
+	<watson-visual-recognition:recognize-text config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+<!-- END_INCLUDE(watson-visual-recognition:recognize-text) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:retrieve-list-of-classifiers) -->
+	<watson-visual-recognition:retrieve-list-of-classifiers config-ref="Watson_Visual_Recognition__Configuration"/>
+<!-- END_INCLUDE(watson-visual-recognition:retrieve-list-of-classifiers) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:retrieve-classifier-details) -->
+	<watson-visual-recognition:retrieve-classifier-details config-ref="Watson_Visual_Recognition__Configuration"
+	classifierId="8fce44082c5d4c98a965bf2c8aa249ea" />
+<!-- END_INCLUDE(watson-visual-recognition:retrieve-classifier-details) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:delete-classifier) -->
+	<watson-visual-recognition:delete-classifier config-ref="Watson_Visual_Recognition__Configuration"
+	classifierId="8fce44082c5d4c98a965bf2c8aa249ea" />
+<!-- END_INCLUDE(watson-visual-recognition:delete-classifier) -->
+
+<!-- BEGIN_INCLUDE(watson-visual-recognition:create-classifier) -->
+	<watson-visual-recognition:create-classifier config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+<!-- END_INCLUDE(watson-visual-recognition:create-classifier) -->

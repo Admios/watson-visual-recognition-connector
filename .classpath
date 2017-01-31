@@ -57,7 +57,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/json/json/20140107/json-20140107.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.4.3/jackson-core-2.4.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.4.3/jackson-databind-2.4.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0.jar" sourcepath="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/antlr/antlr-runtime/3.5/antlr-runtime-3.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar" sourcepath="M2_REPO/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/guava/guava/18.0/guava-18.0.jar"/>
@@ -82,7 +82,7 @@
 	<classpathentry kind="var" path="M2_REPO/com/ning/async-http-client/1.9.21/async-http-client-1.9.21.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/grizzly/grizzly-websockets/2.3.21/grizzly-websockets-2.3.21.jar"/>
 	<classpathentry kind="var" path="M2_REPO/oauth/signpost/signpost-core/1.2.1.2/signpost-core-1.2.1.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.9/commons-codec-1.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/tools/devkit/connector-testing-framework-serializer-engine/1.0.2/connector-testing-framework-serializer-engine-1.0.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/tools/devkit/connector-testing-framework-serializers/1.0.2/connector-testing-framework-serializers-1.0.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/tests/mule-tests-functional/3.7.0/mule-tests-functional-3.7.0.jar"/>
@@ -91,7 +91,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/mule/extensions/mule-extensions-annotations/1.0.0-alpha/mule-extensions-annotations-1.0.0-alpha.jar"/>
 	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-net/commons-net/2.2/commons-net-2.2.jar" sourcepath="M2_REPO/commons-net/commons-net/2.2/commons-net-2.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/ftpserver/ftpserver-core/1.0.6/ftpserver-core-1.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/ftpserver/ftplet-api/1.0.6/ftplet-api-1.0.6.jar"/>

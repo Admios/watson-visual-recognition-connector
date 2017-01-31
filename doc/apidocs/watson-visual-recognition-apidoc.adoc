@@ -62,6 +62,12 @@ classifier_ids parameters. Images must be in .jpeg, or .png format.
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:classify-image config-ref="Watson_Visual_Recognition__Configuration" 
+	equest-ref="#[flowVars.request]" />
+----
 
     
     
@@ -103,6 +109,12 @@ Analyze faces in images and get data about them, such as estimated age and gende
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#classify_an_image">API Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:detect-faces config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+----
 
     
     
@@ -144,6 +156,12 @@ language text identification.
 <a href="http://www.ibm.com/watson/developercloud/visual-recognition/api/v3/?curl#recognize_text">API Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:recognize-text config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+----
 
     
     
@@ -185,6 +203,11 @@ Retrieve a list of user-created classifiers.
 Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:retrieve-list-of-classifiers config-ref="Watson_Visual_Recognition__Configuration"/>
+----
 
     
 
@@ -220,6 +243,12 @@ Retrieve information about a specific classifier.
 API Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:retrieve-classifier-details config-ref="Watson_Visual_Recognition__Configuration"
+	classifierId="8fce44082c5d4c98a965bf2c8aa249ea" />
+----
 
     
     
@@ -261,6 +290,12 @@ Delete a custom classifier with the specified classifier ID.
 Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:delete-classifier config-ref="Watson_Visual_Recognition__Configuration"
+	classifierId="8fce44082c5d4c98a965bf2c8aa249ea" />
+----
 
     
     
@@ -299,6 +334,12 @@ file.
 Doc</a>
 +++
 
+==== XML Sample
+[source,xml]
+----
+<watson-visual-recognition:create-classifier config-ref="Watson_Visual_Recognition__Configuration"
+	request-ref="#[flowVars.request]" />
+----
 
     
     
@@ -321,46 +362,6 @@ request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualreco
 |======================
 |Return Java Type | Description
 |+++VisualClassifier+++ | +++The classifier that was created.+++
-|======================
-
-
-
-
----
-
-=== Update a Classifier
-`<watson-visual-recognition:update-classifier>`
-
-
-
-
-+++
-Update an existing classifier by adding new classes, or by adding new images to existing classes
-<a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
-+++
-
-
-    
-    
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-
-
-
-| 
-request icon:envelope[] | +++<a href="javadocs/org/mule/modules/watsonvisualrecognition/model/ClassifierRequest.html">ClassifierRequest</a>+++ | +++Request object that contains the classifier id, the positive examples and the negative examples to be use to update the classifier.+++ | #[payload] | {nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++VisualClassifier+++ | +++The classifier that was updated.+++
 |======================
 
 
