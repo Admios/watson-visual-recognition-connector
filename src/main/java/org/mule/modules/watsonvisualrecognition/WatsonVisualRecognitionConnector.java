@@ -21,7 +21,6 @@ import org.mule.modules.watsonvisualrecognition.handler.implementation.DetectFac
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RecognizeTextHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveClassifierDetailsHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.RetrieveListClassifiersHandler;
-import org.mule.modules.watsonvisualrecognition.handler.implementation.UpdateClassifierHandler;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 import org.mule.modules.watsonvisualrecognition.model.ClassifyImageRequest;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
@@ -176,26 +175,6 @@ public class WatsonVisualRecognitionConnector {
 				.addPositiveExamples(request.getPositiveExamples())
 				.addNegativeExamples(request.getNegativeExamples())
 				.addClassifierId(request.getClassifierNameOrId())
-				.execute();
-	}
-
-	/**
-	 * Update an existing classifier by adding new classes, or by adding new images to existing classes
-	 * 
-	 * <a href="https://www.ibm.com/watson/developercloud/visual-recognition/api/v3/#update_a_classifier">API Doc</a>
-	 * 
-	 * @param request Request object that contains the classifier id, the positive examples and the negative examples to
-	 *            be use to update the classifier.
-	 * 
-	 * @return The classifier that was updated.
-	 * @throws VisualRecognitionException When some of the zip files are empty
-	 */
-	@Processor(friendlyName = "Update a Classifier")
-	public VisualClassifier updateClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)
-			throws VisualRecognitionException {
-		return new UpdateClassifierHandler(config.getService(), request.getClassifierNameOrId())
-				.addPositiveSamples(request.getPositiveExamples())
-				.addNegativeSamples(request.getNegativeExamples())
 				.execute();
 	}
 }
