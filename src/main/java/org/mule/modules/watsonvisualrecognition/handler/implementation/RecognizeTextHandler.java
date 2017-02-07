@@ -5,6 +5,7 @@ package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
 import java.io.File;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
 import org.mule.modules.watsonvisualrecognition.util.BuilderUtils;
 
@@ -26,8 +27,12 @@ public class RecognizeTextHandler extends CommonHandler<RecognizedText> {
 	}
 
 	@Override
-	public RecognizedText execute() {
-		return service.recognizeText(options.build()).execute();
+	public RecognizedText execute() throws VisualRecognitionException {
+		try {
+			return service.recognizeText(options.build()).execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 
 }

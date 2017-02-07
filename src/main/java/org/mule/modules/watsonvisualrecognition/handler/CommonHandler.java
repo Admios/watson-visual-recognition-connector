@@ -3,6 +3,8 @@
  */
 package org.mule.modules.watsonvisualrecognition.handler;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 public abstract class CommonHandler<T> {
@@ -13,5 +15,5 @@ public abstract class CommonHandler<T> {
 		this.service = service;
 	}
 
-	abstract public T execute();
+	abstract public T execute() throws VisualRecognitionException;
 }

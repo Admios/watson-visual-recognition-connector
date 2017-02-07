@@ -14,6 +14,7 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.RefOnly;
 import org.mule.modules.watsonvisualrecognition.config.Config;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionFileException;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.ClassifyImageHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.CreateClassifierHandler;
 import org.mule.modules.watsonvisualrecognition.handler.implementation.DeleteClassifierHandler;
@@ -63,11 +64,12 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request object that contains the image and the classifier to be use.
 	 * 
 	 * @return A object containing the list of detected classes in the image.
-	 * @throws IOException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionFileException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Classify an Image")
 	public VisualClassification classifyImage(@RefOnly @Default("#[payload]") ClassifyImageRequest request)
-			throws IOException {
+			throws VisualRecognitionFileException, VisualRecognitionException {
 		return new ClassifyImageHandler(config.getService())
 				.addSource(request.getUrl(), request.getImageAsFile())
 				.addClassifierId(request.getClassifierIds())
@@ -84,10 +86,12 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request object that contains the image to be use.
 	 * 
 	 * @return A object containing the list of detected faces, age, gender and position in the image.
-	 * @throws IOException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionFileException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Detect Faces")
-	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
+	public DetectedFaces detectFaces(@RefOnly @Default("#[payload]") ImageRequest request)
+			throws VisualRecognitionFileException, VisualRecognitionException {
 		return new DetectFacesHandler(config.getService())
 				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
@@ -102,10 +106,12 @@ public class WatsonVisualRecognitionConnector {
 	 * @param request Request object that contains the image to be use.
 	 * 
 	 * @return The text recognized in the image.
-	 * @throws IOException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionFileException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Recognize Text")
-	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request) throws IOException {
+	public RecognizedText recognizeText(@RefOnly @Default("#[payload]") ImageRequest request)
+			throws VisualRecognitionFileException, VisualRecognitionException {
 		return new RecognizeTextHandler(config.getService())
 				.addSource(request.getUrl(), request.getImageAsFile())
 				.execute();
@@ -118,9 +124,10 @@ public class WatsonVisualRecognitionConnector {
 	 * Doc</a>
 	 * 
 	 * @return A list of classifiers associated with your API Key.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Retrieve the List of Classifiers")
-	public List<VisualClassifier> retrieveListOfClassifiers() {
+	public List<VisualClassifier> retrieveListOfClassifiers() throws VisualRecognitionException {
 		return new RetrieveListClassifiersHandler(config.getService()).execute();
 	}
 
@@ -133,9 +140,11 @@ public class WatsonVisualRecognitionConnector {
 	 * @param classifierId The ID of the classifier for which you want details.
 	 * 
 	 * @return A classifier associated with your API Key.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Retrieve Classifier Details")
-	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId) {
+	public VisualClassifier retrieveClassifierDetails(@Default("#[payload]") String classifierId)
+			throws VisualRecognitionException {
 		return new RetrieveClassifierDetailsHandler(config.getService(), classifierId).execute();
 	}
 
@@ -146,10 +155,11 @@ public class WatsonVisualRecognitionConnector {
 	 * Doc</a>
 	 * 
 	 * @param classifierId The ID of the classifier you want to delete.
+	 * @throws VisualRecognitionException When there is a error during the communication with the Watson services.
 	 * 
 	 */
 	@Processor(friendlyName = "Delete a Classifier")
-	public void deleteClassifier(@Default("#[payload]") String classifierId) {
+	public void deleteClassifier(@Default("#[payload]") String classifierId) throws VisualRecognitionException {
 		new DeleteClassifierHandler(config.getService(), classifierId).execute();
 	}
 
@@ -166,7 +176,8 @@ public class WatsonVisualRecognitionConnector {
 	 *            to be use during the creation of the classifier.
 	 * 
 	 * @return The classifier that was created.
-	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10.
+	 * @throws VisualRecognitionException When amount of items inside the zip is less than 10 or there is a error during
+	 *             the communication with the Watson services.
 	 */
 	@Processor(friendlyName = "Create a Classifier")
 	public VisualClassifier createClassifier(@RefOnly @Default("#[payload]") ClassifierRequest request)

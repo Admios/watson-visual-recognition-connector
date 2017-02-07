@@ -20,7 +20,7 @@ public class RetrieveListOfClassifiersTestCases extends AbstractTestCases {
 	private VisualClassifier dummyClassifier;
 
 	@After
-	public void deleteClassifier() {
+	public void deleteClassifier() throws VisualRecognitionException {
 		if (dummyClassifier != null) {
 			getConnector().deleteClassifier(dummyClassifier.getId());
 		}

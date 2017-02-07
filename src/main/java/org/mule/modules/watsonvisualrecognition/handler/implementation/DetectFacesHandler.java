@@ -5,6 +5,7 @@ package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
 import java.io.File;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
 import org.mule.modules.watsonvisualrecognition.util.BuilderUtils;
 
@@ -27,7 +28,11 @@ public class DetectFacesHandler extends CommonHandler<DetectedFaces> {
 	}
 
 	@Override
-	public DetectedFaces execute() {
-		return service.detectFaces(options.build()).execute();
+	public DetectedFaces execute() throws VisualRecognitionException {
+		try {
+			return service.detectFaces(options.build()).execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 }

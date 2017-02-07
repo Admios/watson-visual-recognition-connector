@@ -3,6 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -18,7 +19,11 @@ public class RetrieveClassifierDetailsHandler extends CommonHandler<VisualClassi
 	}
 
 	@Override
-	public VisualClassifier execute() {
-		return service.getClassifier(classifierId).execute();
+	public VisualClassifier execute() throws VisualRecognitionException {
+		try {
+			return service.getClassifier(classifierId).execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 }
