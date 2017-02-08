@@ -3,6 +3,7 @@
  */
 package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -17,7 +18,11 @@ public class DeleteClassifierHandler extends CommonHandler<Void> {
 	}
 
 	@Override
-	public Void execute() {
-		return service.deleteClassifier(classifierId).execute();
+	public Void execute() throws VisualRecognitionException {
+		try {
+			return service.deleteClassifier(classifierId).execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 }

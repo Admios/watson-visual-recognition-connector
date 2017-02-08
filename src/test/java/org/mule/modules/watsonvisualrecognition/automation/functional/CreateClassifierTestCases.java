@@ -23,7 +23,7 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 	private VisualClassifier dummyClassifier;
 
 	@After
-	public void deleteClassifier() {
+	public void deleteClassifier() throws VisualRecognitionException {
 		if (dummyClassifier != null) {
 			getConnector().deleteClassifier(dummyClassifier.getId());
 		}
@@ -34,7 +34,7 @@ public class CreateClassifierTestCases extends AbstractTestCases {
 	 * 
 	 * @throws VisualRecognitionException
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = VisualRecognitionException.class)
 	public void testWithNullFile() throws VisualRecognitionException {
 
 		request = new ClassifierRequest();

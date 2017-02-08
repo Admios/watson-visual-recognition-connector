@@ -5,6 +5,7 @@ package org.mule.modules.watsonvisualrecognition.handler.implementation;
 
 import java.util.List;
 
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.handler.CommonHandler;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -17,7 +18,11 @@ public class RetrieveListClassifiersHandler extends CommonHandler<List<VisualCla
 	}
 
 	@Override
-	public List<VisualClassifier> execute() {
-		return service.getClassifiers().execute();
+	public List<VisualClassifier> execute() throws VisualRecognitionException {
+		try {
+			return service.getClassifiers().execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 }

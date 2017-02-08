@@ -24,9 +24,13 @@ public class CreateClassifierHandler extends CommonHandler<VisualClassifier> {
 	}
 
 	@Override
-	public VisualClassifier execute() {
+	public VisualClassifier execute() throws VisualRecognitionException {
 		// The builder validate the parameters.
-		return service.createClassifier(builder.build()).execute();
+		try {
+			return service.createClassifier(builder.build()).execute();
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 
 	public CreateClassifierHandler addPositiveExamples(Map<String, File> positiveExamples)
