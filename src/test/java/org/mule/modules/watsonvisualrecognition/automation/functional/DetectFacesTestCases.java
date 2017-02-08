@@ -29,7 +29,7 @@ public class DetectFacesTestCases extends AbstractTestCases {
 	@Test
 	public void testWithFile() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
-		request.setImage(TestDataBuilder.TEST_PERSON_IMAGE);
+		request.setImageAsFile(TestDataBuilder.TEST_PERSON_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);
 		assertVisualClassification(detectedFaces);
 	}

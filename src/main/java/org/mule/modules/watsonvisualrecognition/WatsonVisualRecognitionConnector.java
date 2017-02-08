@@ -3,7 +3,6 @@
  */
 package org.mule.modules.watsonvisualrecognition;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.mule.api.annotations.Connector;

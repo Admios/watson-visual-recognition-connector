@@ -7,8 +7,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
-
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class DeleteClassifierTestCases extends AbstractTestCases {
@@ -22,7 +20,11 @@ public class DeleteClassifierTestCases extends AbstractTestCases {
 	 */
 	@Test(expected = VisualRecognitionException.class)
 	public void testDeleteClassifierWithInvalidId() throws VisualRecognitionException {
-		getConnector().deleteClassifier("test");
+		try {
+			getConnector().deleteClassifier("test");
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 
 	/**

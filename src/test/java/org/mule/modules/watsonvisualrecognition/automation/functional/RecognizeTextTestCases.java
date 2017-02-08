@@ -30,7 +30,7 @@ public class RecognizeTextTestCases extends AbstractTestCases {
 	@Test
 	public void testWithFile() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
-		request.setImage(TestDataBuilder.TEST_IMAGE_TEXT);
+		request.setImageAsFile(TestDataBuilder.TEST_IMAGE_TEXT);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);
 	}

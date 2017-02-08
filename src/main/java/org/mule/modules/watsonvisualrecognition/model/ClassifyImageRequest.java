@@ -46,6 +46,13 @@ public class ClassifyImageRequest {
 	private InputStream image;
 
 	/**
+	 * The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of images in a
+	 * .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be ignored.</b>
+	 */
+	@Optional
+	private File imageAsFile;
+
+	/**
 	 * An array of classifier IDs to classify the images against.
 	 * 
 	 * @return the classifierIds
@@ -90,11 +97,21 @@ public class ClassifyImageRequest {
 	 * @throws VisualRecognitionException When the connector can't process the image input stream.
 	 */
 	public File getImageAsFile() throws VisualRecognitionFileException {
+		if (imageAsFile != null) {
+			return imageAsFile;
+		}
 		try {
 			return image != null ? FileUtils.inputStreamToFile(image, "png") : null;
 		} catch (IOException e) {
 			throw new VisualRecognitionFileException(e);
 		}
+	}
+
+	/**
+	 * @param imageAsFile the imageAsFile to set
+	 */
+	public void setImageAsFile(File imageAsFile) {
+		this.imageAsFile = imageAsFile;
 	}
 
 	/**

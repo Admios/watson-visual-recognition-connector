@@ -30,7 +30,7 @@ public class ClassifyImageTestCases extends AbstractTestCases {
 	@Test
 	public void testWithFile() throws VisualRecognitionException {
 		request = TestDataBuilder.buildClassifyImageRequest();
-		request.setImage(TestDataBuilder.TEST_IMAGE_GROUP);
+		request.setImageAsFile(TestDataBuilder.TEST_IMAGE_GROUP);
 		VisualClassification classification = getConnector().classifyImage(request);
 		assertVisualClassification(classification);
 	}

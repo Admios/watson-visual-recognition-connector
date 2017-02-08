@@ -26,7 +26,11 @@ public class RetrieveClassifierDetailsTestCases extends AbstractTestCases {
 
 	@Test(expected = VisualRecognitionException.class)
 	public void testRetrieveClassifierWithInvalidId() throws VisualRecognitionException {
-		getConnector().retrieveClassifierDetails("test");
+		try {
+			getConnector().retrieveClassifierDetails("test");
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}		
 	}
 
 	@Test(expected = VisualRecognitionException.class)
