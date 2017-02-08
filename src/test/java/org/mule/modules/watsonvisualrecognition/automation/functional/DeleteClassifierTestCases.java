@@ -7,8 +7,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
-
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class DeleteClassifierTestCases extends AbstractTestCases {
@@ -17,17 +15,25 @@ public class DeleteClassifierTestCases extends AbstractTestCases {
 
 	/**
 	 * Test case for deleting a non existing classifier
+	 * 
+	 * @throws VisualRecognitionException
 	 */
-	@Test(expected = NotFoundException.class)
-	public void testDeleteClassifierWithInvalidId() {
-		getConnector().deleteClassifier("test");
+	@Test(expected = VisualRecognitionException.class)
+	public void testDeleteClassifierWithInvalidId() throws VisualRecognitionException {
+		try {
+			getConnector().deleteClassifier("test");
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}
 	}
 
 	/**
 	 * Test case for illegal arguments
+	 * 
+	 * @throws VisualRecognitionException
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteClassifierWithNull() {
+	@Test(expected = VisualRecognitionException.class)
+	public void testDeleteClassifierWithNull() throws VisualRecognitionException {
 		getConnector().deleteClassifier(null);
 	}
 
@@ -36,7 +42,7 @@ public class DeleteClassifierTestCases extends AbstractTestCases {
 	 * 
 	 * @throws VisualRecognitionException
 	 */
-	@Test(expected = NotFoundException.class)
+	@Test(expected = VisualRecognitionException.class)
 	@Ignore("This tests is very expensive using the Watson API")
 	public void testEffectiveDeleteClassifier() throws VisualRecognitionException {
 		// The classifier creation is not in the @Before to avoid the creation of classifiers in the negative cases

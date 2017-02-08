@@ -160,8 +160,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcpkix-jdk15on/1.51/bcpkix-jdk15on-1.51.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcprov-jdk15on/1.51/bcprov-jdk15on-1.51.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/skyscreamer/jsonassert/1.2.3/jsonassert-1.2.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/java-sdk/3.5.1/java-sdk-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/alchemy/3.5.1/alchemy-3.5.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/visual-recognition/3.5.1/visual-recognition-3.5.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/core/3.5.1/core-3.5.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/squareup/okhttp3/okhttp/3.3.1/okhttp-3.3.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/squareup/okio/okio/1.8.0/okio-1.8.0.jar"/>
@@ -169,20 +168,6 @@
 	<classpathentry kind="var" path="M2_REPO/com/squareup/okhttp3/okhttp-urlconnection/3.3.1/okhttp-urlconnection-3.3.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/jersey/bundles/repackaged/jersey-jsr166e/2.22.2/jersey-jsr166e-2.22.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/conversation/3.5.1/conversation-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/dialog/3.5.1/dialog-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/document-conversion/3.5.1/document-conversion-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/language-translation/3.5.1/language-translation-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/language-translator/3.5.1/language-translator-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/natural-language-classifier/3.5.1/natural-language-classifier-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/personality-insights/3.5.1/personality-insights-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/retrieve-and-rank/3.5.1/retrieve-and-rank-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/speech-to-text/3.5.1/speech-to-text-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/squareup/okhttp3/okhttp-ws/3.3.1/okhttp-ws-3.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/text-to-speech/3.5.1/text-to-speech-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/tone-analyzer/3.5.1/tone-analyzer-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/tradeoff-analytics/3.5.1/tradeoff-analytics-3.5.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/watson/developer_cloud/visual-recognition/3.5.1/visual-recognition-3.5.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit-dep/4.10/junit-dep-4.10.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/modules/mule-module-json/3.7.0/mule-module-json-3.7.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/modules/mule-module-xml/3.7.0/mule-module-xml-3.7.0.jar"/>

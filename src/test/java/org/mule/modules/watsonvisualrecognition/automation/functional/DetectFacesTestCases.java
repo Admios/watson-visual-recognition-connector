@@ -5,10 +5,10 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionFileException;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
@@ -19,7 +19,7 @@ public class DetectFacesTestCases extends AbstractTestCases {
 
 	@Test
 	@Ignore("The URL image changes too often")
-	public void testWithURL() throws IOException {
+	public void testWithURL() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
 		request.setUrl(TestDataBuilder.TEST_PERSON_URL_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);
@@ -27,9 +27,9 @@ public class DetectFacesTestCases extends AbstractTestCases {
 	}
 
 	@Test
-	public void testWithFile() throws IOException {
+	public void testWithFile() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
-		request.setImage(TestDataBuilder.TEST_PERSON_IMAGE);
+		request.setImageAsFile(TestDataBuilder.TEST_PERSON_IMAGE);
 		DetectedFaces detectedFaces = getConnector().detectFaces(request);
 		assertVisualClassification(detectedFaces);
 	}

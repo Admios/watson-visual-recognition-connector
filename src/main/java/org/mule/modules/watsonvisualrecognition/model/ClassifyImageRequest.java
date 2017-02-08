@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.mule.api.annotations.param.Optional;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionFileException;
 import org.mule.modules.watsonvisualrecognition.util.FileUtils;
 
 /**
@@ -42,6 +44,13 @@ public class ClassifyImageRequest {
 	 */
 	@Optional
 	private InputStream image;
+
+	/**
+	 * The image file (.jpg, or .png) or compressed (.zip) file of images to classify. The max number of images in a
+	 * .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be ignored.</b>
+	 */
+	@Optional
+	private File imageAsFile;
 
 	/**
 	 * An array of classifier IDs to classify the images against.
@@ -85,10 +94,24 @@ public class ClassifyImageRequest {
 	 * .zip file is limited to 20, and limited to 5 MB. <b>If the URL is set the image will be ignored.</b>
 	 * 
 	 * @return the image file if the image input string was set
-	 * @throws IOException When the connector can't process the image input stream.
+	 * @throws VisualRecognitionException When the connector can't process the image input stream.
 	 */
-	public File getImageAsFile() throws IOException {
-		return image != null ? FileUtils.inputStreamToFile(image, "png") : null;
+	public File getImageAsFile() throws VisualRecognitionFileException {
+		if (imageAsFile != null) {
+			return imageAsFile;
+		}
+		try {
+			return image != null ? FileUtils.inputStreamToFile(image, "png") : null;
+		} catch (IOException e) {
+			throw new VisualRecognitionFileException(e);
+		}
+	}
+
+	/**
+	 * @param imageAsFile the imageAsFile to set
+	 */
+	public void setImageAsFile(File imageAsFile) {
+		this.imageAsFile = imageAsFile;
 	}
 
 	/**

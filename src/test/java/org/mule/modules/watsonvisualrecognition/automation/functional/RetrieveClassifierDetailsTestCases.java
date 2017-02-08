@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
 import org.mule.modules.watsonvisualrecognition.model.ClassifierRequest;
 
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class RetrieveClassifierDetailsTestCases extends AbstractTestCases {
@@ -19,19 +18,23 @@ public class RetrieveClassifierDetailsTestCases extends AbstractTestCases {
 	private VisualClassifier dummyClassifier;
 
 	@After
-	public void deleteClassifier() {
+	public void deleteClassifier() throws VisualRecognitionException {
 		if (dummyClassifier != null) {
 			getConnector().deleteClassifier(dummyClassifier.getId());
 		}
 	}
 
-	@Test(expected = NotFoundException.class)
-	public void testRetrieveClassifierWithInvalidId() {
-		getConnector().retrieveClassifierDetails("test");
+	@Test(expected = VisualRecognitionException.class)
+	public void testRetrieveClassifierWithInvalidId() throws VisualRecognitionException {
+		try {
+			getConnector().retrieveClassifierDetails("test");
+		} catch (Exception e) {
+			throw new VisualRecognitionException(e);
+		}		
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testRetrieveClassifierWithNull() {
+	@Test(expected = VisualRecognitionException.class)
+	public void testRetrieveClassifierWithNull() throws VisualRecognitionException {
 		getConnector().retrieveClassifierDetails(null);
 	}
 

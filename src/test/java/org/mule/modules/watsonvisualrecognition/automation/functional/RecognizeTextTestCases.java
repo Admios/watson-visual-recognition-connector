@@ -6,10 +6,10 @@ package org.mule.modules.watsonvisualrecognition.automation.functional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionException;
+import org.mule.modules.watsonvisualrecognition.exceptions.VisualRecognitionFileException;
 import org.mule.modules.watsonvisualrecognition.model.ImageRequest;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
@@ -20,7 +20,7 @@ public class RecognizeTextTestCases extends AbstractTestCases {
 
 	@Test
 	@Ignore("The URL image changes too often")
-	public void testWithURL() throws IOException {
+	public void testWithURL() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
 		request.setUrl(TestDataBuilder.TEST_TEXT_URL_IMAGE);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
@@ -28,9 +28,9 @@ public class RecognizeTextTestCases extends AbstractTestCases {
 	}
 
 	@Test
-	public void testWithFile() throws IOException {
+	public void testWithFile() throws VisualRecognitionFileException, VisualRecognitionException {
 		request = TestDataBuilder.buildImageRequest();
-		request.setImage(TestDataBuilder.TEST_IMAGE_TEXT);
+		request.setImageAsFile(TestDataBuilder.TEST_IMAGE_TEXT);
 		RecognizedText recognizedText = getConnector().recognizeText(request);
 		assertVisualClassification(recognizedText);
 	}
